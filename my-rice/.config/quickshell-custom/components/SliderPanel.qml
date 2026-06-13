@@ -14,18 +14,15 @@ PanelWindow {
     implicitWidth: isWide ? 234 : 96
     implicitHeight: isFullHeight ? Quickshell.screens[0].height : 220
 
+
     margins {
         top: isFullHeight ? 0 : (Quickshell.screens[0].height / 2) - 110
         right: {
-            if (expandPanel.isExpanded) return Quickshell.screens[0].width * 0.3 + 8
+            if (sliderPanel.panelExpanded) return Quickshell.screens[0].width * 0.3 + 8
             if (sliderPanel.isHovered) return 8
             return -96
         }
         bottom: 0
-    }
-
-    Behavior on margins.right {
-        NumberAnimation { duration: 300; easing.type: Easing.OutCubic }
     }
 
     color: "transparent"
@@ -35,6 +32,10 @@ PanelWindow {
     property bool isHovered: false
     property real volume: 0.5
     property real brightness: 0.5
+    property bool panelExpanded: false
+    property bool expandEnabled: true
+    signal expandRequested()
+    signal collapseRequested()
 
     Process {
         id: setVolumeProc
@@ -108,11 +109,11 @@ PanelWindow {
 
             DragHandler {
                 onTranslationChanged: {
-                    if (translation.x < -30 && !expandPanel.isExpanded) {
+                    if (translation.x < -30 && !sliderPanel.panelExpanded && sliderPanel.expandEnabled) {
                         sliderPanel.isFullHeight = true
-                        expandPanel.isExpanded = true
+                        sliderPanel.expandRequested()
                         rotateTimer.start()
-                    } else if (translation.x > 30 && expandPanel.isExpanded) {
+                    } else if (translation.x > 30 && sliderPanel.panelExpanded) {
                         sliderPanel.isRotated = false
                         collapseTimer.start()
                     }
@@ -124,7 +125,7 @@ PanelWindow {
                 interval: 900
                 repeat: false
                 onTriggered: {
-                    expandPanel.isExpanded = false
+                    sliderPanel.collapseRequested()
                     shrinkTimer.start()
                 }
             }

@@ -10,7 +10,7 @@ import "../theme"
 PanelWindow {
     id: appDrawer
     exclusiveZone: 0
-    implicitWidth: visible ? Quickshell.screens[0].width * 0.3 + 300 : 0
+    implicitWidth: Quickshell.screens[0].width * 0.3 + 300
     color: "transparent"
     visible: false
 
@@ -32,7 +32,7 @@ PanelWindow {
         active: appDrawer.visible
     }
 
-
+    property bool isOpen: false
     property string searchText: ""
     property var pinnedApps: ["kitty", "zen-browser", "dolphin", "code"]
     property var allApps: []
@@ -58,14 +58,15 @@ PanelWindow {
     }
 
     function open() {
-        visible = true
-        // hapus imageWindow
+        isOpen = true
         slideOffset = -(Quickshell.screens[0].width * 0.3 + 300)
+        visible = true
         slideIn.running = true
         Qt.callLater(function() { searchInput.forceActiveFocus() })
     }
 
     function close() {
+        isOpen = false
         slideOut.running = true
     }
 

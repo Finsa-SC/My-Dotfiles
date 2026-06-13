@@ -1,0 +1,14 @@
+module components
+WorkspaceNav 1.0 WorkspaceNav.qml
+SideBar 1.0 SideBar.qml
+PowerMenu 1.0 PowerMenu.qml
+AppDrawer 1.0 AppDrawer.qml
+AppItem 1.0 AppItem.qml
+ExpandPanel 1.0 ExpandPanel.qml
+SliderPanel 1.0 SliderPanel.qml
+HoverZone 1.0 HoverZone.qml
+NotificationPopup 1.0 NotificationPopup.qml
+NotifCard 1.0 NotifCard.qml
+CockpitDash 1.0 CockpitDash.qml
+CockpitTrigger 1.0 CockpitTrigger.qml
+WallpaperPicker 1.0 WallpaperPicker.qml

@@ -1,0 +1,153 @@
+import QtQuick
+import QtQuick.Effects
+
+Item {
+    id: card
+    height: 70
+
+    property string summary: ""
+    property string body: ""
+    property string appName: ""
+    property var urgency: 1
+
+    property string notifType: {
+        var u = (typeof urgency === "number") ? urgency : (urgency ? urgency.valueOf() : 1)
+        if (u === 2) return "critical"
+        if (appName !== "" && appName !== "notify-send") return "app"
+        return "system"
+    }
+
+    signal dismissed()
+    
+    property color accentColor: {
+        if (notifType === "critical") return '#c50014'
+        if (notifType === "app") return '#26bf00'
+        return '#0041c2'
+    }
+    property string notifIcon: {
+        if (notifType === "critical") return "⚠"
+        if (notifType === "app") return "☃"
+        return "⚙"
+    }
+
+    Component.onCompleted: {
+        opacity = 0
+        slideIn.start()
+        dismissTimer.restart()
+    }
+
+    ParallelAnimation {
+        id: slideIn
+        NumberAnimation { target: card; property: "opacity"; from: 0; to: 1; duration: 350; easing.type: Easing.OutQuart }
+        NumberAnimation { target: card; property: "scale"; from: 0.92; to: 1.0; duration: 350; easing.type: Easing.OutQuart }
+    }
+
+    SequentialAnimation {
+        id: slideOut
+        ParallelAnimation {
+            NumberAnimation { target: card; property: "opacity"; to: 0; duration: 300; easing.type: Easing.InQuart }
+            NumberAnimation { target: card; property: "scale"; to: 0.92; duration: 300; easing.type: Easing.InQuart }
+        }
+        ScriptAction {
+            script: card.dismissed()
+        }
+    }
+
+    function dismiss() {
+        dismissTimer.stop()
+        slideOut.start()
+    }
+
+    Timer {
+        id: dismissTimer
+        interval: 4000
+        repeat: false
+        onTriggered: card.dismiss()
+    }
+
+    Rectangle {
+        anchors.fill: parent
+        anchors.bottomMargin: 8
+        radius: 16
+        color: "#0d1220"
+        border.color: Qt.rgba(1, 1, 1, 0.07)
+        border.width: 1
+
+        Rectangle {
+            width: parent.width * 0.75
+            height: parent.height
+            radius: 16
+            opacity: 0.28
+            gradient: Gradient {
+                orientation: Gradient.Horizontal
+                GradientStop { position: 0.0; color: card.accentColor }
+                GradientStop { position: 1.0; color: "transparent" }
+            }
+        }
+
+        Rectangle {
+            width: 3
+            height: parent.height - 16
+            anchors { left: parent.left; verticalCenter: parent.verticalCenter }
+            radius: 2
+            color: card.accentColor
+        }
+
+        Rectangle {
+            id: iconBox
+            width: 40; height: 40; radius: 10
+            anchors { left: parent.left; leftMargin: 14; verticalCenter: parent.verticalCenter }
+            color: Qt.rgba(card.accentColor.r, card.accentColor.g, card.accentColor.b, 0.25)
+            border.color: Qt.rgba(card.accentColor.r, card.accentColor.g, card.accentColor.b, 0.5)
+            border.width: 1
+            Text {
+                anchors.centerIn: parent
+                text: card.notifIcon
+                font.pixelSize: 18
+                color: card.accentColor
+            }
+        }
+
+        Column {
+            anchors {
+                left: iconBox.right; leftMargin: 12
+                right: closeBtn.left; rightMargin: 8
+                verticalCenter: parent.verticalCenter
+            }
+            spacing: 3
+            Text {
+                width: parent.width
+                text: card.summary || card.appName || "Notification"
+                color: "#e0eaff"; font.pixelSize: 13; font.weight: Font.SemiBold
+                elide: Text.ElideRight
+            }
+            Text {
+                width: parent.width
+                text: card.body
+                color: "#8090b0"; font.pixelSize: 11
+                elide: Text.ElideRight
+                visible: text !== ""
+            }
+            Text {
+                text: card.appName
+                color: Qt.rgba(card.accentColor.r, card.accentColor.g, card.accentColor.b, 0.7)
+                font.pixelSize: 9
+                visible: text !== "" && text !== card.summary
+            }
+        }
+
+        Rectangle {
+            id: closeBtn
+            width: 32; height: 32; radius: 12
+            anchors { right: parent.right; rightMargin: 12; verticalCenter: parent.verticalCenter }
+            color: closeMa.containsMouse ? Qt.rgba(1,1,1,0.1) : "transparent"
+            Text { anchors.centerIn: parent; text: "✕"; font.pixelSize: 20; color: "#6080b0" }
+            MouseArea {
+                id: closeMa
+                anchors.fill: parent
+                hoverEnabled: true
+                onClicked: card.dismiss()
+            }
+        }
+    }
+}

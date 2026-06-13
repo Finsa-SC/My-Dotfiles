@@ -1,9 +1,7 @@
 import Quickshell
 import Quickshell.Wayland
-import Quickshell.Hyprland
 import Quickshell.Io
 import QtQuick
-import "../theme"
 
 PanelWindow {
     id: sliderPanel
@@ -37,16 +35,6 @@ PanelWindow {
     property bool isHovered: false
     property real volume: 0.5
     property real brightness: 0.5
-    
-    property bool panelExpanded: false
-
-    margins {
-        right: {
-            if (sliderPanel.panelExpanded) return Quickshell.screens[0].width * 0.3 + 8
-            if (sliderPanel.isHovered) return 8
-            return -96
-        }
-    }
 
     Process {
         id: setVolumeProc
@@ -99,12 +87,6 @@ PanelWindow {
         height: 220
         transformOrigin: Item.BottomRight
         rotation: isRotated ? -110 : 0
-        Behavior on anchors.rightMargin {
-            NumberAnimation {
-                duration: 300
-                easing.type: Easing.OutCubic
-            }
-        }
 
         Behavior on rotation {
             NumberAnimation {
@@ -119,25 +101,20 @@ PanelWindow {
             color: "#0d1117"
             border.color: "#30363d"
             border.width: 1
-            
+
             HoverHandler {
-                onHoveredChanged: {
-                    if (hovered) sliderPanel.isHovered = true
-                    // jangan set false di sini, biar ShellRoot yang handle via timer
-                }
+                onHoveredChanged: sliderPanel.isHovered = hovered
             }
 
-            // Gesture drag
             DragHandler {
                 onTranslationChanged: {
                     if (translation.x < -30 && !expandPanel.isExpanded) {
                         sliderPanel.isFullHeight = true
-                        expandPanel.isExpanded = true       
-                        rotateTimer.start()                   
+                        expandPanel.isExpanded = true
+                        rotateTimer.start()
                     } else if (translation.x > 30 && expandPanel.isExpanded) {
-                        sliderPanel.isRotated = false         
-                        collapseTimer.start()                 
-                        
+                        sliderPanel.isRotated = false
+                        collapseTimer.start()
                     }
                 }
             }
@@ -153,7 +130,7 @@ PanelWindow {
             }
             Timer {
                 id: shrinkTimer
-                interval: 50   
+                interval: 50
                 repeat: false
                 onTriggered: sliderPanel.isFullHeight = false
             }
@@ -163,7 +140,7 @@ PanelWindow {
                 repeat: false
                 onTriggered: {
                     sliderPanel.isRotated = true
-                    sliderPanel.isWide = true  // snap lebar setelah panel expand
+                    sliderPanel.isWide = true
                 }
             }
 
@@ -171,17 +148,14 @@ PanelWindow {
                 anchors.centerIn: parent
                 spacing: 16
 
-                // Botol Volume
                 Item {
                     width: 36; height: 160
 
-                    // Label
                     Text {
                         anchors { horizontalCenter: parent.horizontalCenter; bottom: parent.bottom; bottomMargin: -18 }
                         text: "🧪"; font.pixelSize: 11
                     }
 
-                    // Botol body
                     Rectangle {
                         id: volBottle
                         anchors { horizontalCenter: parent.horizontalCenter; bottom: parent.bottom; bottomMargin: 4 }
@@ -192,7 +166,6 @@ PanelWindow {
                         border.width: 1
                         clip: true
 
-                        // Liquid fill
                         Rectangle {
                             id: volLiquid
                             anchors { bottom: parent.bottom; left: parent.left; right: parent.right }
@@ -205,7 +178,6 @@ PanelWindow {
                                 color: Qt.rgba(0.2, 0.5, 1.0, 0.7)
                             }
 
-                            // Gelembung
                             Repeater {
                                 model: 5
                                 Item {
@@ -213,7 +185,6 @@ PanelWindow {
                                     x: 4 + index * 4 + Math.random() * 8
                                     width: 4 + index % 3 * 2
                                     height: width
-
                                     property real startY: volLiquid.height * (0.1 + Math.random() * 0.8)
 
                                     SequentialAnimation on y {
@@ -238,7 +209,6 @@ PanelWindow {
                                 }
                             }
 
-                            // Surface wave
                             Canvas {
                                 anchors { top: parent.top; left: parent.left; right: parent.right }
                                 height: 8
@@ -264,18 +234,16 @@ PanelWindow {
                             }
                         }
 
-                        // Skala botol
                         Repeater {
                             model: 4
                             Rectangle {
                                 x: parent.width - 8
-                                y: parent.height * (1 - (index + 1) * 0.25) 
+                                y: parent.height * (1 - (index + 1) * 0.25)
                                 width: 6; height: 1
                                 color: Qt.rgba(1,1,1,0.2)
                             }
                         }
 
-                        // Volume
                         MouseArea {
                             anchors.fill: parent
                             z: 20
@@ -283,10 +251,8 @@ PanelWindow {
                             onPressed: (mouse) => sliderPanel.setVolume(Math.max(0, Math.min(1, 1 - mouse.y / height)))
                             onPositionChanged: (mouse) => sliderPanel.setVolume(Math.max(0, Math.min(1, 1 - mouse.y / height)))
                         }
-
                     }
 
-                    // Botol neck
                     Rectangle {
                         anchors { horizontalCenter: parent.horizontalCenter; bottom: volBottle.top }
                         width: 14; height: 16
@@ -297,7 +263,6 @@ PanelWindow {
                     }
                 }
 
-                // Botol Brightness
                 Item {
                     width: 36; height: 160
 
@@ -394,7 +359,6 @@ PanelWindow {
                             }
                         }
 
-                        // Brightness
                         MouseArea {
                             anchors.fill: parent
                             z: 20

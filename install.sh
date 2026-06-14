@@ -65,30 +65,6 @@ enable_multilib() {
     success "multilib enabled"
 }
 
-# ── Setup sddm
-setup_sddm() {
-    section "Setting up SDDM"
-
-    local sddm_src="$RICE/sddm/theme"
-    if [ ! -d "$sddm_src" ]; then
-        warn "No SDDM theme found at $sddm_src, skipping"
-        return
-    fi
-
-    # Copy theme to system
-    sudo cp -r "$sddm_src" /usr/share/sddm/themes/elaina-sddm
-    success "SDDM theme copied → /usr/share/sddm/themes/elaina-sddm"
-
-    # Generate config
-    sudo mkdir -p /etc/sddm.conf.d/
-    echo -e "[Theme]\nCurrent=elaina-sddm" | sudo tee /etc/sddm.conf.d/elaina-sddm.conf > /dev/null
-    success "SDDM config → /etc/sddm.conf.d/elaina-sddm.conf"
-
-    # Enable service
-    sudo systemctl enable sddm
-    success "SDDM service enabled"
-}
-
 # ── Install packages
 install_packages() {
     section "Installing packages"
@@ -249,7 +225,7 @@ move_wallpapers() {
     [ "$count" -eq 0 ] && skip "No new wallpapers to copy" || success "Copied $count wallpaper(s)"
 }
 
-# ── Setup fastfetch (generate config dari template supaya $HOME dinamis)
+# ── Setup fastfetch
 setup_fastfetch() {
     section "Setting up fastfetch"
 
@@ -267,6 +243,37 @@ setup_fastfetch() {
     success "fastfetch config → $out"
 }
 
+# ── Setup SDDM
+setup_sddm() {
+    section "Setting up SDDM"
+
+    local theme_name="elaina-sddm"
+    local sddm_src="$RICE/sddm/theme"
+    local sddm_dst="/usr/share/sddm/themes/$theme_name"
+
+    if [ ! -d "$sddm_src" ]; then
+        warn "No SDDM theme found at $sddm_src, skipping"
+        return
+    fi
+
+    # Hapus dulu kalau udah ada biar ga nested
+    if [ -d "$sddm_dst" ]; then
+        sudo rm -rf "$sddm_dst"
+    fi
+
+    sudo cp -r "$sddm_src" "$sddm_dst"
+    success "SDDM theme copied → $sddm_dst"
+
+    # Generate config
+    sudo mkdir -p /etc/sddm.conf.d/
+    printf '[Theme]\nCurrent=%s\n' "$theme_name" | sudo tee /etc/sddm.conf.d/elaina-sddm.conf > /dev/null
+    success "SDDM config → /etc/sddm.conf.d/elaina-sddm.conf"
+
+    # Enable service
+    sudo systemctl enable sddm
+    success "SDDM service enabled"
+}
+
 # ── Symlink configs
 link_configs() {
     section "Linking configs"
@@ -276,7 +283,6 @@ link_configs() {
         return
     fi
 
-    # Folder yang di-handle secara terpisah, jangan di-symlink
     local skip_list=("Wallpapers" "fastfetch" "assets")
 
     for src in "$CONFIG"/*/; do
@@ -305,7 +311,7 @@ link_configs() {
     done
 }
 
-# ── Link assets (symlink ke ~/.config/assets supaya path konsisten di semua device)
+# ── Link assets
 link_assets() {
     section "Linking assets"
 
@@ -325,7 +331,7 @@ link_assets() {
     success "assets ${DIM}→ ~/.config/assets${RESET}"
 }
 
-# ── Link root-level assets (kalau ada di my-rice/assets/)
+# ── Link root-level rice assets
 link_rice_assets() {
     local assets_dir="$RICE/assets"
     if [ ! -d "$assets_dir" ]; then
@@ -344,10 +350,11 @@ link_rice_assets() {
 
 # ── Main
 case "${1:-all}" in
-    packages) install_packages ;;
-    links)    link_configs; link_assets; link_rice_assets ;;
-    dirs)     init_dirs; move_wallpapers ;;
+    packages)  install_packages ;;
+    links)     link_configs; link_assets; link_rice_assets ;;
+    dirs)      init_dirs; move_wallpapers ;;
     fastfetch) setup_fastfetch ;;
+    sddm)      setup_sddm ;;
     all)
         install_packages
         init_dirs
@@ -360,7 +367,7 @@ case "${1:-all}" in
         ;;
     yay) install_yay ;;
     *)
-        echo -e "Usage: ${BOLD}$0${RESET} [all|packages|links|dirs|fastfetch|yay]"
+        echo -e "Usage: ${BOLD}$0${RESET} [all|packages|links|dirs|fastfetch|sddm|yay]"
         ;;
 esac
 

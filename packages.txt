@@ -56,7 +56,6 @@ pacman starship
 pacman eza
 pacman zoxide
 pacman direnv
-pacman lazygit
 
 # ── System Utilities
 pacman btop
@@ -87,7 +86,7 @@ pacman ffmpegthumbs
 pacman kdegraphics-thumbnailers
 pacman firefox
 pacman pycharm-community-edition
-aur proton-vpn-gtk-app
+pacman proton-vpn-gtk-app
 
 # ── Optional
 optional steam

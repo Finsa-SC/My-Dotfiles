@@ -1,1 +1,1 @@
-{"arch-cleaner.sh":{"type":"oneshot","running":false},"pomodoro.sh":{"type":"service","running":true},"send-message.sh":{"type":"oneshot","running":false}}
+{"arch-cleaner.sh":{"type":"oneshot","running":false},"pomodoro.sh":{"type":"service","running":false},"send-message.sh":{"type":"oneshot","running":false}}

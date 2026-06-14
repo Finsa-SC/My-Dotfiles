@@ -348,10 +348,32 @@ link_rice_assets() {
     done
 }
 
+# ── Link hypr → hypr-custom
+link_hypr() {
+    section "Linking hypr"
+
+    local src="$HOME/.config/hypr-custom"
+    local dst="$HOME/.config/hypr"
+
+    if [ ! -d "$src" ]; then
+        warn "hypr-custom not found, skipping"
+        return
+    fi
+
+    if [ -e "$dst" ] && [ ! -L "$dst" ]; then
+        warn "Backing up hypr → hypr.bak"
+        mv "$dst" "${dst}.bak"
+    fi
+
+    rm -rf "$dst"
+    ln -sfn "$src" "$dst"
+    success "hypr ${DIM}→ ~/.config/hypr-custom${RESET}"
+}
+
 # ── Main
 case "${1:-all}" in
     packages)  install_packages ;;
-    links)     link_configs; link_assets; link_rice_assets ;;
+    links)     link_configs; link_hypr; link_assets; link_rice_assets ;;
     dirs)      init_dirs; move_wallpapers ;;
     fastfetch) setup_fastfetch ;;
     sddm)      setup_sddm ;;
@@ -363,6 +385,7 @@ case "${1:-all}" in
         setup_sddm
         link_configs
         link_assets
+        link_hypr
         link_rice_assets
         ;;
     yay) install_yay ;;

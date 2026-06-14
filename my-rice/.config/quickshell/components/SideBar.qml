@@ -190,7 +190,7 @@ PanelWindow {
                     : modePill.currentMode === "basic" ? "full"
                     : "minimal"
                 modeSetProc.command = ["bash", "-c",
-                    "qs ipc -p $HOME/.config/quickshell-custom call mode set " + next
+                    "qs ipc -p $HOME/.config/quickshell call mode set " + next
                 ]
                 modeSetProc.running = false
                 modeSetProc.running = true

@@ -311,28 +311,6 @@ link_configs() {
     done
 }
 
-# ── Link quickshell → quickshell-custom
-link_quickshell() {
-    section "Linking quickshell"
-
-    local src="$HOME/.config/quickshell-custom"
-    local dst="$HOME/.config/quickshell"
-
-    if [ ! -d "$src" ]; then
-        warn "quickshell-custom not found, skipping"
-        return
-    fi
-
-    if [ -e "$dst" ] && [ ! -L "$dst" ]; then
-        warn "Backing up quickshell → quickshell.bak"
-        mv "$dst" "${dst}.bak"
-    fi
-
-    rm -rf "$dst"
-    ln -sfn "$src" "$dst"
-    success "quickshell ${DIM}→ ~/.config/quickshell-custom${RESET}"
-}
-
 # ── Link assets
 link_assets() {
     section "Linking assets"
@@ -408,7 +386,6 @@ case "${1:-all}" in
         link_configs
         link_assets
         link_hypr
-        link_quickshellq
         link_rice_assets
         ;;
     yay) install_yay ;;

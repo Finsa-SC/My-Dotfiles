@@ -126,6 +126,7 @@ PanelWindow {
                 repeat: false
                 onTriggered: {
                     sliderPanel.collapseRequested()
+                    sliderPanel.isWide = false
                     shrinkTimer.start()
                 }
             }

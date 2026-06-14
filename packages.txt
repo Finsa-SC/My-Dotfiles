@@ -6,6 +6,7 @@
 # ── Base build tools
 pacman git
 pacman base-devel
+pacman sddm
 
 # ── Window Manager & Compositor
 aur quickshell

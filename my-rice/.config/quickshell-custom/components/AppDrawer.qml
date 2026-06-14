@@ -224,7 +224,7 @@ PanelWindow {
             width: 332
             height: parent.height
             fillMode: Image.PreserveAspectCrop
-            source: "file:///home/silence-suzuka/Downloads/shower-suzuka.png"
+            source: "file://" + StandardPaths.home + "/.config/assets/shower-suzuka.png"
         }
     }
 }

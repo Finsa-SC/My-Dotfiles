@@ -51,7 +51,7 @@ install_yay() {
     fi
 }
 
-# -- Enable multilib
+# ── Enable multilib
 enable_multilib() {
     if grep -q "^\[multilib\]" /etc/pacman.conf; then
         skip "multilib already enabled"
@@ -65,6 +65,30 @@ enable_multilib() {
     success "multilib enabled"
 }
 
+# ── Setup sddm
+setup_sddm() {
+    section "Setting up SDDM"
+
+    local sddm_src="$RICE/sddm/theme"
+    if [ ! -d "$sddm_src" ]; then
+        warn "No SDDM theme found at $sddm_src, skipping"
+        return
+    fi
+
+    # Copy theme to system
+    sudo cp -r "$sddm_src" /usr/share/sddm/themes/elaina-sddm
+    success "SDDM theme copied → /usr/share/sddm/themes/elaina-sddm"
+
+    # Generate config
+    sudo mkdir -p /etc/sddm.conf.d/
+    echo -e "[Theme]\nCurrent=elaina-sddm" | sudo tee /etc/sddm.conf.d/elaina-sddm.conf > /dev/null
+    success "SDDM config → /etc/sddm.conf.d/elaina-sddm.conf"
+
+    # Enable service
+    sudo systemctl enable sddm
+    success "SDDM service enabled"
+}
+
 # ── Install packages
 install_packages() {
     section "Installing packages"
@@ -75,7 +99,6 @@ install_packages() {
         return
     fi
 
-    # Install yay and enable multilib
     grep -qE '^(aur|optional) ' "$pkg_file" && install_yay
     grep -qE '^pacman lib32' "$pkg_file" && enable_multilib
 
@@ -86,7 +109,6 @@ install_packages() {
 
     local total=0 installed=0 skipped=0 failed=0
 
-    # Helper install pacman
     _install_pacman() {
         local pkg="$1"
         if pacman -Qi "$pkg" &>/dev/null; then
@@ -104,7 +126,6 @@ install_packages() {
         fi
     }
 
-    # Helper install AUR
     _install_aur() {
         local pkg="$1"
         if [ -z "$aur_helper" ]; then
@@ -151,7 +172,6 @@ install_packages() {
                 echo -ne "  ${YELLOW}${BOLD}[?]${RESET} Install optional ${BOLD}$pkg${RESET}? (y/N) "
                 read -r ans
                 if [[ "$ans" =~ ^[Yy]$ ]]; then
-                    # Coba pacman dulu, fallback AUR
                     if pacman -Qi "$pkg" &>/dev/null; then
                         skip "$pkg (already installed)"
                         (( skipped++ ))
@@ -180,6 +200,73 @@ install_packages() {
     echo -e "  ${GREEN}installed: $installed${RESET}  ${DIM}skipped: $skipped${RESET}  ${RED}failed: $failed${RESET}  ${DIM}total: $total${RESET}"
 }
 
+# ── Init home directories
+init_dirs() {
+    section "Initializing directories"
+
+    local dirs=(
+        "$HOME/Pictures/Wallpapers"
+        "$HOME/Pictures/Screenshots"
+        "$HOME/Documents"
+        "$HOME/Downloads"
+    )
+
+    for d in "${dirs[@]}"; do
+        if [ -d "$d" ]; then
+            skip "$d (already exists)"
+        else
+            mkdir -p "$d"
+            success "Created ${BOLD}$d${RESET}"
+        fi
+    done
+}
+
+# ── Copy wallpapers
+move_wallpapers() {
+    section "Copying wallpapers"
+
+    local wp_src="$CONFIG/Wallpapers"
+    if [ ! -d "$wp_src" ]; then
+        warn "No Wallpapers dir found at $wp_src, skipping"
+        return
+    fi
+
+    local count=0
+    for f in "$wp_src"/*; do
+        [ -f "$f" ] || continue
+        local name
+        name=$(basename "$f")
+        local dst="$HOME/Pictures/Wallpapers/$name"
+        if [ -e "$dst" ]; then
+            skip "$name (already exists)"
+        else
+            cp "$f" "$dst"
+            success "${BOLD}$name${RESET} ${DIM}→ ~/Pictures/Wallpapers/${RESET}"
+            (( count++ ))
+        fi
+    done
+
+    [ "$count" -eq 0 ] && skip "No new wallpapers to copy" || success "Copied $count wallpaper(s)"
+}
+
+# ── Setup fastfetch (generate config dari template supaya $HOME dinamis)
+setup_fastfetch() {
+    section "Setting up fastfetch"
+
+    local template="$CONFIG/fastfetch/config.json.template"
+    local out_dir="$HOME/.config/fastfetch"
+    local out="$out_dir/config.json"
+
+    if [ ! -f "$template" ]; then
+        warn "fastfetch template not found at $template, skipping"
+        return
+    fi
+
+    mkdir -p "$out_dir"
+    sed "s|HOMEPATH|$HOME|g" "$template" > "$out"
+    success "fastfetch config → $out"
+}
+
 # ── Symlink configs
 link_configs() {
     section "Linking configs"
@@ -189,9 +276,23 @@ link_configs() {
         return
     fi
 
+    # Folder yang di-handle secara terpisah, jangan di-symlink
+    local skip_list=("Wallpapers" "fastfetch" "assets")
+
     for src in "$CONFIG"/*/; do
         local name dst
         name=$(basename "$src")
+
+        local should_skip=false
+        for s in "${skip_list[@]}"; do
+            [ "$name" = "$s" ] && should_skip=true && break
+        done
+
+        if $should_skip; then
+            skip "$name (handled separately)"
+            continue
+        fi
+
         dst="$HOME/.config/$name"
 
         if [ -e "$dst" ] && [ ! -L "$dst" ]; then
@@ -204,17 +305,36 @@ link_configs() {
     done
 }
 
-# ── Link assets
+# ── Link assets (symlink ke ~/.config/assets supaya path konsisten di semua device)
 link_assets() {
     section "Linking assets"
 
-    local assets_dir="$RICE/assets"
-    if [ ! -d "$assets_dir" ]; then
-        skip "No assets dir found"
+    local assets_src="$CONFIG/assets"
+    if [ ! -d "$assets_src" ]; then
+        warn "No assets dir found at $assets_src, skipping"
         return
     fi
 
+    local dst="$HOME/.config/assets"
+    if [ -e "$dst" ] && [ ! -L "$dst" ]; then
+        warn "Backing up assets → assets.bak"
+        mv "$dst" "${dst}.bak"
+    fi
+
+    ln -sfn "$assets_src" "$dst"
+    success "assets ${DIM}→ ~/.config/assets${RESET}"
+}
+
+# ── Link root-level assets (kalau ada di my-rice/assets/)
+link_rice_assets() {
+    local assets_dir="$RICE/assets"
+    if [ ! -d "$assets_dir" ]; then
+        return
+    fi
+
+    section "Linking rice assets"
     for file in "$assets_dir"/*; do
+        [ -f "$file" ] || continue
         local name
         name=$(basename "$file")
         ln -sfn "$file" "$HOME/$name"
@@ -225,11 +345,22 @@ link_assets() {
 # ── Main
 case "${1:-all}" in
     packages) install_packages ;;
-    links)    link_configs; link_assets ;;
-    all)      install_packages; link_configs; link_assets ;;
-    yay)      install_yay ;;
+    links)    link_configs; link_assets; link_rice_assets ;;
+    dirs)     init_dirs; move_wallpapers ;;
+    fastfetch) setup_fastfetch ;;
+    all)
+        install_packages
+        init_dirs
+        move_wallpapers
+        setup_fastfetch
+        setup_sddm
+        link_configs
+        link_assets
+        link_rice_assets
+        ;;
+    yay) install_yay ;;
     *)
-        echo -e "Usage: ${BOLD}$0${RESET} [all|packages|links|yay]"
+        echo -e "Usage: ${BOLD}$0${RESET} [all|packages|links|dirs|fastfetch|yay]"
         ;;
 esac
 

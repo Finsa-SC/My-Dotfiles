@@ -147,7 +147,7 @@ PanelWindow {
 
     Process {
         id: cavaProc
-        command: ["cava", "-p", "/home/silence-suzuka/.config/cava/quickshell-config"]
+        command: ["cava", "-p", StandardPaths.home + "/.config/cava/quickshell-config"]
         running: false
         stdout: SplitParser {
             onRead: (line) => {
@@ -164,7 +164,7 @@ PanelWindow {
     Process {
         id: lyricsProc
         property string searchQuery: ""
-        command: ["/home/silence-suzuka/.local/bin/syncedlyrics", "-o", "lrc", searchQuery]
+        command: [SystemInformation.userName + "/.local/bin/syncedlyrics", "-o", "lrc", searchQuery]
         running: false
         stdout: StdioCollector {
             onStreamFinished: {
@@ -236,7 +236,7 @@ PanelWindow {
             eqProc.builtCommand =
                 "python3 -c \"" +
                 "import json;" +
-                "p='/home/silence-suzuka/.local/share/easyeffects/output/MyPreset.json';" +
+                "p=" + SystemInformation.userName + '/.local/share/easyeffects/output/MyPreset.json'; +
                 "d=json.load(open(p));" +
                 "d['output']['equalizer#0']['left']['band" + eqProc.bandIndex + "']['gain']=" + eqProc.gainValue + ";" +
                 "d['output']['equalizer#0']['right']['band" + eqProc.bandIndex + "']['gain']=" + eqProc.gainValue + ";" +
@@ -553,7 +553,7 @@ PanelWindow {
                             anchors.centerIn: parent
                             width: parent.width * 0.4
                             height: width
-                            source: "/home/silence-suzuka/Downloads/Jukebox.png"
+                            source: StandardPaths.home + "/.config/assets/Jukebox.png"
                             fillMode: Image.PreserveAspectFit
                             opacity: 0.85
                         }
@@ -740,8 +740,8 @@ PanelWindow {
                     }
                     
                     source: expandPanel.playing
-                        ? "/home/silence-suzuka/Downloads/oguri-cap.gif"
-                        : "/home/silence-suzuka/Downloads/sleepy-oguri.gif"
+                        ? StandardPaths.home + "/.config/assets/oguri-cap.gif"
+                        : StandardPaths.home + "/.config/assets/sleepy-oguri.gif"
                     fillMode: Image.PreserveAspectCrop
                     layer.enabled: false
                 }

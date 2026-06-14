@@ -74,7 +74,12 @@ ShellRoot {
     }
 
     AppDrawer { id: drawer }
-    NotificationPopup { visible: root.mode !== "minimal" }
+    Loader {
+        active: root.mode !== "minimal"
+        sourceComponent: Component {
+            NotificationPopup {}
+        }
+    }
     Loader {
         id: expandLoader
         active: root.mode !== "minimal"

@@ -100,7 +100,7 @@ PanelWindow {
                 visible: triggerZone.isHovered || triggerZone.isDragging
 
                 Repeater {
-                    model: 3
+                    model: 1
                     Text {
                         text: triggerZone.dashOpen ? "▲" : "▼"
                         font.pixelSize: 7

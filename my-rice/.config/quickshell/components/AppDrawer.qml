@@ -10,7 +10,7 @@ import "../theme"
 PanelWindow {
     id: appDrawer
     exclusiveZone: 0
-    implicitWidth: Quickshell.screens[0].width * 0.3 + 300
+    implicitWidth: Quickshell.screens[0].width * 0.3 + 333
     color: "transparent"
     visible: false
 
@@ -23,7 +23,7 @@ PanelWindow {
     }
 
     margins {
-        left: 46
+        left: 48
     }
 
     HyprlandFocusGrab {
@@ -50,11 +50,11 @@ PanelWindow {
 
     NumberAnimation on slideOffset {
         id: slideOut
-        to: -(Quickshell.screens[0].width * 0.3 + 300)  // tambah ini
+        to: -(Quickshell.screens[0].width * 0.3 + 300)
         duration: 250
         easing.type: Easing.InQuart
         running: false
-        onFinished: appDrawer.visible = false  // hapus imageWindow
+        onFinished: appDrawer.visible = false
     }
 
     function open() {
@@ -220,11 +220,10 @@ PanelWindow {
         Image {
             id: image
             anchors.left: drawerRect.right
-            anchors.leftMargin: -37
-            width: 332
+            anchors.leftMargin: -49
             height: parent.height
-            fillMode: Image.PreserveAspectCrop
-            source: "file://" + StandardPaths.home + "/.config/assets/shower-suzuka.png"
+            fillMode: Image.PreserveAspectFit
+            source: "file://" + Quickshell.env("HOME") + "/.config/assets/shower-suzuka.png"
         }
     }
 }

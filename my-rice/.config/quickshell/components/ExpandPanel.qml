@@ -2,6 +2,7 @@ import Quickshell
 import Quickshell.Wayland
 import Quickshell.Io
 import QtQuick
+import QtCore
 import QtQuick.Effects
 import "../theme"
 
@@ -147,7 +148,7 @@ PanelWindow {
 
     Process {
         id: cavaProc
-        command: ["cava", "-p", StandardPaths.home + "/.config/cava/quickshell-config"]
+        command: ["cava", "-p", Quickshell.env("HOME") + "/.config/cava/quickshell-config"]
         running: false
         stdout: SplitParser {
             onRead: (line) => {
@@ -553,7 +554,7 @@ PanelWindow {
                             anchors.centerIn: parent
                             width: parent.width * 0.4
                             height: width
-                            source: StandardPaths.home + "/.config/assets/Jukebox.png"
+                            source: Quickshell.env("HOME") + "/.config/assets/Jukebox.png"
                             fillMode: Image.PreserveAspectFit
                             opacity: 0.85
                         }
@@ -733,15 +734,15 @@ PanelWindow {
                     
                     x: expandPanel.lyricLines.length === 0 ? (parent.width * 0.15) : 0
                     anchors.top: parent.top
-                    anchors.topMargin: 60
+                    anchors.topMargin: 90
                     
                     Behavior on x {
                         NumberAnimation { duration: 300; easing.type: Easing.OutQuart }
                     }
                     
                     source: expandPanel.playing
-                        ? StandardPaths.home + "/.config/assets/oguri-cap.gif"
-                        : StandardPaths.home + "/.config/assets/sleepy-oguri.gif"
+                        ? Quickshell.env("HOME") + "/.config/assets/oguri-cap.gif"
+                        : Quickshell.env("HOME") + "/.config/assets/sleepy-oguri.gif"
                     fillMode: Image.PreserveAspectCrop
                     layer.enabled: false
                 }

@@ -12,3 +12,8 @@ NotifCard 1.0 NotifCard.qml
 CockpitDash 1.0 CockpitDash.qml
 CockpitTrigger 1.0 CockpitTrigger.qml
 WallpaperPicker 1.0 WallpaperPicker.qml
+ProcessPanel 1.0 ProcessPanel.qml
+ProcessTrigger 1.0 ProcessTrigger.qml
+ProcessRow 1.0 ProcessRow.qml
+OneshotRunner 1.0 OneshotRunner.qml
+ServiceRunner 1.0 ServiceRunner.qml

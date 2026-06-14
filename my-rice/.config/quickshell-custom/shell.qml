@@ -6,7 +6,7 @@ import "./components"
 ShellRoot {
     id: root
     property string mode: "full"
-    property bool panelExpanded: false  // <-- state di sini
+    property bool panelExpanded: false
 
     Process {
         id: readMode
@@ -26,7 +26,6 @@ ShellRoot {
         function set(m: string): void {
             if (m !== "full" && m !== "basic" && m !== "minimal") return
             root.mode = m
-            // reset state pas ganti mode
             root.panelExpanded = false
             sliderPanel.isHovered = false
             hoverResetTimer.stop()
@@ -48,7 +47,6 @@ ShellRoot {
         }
     }
 
-    // selalu ada, cuma panel dalamnya yang dikontrol
     SliderPanel {
         id: sliderPanel
         panelExpanded: root.panelExpanded
@@ -75,7 +73,6 @@ ShellRoot {
         onTriggered: sliderPanel.isHovered = false
     }
 
-    // basic + full
     AppDrawer { id: drawer }
     NotificationPopup { visible: root.mode !== "minimal" }
     Loader {
@@ -86,7 +83,6 @@ ShellRoot {
         }
     }
 
-    // full only
     IpcHandler {
         target: "drawer"
         function toggle(): void {
@@ -110,5 +106,32 @@ ShellRoot {
             ? cockpitLoader.item.panelHeight + cockpitLoader.item.tabHeight : 0
         onOpenRequested: if (cockpitLoader.item) cockpitLoader.item.open()
         onCloseRequested: if (cockpitLoader.item) cockpitLoader.item.close()
+    }
+
+    Loader {
+        id: processPanelLoader
+        active: root.mode !== "minimal"
+        sourceComponent: Component {
+            ProcessPanel { id: processPanel }
+        }
+    }
+
+    ProcessTrigger {
+        visible: root.mode !== "minimal"
+        dashOpen: processPanelLoader.item ? processPanelLoader.item._open : false
+        dashOffset: processPanelLoader.item && processPanelLoader.item._open
+            ? processPanelLoader.item.panelHeight : 0
+        onOpenRequested:  if (processPanelLoader.item) processPanelLoader.item.open()
+        onCloseRequested: if (processPanelLoader.item) processPanelLoader.item.close()
+    }
+
+    IpcHandler {
+        target: "processes"
+        function toggle(): void {
+            if (root.mode === "minimal") return
+            if (!processPanelLoader.item) return
+            if (processPanelLoader.item._open) processPanelLoader.item.close()
+            else processPanelLoader.item.open()
+        }
     }
 }

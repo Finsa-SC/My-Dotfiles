@@ -46,7 +46,7 @@ _G.kbFileManager = _G.mainMod .. " + E"
 _G.kbEditor      = _G.mainMod .. " + C"
 
 -- keybinds: window actions
-_G.kbCloseWindow         = _G.mainMod .. " + K"
+_G.kbCloseWindow         = _G.mainMod .. " + Q"
 _G.kbToggleFloat         = _G.mainMod .. " + Space"
 _G.kbFullScreen          = _G.mainMod .. " + F"
 _G.kbBorderedFullScreen  = _G.mainMod .. " + ALT + F"

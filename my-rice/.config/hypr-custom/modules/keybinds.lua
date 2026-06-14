@@ -107,8 +107,7 @@ hl.bind(kbSaveScreenshot, hl.dsp.exec_cmd(
     "grim -g \"$(slurp)\" \"$FILE\" && " ..
     "notify-send 'Screenshot Saved' \"$FILE\" -a ''"
 ))
-hl.bind(kbChangeWallpaper, hl.dsp.exec_cmd("qs ipc -p " .. os.getenv("HOME") .. "/.config/quickshell-custom call wallpaper toggle"), { repeating = false })
 
 -- Quickshell
--- Set QS config path biar qs ipc bisa dipanggil tanpa -p
-hl.bind(kbLauncher, hl.dsp.exec_cmd("qs ipc -p " .. os.getenv("HOME") .. "/.config/quickshell-custom call drawer toggle"), { repeating = false })
+hl.bind(kbChangeWallpaper, hl.dsp.exec_cmd("qs ipc -p " .. os.getenv("HOME") .. "/.config/quickshell call wallpaper toggle"), { repeating = false })
+hl.bind(kbLauncher, hl.dsp.exec_cmd("qs ipc -p " .. os.getenv("HOME") .. "/.config/quickshell call drawer toggle"), { repeating = false })

@@ -408,7 +408,7 @@ case "${1:-all}" in
         link_configs
         link_assets
         link_hypr
-        link_quickshell
+        link_quickshellq
         link_rice_assets
         ;;
     yay) install_yay ;;

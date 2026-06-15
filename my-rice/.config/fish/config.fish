@@ -1,5 +1,6 @@
 if status is-interactive
     fastfetch
+    set -g fish_greeting ""
     # Direnv + Zoxide
     command -v direnv &> /dev/null && direnv hook fish | source
     command -v zoxide &> /dev/null && zoxide init fish --cmd cd | source

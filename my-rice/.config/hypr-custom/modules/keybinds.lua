@@ -107,6 +107,9 @@ hl.bind(kbSaveScreenshot, hl.dsp.exec_cmd(
     "grim -g \"$(slurp)\" \"$FILE\" && " ..
     "notify-send 'Screenshot Saved' \"$FILE\" -a ''"
 ))
+hl.bind(mainMod .. " + V", hl.dsp.exec_cmd(
+    "qs ipc -p " .. os.getenv("HOME") .. "/.config/quickshell call clipboard toggle"
+), { repeating = false })
 
 -- Quickshell
 hl.bind(kbChangeWallpaper, hl.dsp.exec_cmd("qs ipc -p " .. os.getenv("HOME") .. "/.config/quickshell call wallpaper toggle"), { repeating = false })

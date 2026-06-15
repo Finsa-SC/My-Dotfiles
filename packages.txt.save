@@ -1,0 +1,97 @@
+# ══════════════════════════════════════════════
+#  packages.txt
+#  Format: [pacman|aur|optional] <package>
+# ══════════════════════════════════════════════
+
+# ── Base build tools
+pacman git
+pacman base-devel
+pacman sddm
+
+# ── Window Manager & Compositor
+aur quickshell
+pacman hyprland
+pacman hypridle
+pacman hyprlock
+pacman xdg-desktop-portal-hyprland
+pacman xdg-desktop-portal-gtk
+pacman polkit-kde-agent
+pacman qt5-wayland
+pacman qt6-wayland
+pacman wl-clipboard
+pacman cliphist
+
+# ── GPU - AMD Radeon Vega 8 RX
+pacman mesa
+pacman lib32-mesa
+pacman xf86-video-amdgpu
+pacman vulkan-radeon
+pacman lib32-vulkan-radeon
+pacman libva-mesa-driver
+pacman mesa-vdpau
+
+# ── Audio - Pipewire
+pacman pipewire
+pacman pipewire-audio
+pacman pipewire-alsa
+pacman pipewire-pulse
+pacman pipewire-jack
+pacman wireplumber
+pacman pavucontrol
+pacman gst-plugin-pipewire
+
+# ── Bluetooth
+pacman bluez
+pacman bluez-utils
+
+# ── Network
+pacman networkmanager
+pacman network-manager-applet
+
+# ── Terminal & Shell
+pacman fish
+pacman kitty
+pacman imagemagick
+pacman starship
+pacman eza
+pacman zoxide
+pacman direnv
+
+# ── System Utilities
+pacman btop
+pacman fastfetch
+pacman lm_sensors
+pacman brightnessctl
+pacman upower
+
+# ── Screenshot & Wallpaper
+pacman swaybg
+pacman grim
+pacman slurp
+pacman swappy
+
+# ── Fonts & Icons
+pacman ttf-jetbrains-mono-nerd
+pacman ttf-nerd-fonts-symbols
+pacman noto-fonts
+pacman noto-fonts-emoji
+pacman papirus-icon-theme
+
+# ── Media
+pacman mpv
+pacman dolphin
+pacman yt-dlp
+pacman nsxiv
+pacman easyeffects
+
+# ── Applications
+pacman ffmpegthumbs
+pacman kdegraphics-thumbnailers
+pacman pycharm-community-edition
+pacman proton-vpn-gtk-app
+yay zen-browser-bin
+
+# ── Optional
+#pacman steam
+#aur python310
+#pacman uv

@@ -17,3 +17,4 @@ ProcessTrigger 1.0 ProcessTrigger.qml
 ProcessRow 1.0 ProcessRow.qml
 OneshotRunner 1.0 OneshotRunner.qml
 ServiceRunner 1.0 ServiceRunner.qml
+ClipboardHistory 1.0 ClipboardHistory.qml

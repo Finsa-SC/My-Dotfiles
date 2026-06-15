@@ -113,6 +113,16 @@ ShellRoot {
         onCloseRequested: if (cockpitLoader.item) cockpitLoader.item.close()
     }
 
+    ClipboardHistory { id: clipboard }
+
+    IpcHandler {
+        target: "clipboard"
+        function toggle(): void {
+            if (clipboard.visible) clipboard.close()
+            else clipboard.open()
+        }
+    }
+
     Loader {
         id: processPanelLoader
         active: root.mode !== "minimal"

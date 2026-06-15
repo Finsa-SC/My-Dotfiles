@@ -118,12 +118,11 @@ if status is-interactive
         set -l right_prompt $git_info$text_blue$current_path$arrow_b""$reset
         set -l total_right_len (math $git_raw_len + $path_raw_len + 1)
 
-        # 4. CETAK FLOATING METRICS DI ATAS BLOK KANAN (JIKA ADA DATA)
+        # 4. CETAK FLOATING METRICS DI ATAS BLOK KANAN
         if test $metrics_raw_len -gt 0
-            echo -n (tput sc) # Save posisi kursor saat ini
-            # Lompat ke 1 baris di atas, geser ke posisi kanan sejajar dengan blok Git
+            echo -n (tput sc)
             echo -n (tput cuu1) (tput hpa $COLUMNS) (tput cub (math $total_right_len - 1)) $floating_metrics
-            echo -n (tput rc) # Kembalikan kursor ke baris prompt utama
+            echo -n (tput rc)
         end
 
         # 5. DOCKING BLOK UTAMA KANAN
@@ -139,7 +138,6 @@ if status is-interactive
     end
 end
 
-abbr tests '/usr/local/bin/test.sh'
 alias subv='uv run app/main.py'
 alias c='clear && printf "\033[3J"'
 alias search='pacman -Ss'

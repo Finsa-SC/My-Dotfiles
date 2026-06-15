@@ -57,14 +57,19 @@ PanelWindow {
     function confirmSelection() {
         if (filteredHistory.length === 0) return
         var selected = filteredHistory[selectedIndex]
-        pasteProc.command = ["bash", "-c",
-            "cliphist list | grep -F " + JSON.stringify(selected) + " | head -1 | cliphist decode | wl-copy"
-        ]
+        
+        var tabIdx = selected.indexOf("\t")
+        var id = tabIdx !== -1 ? selected.substring(0, tabIdx) : ""
+        
+        if (id === "") return 
+        
+        pasteProc.command = ["bash", "-c", "cliphist decode " + id + " | wl-copy"]
+        
         pasteProc.running = false
         pasteProc.running = true
         close()
     }
-
+    
     // Load history dari cliphist
     Process {
         id: loadProc

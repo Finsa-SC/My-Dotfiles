@@ -118,13 +118,13 @@ Item {
             Text {
                 width: parent.width
                 text: card.summary || card.appName || "Notification"
-                color: "#e0eaff"; font.pixelSize: 13; font.weight: Font.SemiBold
+                color: "#cad3f5"; font.pixelSize: 13; font.weight: Font.SemiBold
                 elide: Text.ElideRight
             }
             Text {
                 width: parent.width
                 text: card.body
-                color: "#8090b0"; font.pixelSize: 11
+                color: "#a5adcb"; font.pixelSize: 11
                 elide: Text.ElideRight
                 visible: text !== ""
             }
@@ -141,7 +141,7 @@ Item {
             width: 32; height: 32; radius: 12
             anchors { right: parent.right; rightMargin: 12; verticalCenter: parent.verticalCenter }
             color: closeMa.containsMouse ? Qt.rgba(1,1,1,0.1) : "transparent"
-            Text { anchors.centerIn: parent; text: "✕"; font.pixelSize: 20; color: "#6080b0" }
+            Text { anchors.centerIn: parent; text: "✕"; font.pixelSize: 20; color: "#a5adcb" }
             MouseArea {
                 id: closeMa
                 anchors.fill: parent

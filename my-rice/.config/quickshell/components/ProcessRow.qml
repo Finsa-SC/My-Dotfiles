@@ -22,8 +22,8 @@ Item {
     Rectangle {
         anchors.fill: parent
         radius: 6
-        color: row.isRunning ? "#0a1f10" : "#0d1821"
-        border.color: row.isRunning ? "#1a4020" : "#111e2a"
+        color: row.isRunning ? "#0a1f10" : "#24273a"
+        border.color: row.isRunning ? "#1a4020" : "#363a4f"
         border.width: 1
 
         Behavior on color { ColorAnimation { duration: 200 } }
@@ -38,7 +38,7 @@ Item {
         anchors.leftMargin: 0
         width: 2
         radius: 1
-        color: row.isRunning ? "#22cc55" : "transparent"
+        color: row.isRunning ? "#a6da95" : "transparent"
         Behavior on color { ColorAnimation { duration: 200 } }
     }
 
@@ -56,7 +56,7 @@ Item {
             text: row.scriptName.replace(".sh","")
             font.pixelSize: 11
             font.letterSpacing: 0.5
-            color: row.isRunning ? "#88ddaa" : "#4a7a9a"
+            color: row.isRunning ? "#a6da95" : "#a5adcb"
             elide: Text.ElideRight
             maximumLineCount: 1
             Behavior on color { ColorAnimation { duration: 200 } }
@@ -65,7 +65,7 @@ Item {
         Rectangle {
             id: statusDot
             width: 5; height: 5; radius: 3
-            color: "#22cc55"
+            color: "#a6da95"
             visible: row.isRunning
             anchors.verticalCenter: parent.verticalCenter
             opacity: blinkAnim.running ? blinkOpacity : 1
@@ -91,7 +91,7 @@ Item {
         height: 20
         radius: 10
         color: row.stateType === "service" ? "#0f2535" : "#181820"
-        border.color: row.stateType === "service" ? "#1e4060" : "#252530"
+        border.color: row.stateType === "service" ? "#a5adcb" : "#363a4f"
         border.width: 1
 
         Behavior on color { ColorAnimation { duration: 150 } }
@@ -128,7 +128,7 @@ Item {
             if (btnArea.containsMouse) return row.isRunning ? "#2a1515" : "#0f2a18"
             return row.isRunning ? "#1a0a0a" : "#0a1a10"
         }
-        border.color: row.isRunning ? "#aa2222" : "#226633"
+        border.color: row.isRunning ? "#ed8796" : "#226633"
         border.width: 1
 
         Behavior on color { ColorAnimation { duration: 100 } }
@@ -145,7 +145,7 @@ Item {
             text: row.isRunning ? "STOP" : "RUN"
             font.pixelSize: 8
             font.letterSpacing: 1.5
-            color: row.isRunning ? "#cc3333" : "#33aa55"
+            color: row.isRunning ? "#ed8796" : "#a6da95"
 
             Behavior on color { ColorAnimation { duration: 150 } }
         }

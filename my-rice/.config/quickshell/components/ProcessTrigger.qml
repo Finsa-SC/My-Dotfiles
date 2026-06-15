@@ -80,8 +80,8 @@ PanelWindow {
         width: 90
         height: 28
         radius: 14
-        color: triggerZone.isHovered || triggerZone.isDragging ? "#1a2a3a" : "#0d1821"
-        border.color: dragIndicator.dragProgress !== 0 ? "#4488ff" : "#1e3a5a"
+        color: triggerZone.isHovered || triggerZone.isDragging ? "#363a4f" : "#24273a"
+        border.color: dragIndicator.dragProgress !== 0 ? "#c6a0f6" : "#363a4f"
         border.width: 1
 
         Behavior on color { ColorAnimation { duration: 150 } }
@@ -104,7 +104,7 @@ PanelWindow {
                     Text {
                         text: triggerZone.dashOpen ? "▲" : "▼"
                         font.pixelSize: 7
-                        color: dragIndicator.dragProgress !== 0 ? "#4488ff" : "#2a5080"
+                        color: dragIndicator.dragProgress !== 0 ? "#c6a0f6" : "#a5adcb"
                     }
                 }
             }
@@ -119,7 +119,7 @@ PanelWindow {
                         return dragIndicator.dragProgress > 0.5 ? "RELEASE" : "PROC"
                 }
                 font.pixelSize: 7
-                color: dragIndicator.dragProgress !== 0 ? "#4488ff" : "#1e3a5a"
+                color: dragIndicator.dragProgress !== 0 ? "#c6a0f6" : "#363a4f"
                 font.letterSpacing: 2
 
                 Behavior on color { ColorAnimation { duration: 150 } }

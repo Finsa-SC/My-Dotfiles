@@ -114,3 +114,6 @@ hl.bind(mainMod .. " + V", hl.dsp.exec_cmd(
 -- Quickshell
 hl.bind(kbChangeWallpaper, hl.dsp.exec_cmd("qs ipc -p " .. os.getenv("HOME") .. "/.config/quickshell call wallpaper toggle"), { repeating = false })
 hl.bind(kbLauncher, hl.dsp.exec_cmd("qs ipc -p " .. os.getenv("HOME") .. "/.config/quickshell call drawer toggle"), { repeating = false })
+
+-- Security
+hl.bind(kbSandboxTerminal, hl.dsp.exec_cmd("kitty --title='Sandbox' $HOME/.config/quickshell/processes/terminal-sandbox.sh"))

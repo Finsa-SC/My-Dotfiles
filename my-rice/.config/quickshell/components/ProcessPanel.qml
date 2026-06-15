@@ -229,19 +229,19 @@ PanelWindow {
         anchors.left: parent.left
         anchors.right: parent.right
         implicitHeight: headerRow.height + listCol.implicitHeight + 32
-        color: "#0a1520"
+        color: "#24273a"
 
         Rectangle {
             anchors { left: parent.left; right: parent.right; bottom: parent.bottom }
-            height: 1; color: "#1e3a5a"
+            height: 1; color: "#363a4f"
         }
         Rectangle {
             anchors { left: parent.left; top: parent.top; bottom: parent.bottom }
-            width: 1; color: "#1e3a5a"
+            width: 1; color: "#363a4f"
         }
         Rectangle {
             anchors { right: parent.right; top: parent.top; bottom: parent.bottom }
-            width: 1; color: "#1e3a5a"
+            width: 1; color: "#363a4f"
         }
 
         Row {
@@ -265,7 +265,7 @@ PanelWindow {
                 anchors.verticalCenter: parent.verticalCenter
                 text: scriptModel.count + " scripts"
                 font.pixelSize: 8
-                color: "#1e3a5a"
+                color: "#363a4f"
                 font.letterSpacing: 1
             }
         }
@@ -274,7 +274,7 @@ PanelWindow {
             anchors { left: parent.left; right: parent.right }
             anchors.top: headerRow.bottom
             anchors.topMargin: 4
-            height: 1; color: "#0f2030"
+            height: 1; color: "#1e2030"
         }
 
         Column {
@@ -316,7 +316,7 @@ PanelWindow {
                 visible: scriptModel.count === 0
                 text: "No scripts found in " + processPanel.processDir
                 font.pixelSize: 10
-                color: "#1e3a5a"
+                color: "#363a4f"
                 anchors.horizontalCenter: parent.horizontalCenter
                 topPadding: 12
                 bottomPadding: 12

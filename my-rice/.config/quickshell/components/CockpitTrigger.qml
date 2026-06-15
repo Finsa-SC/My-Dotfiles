@@ -94,7 +94,7 @@ PanelWindow {
                 Text {
                     text: triggerZone.dashOpen ? "▼" : "▲"
                     font.pixelSize: 10
-                    color: dragIndicator.dragProgress !== 0 ? "#4488ff" : "#2a5080"
+                    color: dragIndicator.dragProgress !== 0 ? "#c6a0f6" : "#a5adcb"
                     anchors.horizontalCenter: parent.horizontalCenter
                 }
             }
@@ -112,7 +112,7 @@ PanelWindow {
                 }
             }
             font.pixelSize: 7
-            color: dragIndicator.dragProgress !== 0 ? "#4488ff" : "#1e3a5a"
+            color: dragIndicator.dragProgress !== 0 ? "#c6a0f6" : "#363a4f"
             font.letterSpacing: 2
             Behavior on color { ColorAnimation { duration: 150 } }
         }

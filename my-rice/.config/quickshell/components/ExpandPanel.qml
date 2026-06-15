@@ -251,8 +251,8 @@ PanelWindow {
 
     Rectangle {
         anchors.fill: parent
-        color: "#0a0e1a"
-        border.color: "#1e2a3a"
+        color: "#1e2030"
+        border.color: "#363a4f"
         border.width: 1
         visible: expandPanel.isExpanded
         clip: true
@@ -342,7 +342,7 @@ PanelWindow {
                         anchors.centerIn: parent
                         width: 130 + (expandPanel.playing ? (15 + (diskContainer.drumValue * 60)) : 10)
                         height: width; radius: width / 2
-                        color: "transparent"; border.color: "#3050ff"; border.width: 2; opacity: 0.3
+                        color: "transparent"; border.color: "#8aadf4"; border.width: 2; opacity: 0.3
                         Behavior on width { NumberAnimation { duration: 150; easing.type: Easing.OutQuad } }
                     }
                     // Ring 2 ungu
@@ -350,7 +350,7 @@ PanelWindow {
                         anchors.centerIn: parent
                         width: 130 + (expandPanel.playing ? (25 + (diskContainer.drumValue * 80)) : 20)
                         height: width; radius: width / 2
-                        color: "transparent"; border.color: "#8030ff"; border.width: 1; opacity: 0.15
+                        color: "transparent"; border.color: "#c6a0f6"; border.width: 1; opacity: 0.15
                         Behavior on width { NumberAnimation { duration: 200; easing.type: Easing.OutQuad } }
                     }
 
@@ -396,7 +396,7 @@ PanelWindow {
                             text: index % 3 === 0 ? "♫" : (index % 3 === 1 ? "♬" : "♪")
                             font.pixelSize: 16
                             font.bold: true
-                            color: "#3050ff"
+                            color: "#8aadf4"
                             opacity: 0.0
                             scale: 0.0
                             
@@ -484,7 +484,7 @@ PanelWindow {
             Text {
                 width: parent.width
                 text: expandPanel.title
-                color: "#e0eaff"
+                color: "#cad3f5"
                 font.pixelSize: 15
                 font.weight: Font.SemiBold
                 elide: Text.ElideRight
@@ -495,7 +495,7 @@ PanelWindow {
             Text {
                 width: parent.width
                 text: expandPanel.artist
-                color: "#6080b0"
+                color: "#a5adcb"
                 font.pixelSize: 12
                 elide: Text.ElideRight
                 horizontalAlignment: Text.AlignHCenter
@@ -513,13 +513,13 @@ PanelWindow {
                     ]
                     Rectangle {
                         width: 40; height: 40; radius: 20
-                        color: ctrlMa.containsMouse ? "#1a2a4a" : "#0f1828"
-                        border.color: "#1e3a5a"; border.width: 1
+                        color: ctrlMa.containsMouse ? "#1a2a4a" : "#1e2030"
+                        border.color: "#363a4f"; border.width: 1
                         Text {
                             anchors.centerIn: parent
                             text: modelData.icon
                             font.pixelSize: 16
-                            color: "#a0c0ff"
+                            color: "#c6a0f6"
                         }
                         MouseArea {
                             id: ctrlMa
@@ -556,7 +556,7 @@ PanelWindow {
                             height: width
                             source: Quickshell.env("HOME") + "/.config/assets/Jukebox.png"
                             fillMode: Image.PreserveAspectFit
-                            opacity: 0.85
+                            opacity: 1.0
                         }
 
                         Repeater {
@@ -567,7 +567,7 @@ PanelWindow {
                                 anchors.centerIn: parent
                                 text: index % 3 === 0 ? "♫" : (index % 3 === 1 ? "♬" : "♪")
                                 font.pixelSize: 11
-                                color: "#a0c0ff"
+                                color: "#c6a0f6"
                                 opacity: 0.0
                                 scale: 0.0
 
@@ -654,33 +654,33 @@ PanelWindow {
 
                             Rectangle {
                                 width: 26; height: 17; radius: 4
-                                color: slowMa.containsMouse ? "#1a2a4a" : "#0f1828"
-                                border.color: "#1e3a5a"; border.width: 1
-                                Text { anchors.centerIn: parent; text: "◀◀"; font.pixelSize: 7; color: "#6080b0" }
+                                color: slowMa.containsMouse ? "#1a2a4a" : "#1e2030"
+                                border.color: "#363a4f"; border.width: 1
+                                Text { anchors.centerIn: parent; text: "◀◀"; font.pixelSize: 7; color: "#a5adcb" }
                                 MouseArea { id: slowMa; anchors.fill: parent; hoverEnabled: true; onClicked: expandPanel.lyricOffset -= 500 }
                             }
                             Rectangle {
                                 width: 50; height: 17; radius: 4
-                                color: "#080d18"; border.color: "#1a2a3a"; border.width: 1
+                                color: "#1e2030"; border.color: "#363a4f"; border.width: 1
                                 Text {
                                     anchors.centerIn: parent
                                     text: { var s = expandPanel.lyricOffset / 1000; return (s >= 0 ? "+" : "") + s.toFixed(1) + "s" }
                                     font.pixelSize: 8
-                                    color: expandPanel.lyricOffset === 0 ? "#4060a0" : "#a0c0ff"
+                                    color: expandPanel.lyricOffset === 0 ? "#7287fd" : "#c6a0f6"
                                 }
                             }
                             Rectangle {
                                 width: 22; height: 17; radius: 4
-                                color: rstMa.containsMouse ? "#1a2a4a" : "#0f1828"
-                                border.color: "#1e3a5a"; border.width: 1
-                                Text { anchors.centerIn: parent; text: "⟳"; font.pixelSize: 9; color: "#6080b0" }
+                                color: rstMa.containsMouse ? "#1a2a4a" : "#1e2030"
+                                border.color: "#363a4f"; border.width: 1
+                                Text { anchors.centerIn: parent; text: "⟳"; font.pixelSize: 9; color: "#a5adcb" }
                                 MouseArea { id: rstMa; anchors.fill: parent; hoverEnabled: true; onClicked: expandPanel.lyricOffset = 0 }
                             }
                             Rectangle {
                                 width: 26; height: 17; radius: 4
-                                color: fastMa.containsMouse ? "#1a2a4a" : "#0f1828"
-                                border.color: "#1e3a5a"; border.width: 1
-                                Text { anchors.centerIn: parent; text: "▶▶"; font.pixelSize: 7; color: "#6080b0" }
+                                color: fastMa.containsMouse ? "#1a2a4a" : "#1e2030"
+                                border.color: "#363a4f"; border.width: 1
+                                Text { anchors.centerIn: parent; text: "▶▶"; font.pixelSize: 7; color: "#a5adcb" }
                                 MouseArea { id: fastMa; anchors.fill: parent; hoverEnabled: true; onClicked: expandPanel.lyricOffset += 500 }
                             }
                         }
@@ -690,7 +690,7 @@ PanelWindow {
                             id: lyricPrevText
                             anchors { top: offsetRow.bottom; topMargin: 8; left: parent.left; right: parent.right }
                             horizontalAlignment: Text.AlignHCenter
-                            color: "#5070a0"; font.pixelSize: 12; opacity: 0.6
+                            color: "#7287fd"; font.pixelSize: 12; opacity: 0.6
                             wrapMode: Text.WordWrap
                             Behavior on text { NumberAnimation { target: lyricPrevText; property: "opacity"; from: 0; to: 0.6; duration: 300 } }
                         }
@@ -717,7 +717,7 @@ PanelWindow {
                             id: lyricNextText
                             anchors { top: lyricCurrentText.bottom; topMargin: 8; left: parent.left; right: parent.right }
                             horizontalAlignment: Text.AlignHCenter
-                            color: "#5070a0"; font.pixelSize: 12; opacity: 0.6
+                            color: "#7287fd"; font.pixelSize: 12; opacity: 0.6
                             wrapMode: Text.WordWrap
                             Behavior on text { NumberAnimation { target: lyricNextText; property: "opacity"; from: 0; to: 0.6; duration: 300 } }
                         }
@@ -734,7 +734,7 @@ PanelWindow {
                     
                     x: expandPanel.lyricLines.length === 0 ? (parent.width * 0.13) : 0
                     anchors.top: parent.top
-                    anchors.topMargin: 76
+                    anchors.topMargin: 40
                     
                     Behavior on x {
                         NumberAnimation { duration: 300; easing.type: Easing.OutQuart }
@@ -759,7 +759,7 @@ PanelWindow {
                     anchors.verticalCenter: parent.verticalCenter
                     width: parent.width
                     height: 1
-                    color: "#1e2a3a"
+                    color: "#363a4f"
                 }
 
                 Row {
@@ -780,7 +780,7 @@ PanelWindow {
                                 anchors.horizontalCenter: parent.horizontalCenter
                                 text: expandPanel.eqFreqs[index]
                                 font.pixelSize: 7
-                                color: "#4060a0"
+                                color: "#7287fd"
                             }
 
                             // Slider track
@@ -791,8 +791,8 @@ PanelWindow {
                                 anchors.centerIn: parent
                                 anchors.verticalCenterOffset: -8
                                 radius: 2
-                                color: "#0f1828"
-                                border.color: "#1e3a5a"
+                                color: "#1e2030"
+                                border.color: "#363a4f"
                                 border.width: 1
 
                                 // Fill bar
@@ -815,7 +815,7 @@ PanelWindow {
                             Rectangle {
                                 id: sliderThumb
                                 width: 14; height: 14; radius: 7
-                                color: thumbMa.containsMouse ? "#a0c0ff" : "#5080d0"
+                                color: thumbMa.containsMouse ? "#c6a0f6" : "#8aadf4"
                                 border.color: "#ffffff"; border.width: 1
 
                                 // posisi: tengah = 0dB, atas = +12dB, bawah = -12dB
@@ -858,7 +858,7 @@ PanelWindow {
                                 anchors.horizontalCenter: parent.horizontalCenter
                                 text: (eqBandItem.gain >= 0 ? "+" : "") + eqBandItem.gain.toFixed(1)
                                 font.pixelSize: 7
-                                color: eqBandItem.gain === 0 ? "#4060a0" : "#a0c0ff"
+                                color: eqBandItem.gain === 0 ? "#7287fd" : "#c6a0f6"
                             }
                         }
                     }

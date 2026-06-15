@@ -102,7 +102,7 @@ PanelWindow {
             id: drawerRect
             width: Quickshell.screens[0].width * 0.3
             height: parent.height
-            color: "#1e1e1e"
+            color: "#24273a"
             border.color: Colors.panelBorder
             border.width: 1
 
@@ -220,7 +220,7 @@ PanelWindow {
         Image {
             id: image
             anchors.left: drawerRect.right
-            anchors.leftMargin: -49
+            anchors.leftMargin: -44
             height: parent.height
             fillMode: Image.PreserveAspectFit
             source: "file://" + Quickshell.env("HOME") + "/.config/assets/shower-suzuka.png"

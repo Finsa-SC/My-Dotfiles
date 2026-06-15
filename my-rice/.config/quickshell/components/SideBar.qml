@@ -178,9 +178,9 @@ PanelWindow {
                 : modePill.currentMode === "basic" ? "❖"
                 : "◇"
             font.pixelSize: 16
-            color: modePill.currentMode === "full" ? "#4fc3f7"
-                : modePill.currentMode === "basic" ? "#f9c74f"
-                : "#888888"
+            color: modePill.currentMode === "full" ? "#8aadf4"
+                : modePill.currentMode === "basic" ? "#eed49f"
+                : "#6e738d"
         }
 
         MouseArea {
@@ -289,9 +289,9 @@ PanelWindow {
             anchors.fill: parent
 
             property real fillHeight: batteryPill.height * (sideBar.batteryLevel / 100)
-            property color fillColor: batteryPill.isCharging ? "#4fc3f7"
+            property color fillColor: batteryPill.isCharging ? "#8aadf4"
                 : sideBar.batteryLevel < 20 ? Colors.batteryLow
-                : sideBar.batteryLevel < 50 ? "#f9c74f"
+                : sideBar.batteryLevel < 50 ? "#eed49f"
                 : Colors.batteryOk
 
             Behavior on fillHeight {

@@ -266,7 +266,7 @@ PanelWindow {
                     ctx.lineTo(W - rampW, 0)                // flat atas
                     ctx.lineTo(W, H)                        // miring turun kanan
                     ctx.closePath()
-                    ctx.fillStyle = "#0b1120"
+                    ctx.fillStyle = "#24273a"
                     ctx.fill()
 
                     // Garis tepi atas (silhouette jambul)
@@ -275,7 +275,7 @@ PanelWindow {
                     ctx.lineTo(rampW, 0)
                     ctx.lineTo(W - rampW, 0)
                     ctx.lineTo(W, H)
-                    ctx.strokeStyle = "#1e4a7a"
+                    ctx.strokeStyle = "#363a4f"
                     ctx.lineWidth = 1.5
                     ctx.stroke()
 
@@ -319,7 +319,7 @@ PanelWindow {
                 Rectangle {
                     width: 5; height: 5
                     anchors.verticalCenter: parent.verticalCenter
-                    color: root.vpnActive ? "#22cc66" : "#cc2222"
+                    color: root.vpnActive ? "#a6da95" : "#ed8796"
                     SequentialAnimation on opacity {
                         loops: Animation.Infinite
                         NumberAnimation { to: 0.2; duration: 600 }
@@ -348,7 +348,7 @@ PanelWindow {
                 Rectangle {
                     width: 5; height: 5
                     anchors.verticalCenter: parent.verticalCenter
-                    color: root.vpnActive ? "#22cc66" : "#cc2222"
+                    color: root.vpnActive ? "#a6da95" : "#ed8796"
                     SequentialAnimation on opacity {
                         loops: Animation.Infinite
                         NumberAnimation { to: 0.2; duration: 800 }
@@ -388,14 +388,14 @@ PanelWindow {
                     ctx.lineTo(width - bev, 0)
                     ctx.lineTo(width, height)
                     ctx.closePath()
-                    ctx.fillStyle = "#0b1120"
+                    ctx.fillStyle = "#24273a"
                     ctx.fill()
 
                     // Top line
                     ctx.beginPath()
                     ctx.moveTo(bev, 0)
                     ctx.lineTo(width - bev, 0)
-                    ctx.strokeStyle = "#1e4a7a"
+                    ctx.strokeStyle = "#363a4f"
                     ctx.lineWidth = 1.5
                     ctx.stroke()
 
@@ -403,7 +403,7 @@ PanelWindow {
                     ctx.beginPath()
                     ctx.moveTo(0, height)
                     ctx.lineTo(bev, 0)
-                    ctx.strokeStyle = "#1a3a5a"
+                    ctx.strokeStyle = "#363a4f"
                     ctx.lineWidth = 1
                     ctx.stroke()
 
@@ -411,7 +411,7 @@ PanelWindow {
                     ctx.beginPath()
                     ctx.moveTo(width - bev, 0)
                     ctx.lineTo(width, height)
-                    ctx.strokeStyle = "#1a3a5a"
+                    ctx.strokeStyle = "#363a4f"
                     ctx.lineWidth = 1
                     ctx.stroke()
                 }
@@ -424,15 +424,15 @@ PanelWindow {
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.bottom: parent.bottom
-                color: "#0b1120"
-                border.color: "#1a3a5a"
+                color: "#24273a"
+                border.color: "#363a4f"
                 border.width: 1
 
                 // Thin accent line top
                 Rectangle {
                     anchors.top: parent.top
                     anchors.left: parent.left; anchors.right: parent.right
-                    height: 1; color: "#1e5aaa"; opacity: 0.5
+                    height: 1; color: "#a5adcb"; opacity: 0.5
                 }
                 Row {
                     anchors.fill: parent
@@ -454,7 +454,7 @@ PanelWindow {
                             width: parent.width
                             height: 62
                             color: root.wifiOn ? "#071a0e" : "#070d1a"
-                            border.color: root.wifiOn ? "#1a8844" : "#1a2a3a"
+                            border.color: root.wifiOn ? "#a6da95" : "#363a4f"
                             border.width: 1
 
                             // Angular cut sudut kanan atas
@@ -466,7 +466,7 @@ PanelWindow {
                                     ctx.beginPath()
                                     ctx.moveTo(width - 10, 0)
                                     ctx.lineTo(width, 10)
-                                    ctx.strokeStyle = root.wifiOn ? "#1a8844" : "#1a2a3a"
+                                    ctx.strokeStyle = root.wifiOn ? "#a6da95" : "#363a4f"
                                     ctx.lineWidth = 1
                                     ctx.stroke()
                                     // Fill corner cut
@@ -475,7 +475,7 @@ PanelWindow {
                                     ctx.lineTo(width, 0)
                                     ctx.lineTo(width, 10)
                                     ctx.closePath()
-                                    ctx.fillStyle = "#0b1120"
+                                    ctx.fillStyle = "#24273a"
                                     ctx.fill()
                                 }
                             }
@@ -494,7 +494,7 @@ PanelWindow {
                                         var cx = width / 2, cy = height - 2
                                         var active = root.wifiOn
                                         var arcs = [
-                                            { r: 6,  sw: 2.5, col: active ? "#22cc66" : "#1a3a2a" },
+                                            { r: 6,  sw: 2.5, col: active ? "#a6da95" : "#1a3a2a" },
                                             { r: 13, sw: 2,   col: active ? "#1aaa55" : "#112918" },
                                             { r: 20, sw: 1.5, col: active ? "#118844" : "#0a1e12" }
                                         ]
@@ -517,7 +517,7 @@ PanelWindow {
                                 Text {
                                     text: root.wifiOn ? "CONNECTED" : "WIFI OFF"
                                     font.pixelSize: 9
-                                    color: root.wifiOn ? "#22aa66" : "#2a4a3a"
+                                    color: root.wifiOn ? "#a6da95" : "#2a4a3a"
                                     font.family: "monospace"
                                     font.letterSpacing: 1
                                     anchors.horizontalCenter: parent.horizontalCenter
@@ -563,7 +563,7 @@ PanelWindow {
                             width: parent.width
                             height: 62
                             color: root.btOn ? "#0a071e" : "#070d1a"
-                            border.color: root.btOn ? "#6644cc" : "#1a2a3a"
+                            border.color: root.btOn ? "#c6a0f6" : "#363a4f"
                             border.width: 1
 
                             Canvas {
@@ -574,7 +574,7 @@ PanelWindow {
                                     ctx.beginPath()
                                     ctx.moveTo(width - 10, 0)
                                     ctx.lineTo(width, 10)
-                                    ctx.strokeStyle = root.btOn ? "#6644cc" : "#1a2a3a"
+                                    ctx.strokeStyle = root.btOn ? "#c6a0f6" : "#363a4f"
                                     ctx.lineWidth = 1
                                     ctx.stroke()
                                     ctx.beginPath()
@@ -582,7 +582,7 @@ PanelWindow {
                                     ctx.lineTo(width, 0)
                                     ctx.lineTo(width, 10)
                                     ctx.closePath()
-                                    ctx.fillStyle = "#0b1120"
+                                    ctx.fillStyle = "#24273a"
                                     ctx.fill()
                                 }
                             }
@@ -598,7 +598,7 @@ PanelWindow {
                                     onPaint: {
                                         var ctx = getContext("2d")
                                         ctx.clearRect(0, 0, width, height)
-                                        var col = root.btOn ? "#8866ff" : "#2a2040"
+                                        var col = root.btOn ? "#c6a0f6" : "#2a2040"
                                         ctx.strokeStyle = col
                                         ctx.lineWidth = 2
                                         ctx.lineCap = "round"
@@ -623,7 +623,7 @@ PanelWindow {
                                 Text {
                                     text: root.btOn ? "BT ON" : "BT OFF"
                                     font.pixelSize: 9
-                                    color: root.btOn ? "#8866ff" : "#2a2040"
+                                    color: root.btOn ? "#c6a0f6" : "#2a2040"
                                     font.family: "monospace"
                                     font.letterSpacing: 1
                                     anchors.horizontalCenter: parent.horizontalCenter
@@ -644,15 +644,15 @@ PanelWindow {
 
                             Repeater {
                                 model: [
-                                    { lbl: "NIGHT", prop: "nightMode", col: "#8866cc" },
-                                    { lbl: "NOTIF", prop: "notifOn",   col: "#2266cc" }
+                                    { lbl: "NIGHT", prop: "nightMode", col: "#c6a0f6" },
+                                    { lbl: "NOTIF", prop: "notifOn",   col: "#8aadf4" }
                                 ]
                                 Rectangle {
                                     width: (parent.parent.width - 6) / 2
                                     height: 28
                                     property bool isOn: index === 0 ? root.nightMode : root.notifOn
                                     color: isOn ? "#0a0718" : "#070d1a"
-                                    border.color: isOn ? modelData.col : "#1a2a3a"
+                                    border.color: isOn ? modelData.col : "#363a4f"
                                     border.width: 1
                                     Column {
                                         anchors.centerIn: parent
@@ -664,7 +664,7 @@ PanelWindow {
                                                 parseInt(modelData.col.slice(1,3),16)/255,
                                                 parseInt(modelData.col.slice(3,5),16)/255,
                                                 parseInt(modelData.col.slice(5,7),16)/255, 0.25) : "#070d1a"
-                                            border.color: isOn ? modelData.col : "#1a2a3a"
+                                            border.color: isOn ? modelData.col : "#363a4f"
                                             border.width: 1
                                             Rectangle {
                                                 x: isOn ? 7 : 1
@@ -676,7 +676,7 @@ PanelWindow {
                                         }
                                         Text {
                                             text: modelData.lbl
-                                            font.pixelSize: 7; color: isOn ? modelData.col : "#1a2a3a"
+                                            font.pixelSize: 7; color: isOn ? modelData.col : "#363a4f"
                                             font.family: "monospace"; font.letterSpacing: 1
                                             anchors.horizontalCenter: parent.horizontalCenter
                                         }
@@ -700,7 +700,7 @@ PanelWindow {
                         Rectangle {
                             anchors.centerIn: parent
                             width: 1; height: parent.height - 16
-                            color: "#0f1e32"
+                            color: "#24273a"
                         }
                     }
 
@@ -730,7 +730,7 @@ PanelWindow {
                                     // Outer ring track
                                     ctx.beginPath()
                                     ctx.arc(cx, cy, r, Math.PI, 2 * Math.PI)
-                                    ctx.strokeStyle = "#0d1a2e"
+                                    ctx.strokeStyle = "#363a4f"
                                     ctx.lineWidth = 10
                                     ctx.lineCap = "butt"
                                     ctx.stroke()
@@ -765,7 +765,7 @@ PanelWindow {
                                         ctx.beginPath()
                                         ctx.moveTo(cx + (r + 2) * Math.cos(tA), cy + (r + 2) * Math.sin(tA))
                                         ctx.lineTo(cx + inner * Math.cos(tA), cy + inner * Math.sin(tA))
-                                        ctx.strokeStyle = "#1a3a5a"
+                                        ctx.strokeStyle = "#363a4f"
                                         ctx.lineWidth = t % 5 === 0 ? 1.5 : 0.8
                                         ctx.stroke()
                                     }
@@ -773,7 +773,7 @@ PanelWindow {
                                     // Center fill
                                     ctx.beginPath()
                                     ctx.arc(cx, cy, r - 16, 0, 2 * Math.PI)
-                                    ctx.fillStyle = "#060d1a"
+                                    ctx.fillStyle = "#1e2030"
                                     ctx.fill()
 
                                     // Needle
@@ -782,18 +782,18 @@ PanelWindow {
                                     ctx.beginPath()
                                     ctx.moveTo(cx, cy)
                                     ctx.lineTo(cx + nLen * Math.cos(nA), cy + nLen * Math.sin(nA))
-                                    ctx.strokeStyle = "#ff4422"
+                                    ctx.strokeStyle = "#ed8796"
                                     ctx.lineWidth = 2
                                     ctx.lineCap = "round"
                                     ctx.stroke()
                                     // Needle pivot
                                     ctx.beginPath()
                                     ctx.arc(cx, cy, 5, 0, Math.PI * 2)
-                                    ctx.fillStyle = "#ff4422"
+                                    ctx.fillStyle = "#ed8796"
                                     ctx.fill()
                                     ctx.beginPath()
                                     ctx.arc(cx, cy, 2, 0, Math.PI * 2)
-                                    ctx.fillStyle = "#0b1120"
+                                    ctx.fillStyle = "#24273a"
                                     ctx.fill()
                                 }
                             }
@@ -806,13 +806,13 @@ PanelWindow {
                                 spacing: 0
                                 Text {
                                     text: root.cpuPct + "%"
-                                    font.pixelSize: 22; color: "#aaccff"
+                                    font.pixelSize: 22; color: "#cad3f5"
                                     font.family: "monospace"; font.weight: Font.Bold
                                     anchors.horizontalCenter: parent.horizontalCenter
                                 }
                                 Text {
                                     text: "CPU"
-                                    font.pixelSize: 9; color: "#1e4a6a"
+                                    font.pixelSize: 9; color: "#a5adcb"
                                     font.family: "monospace"; font.letterSpacing: 3
                                     anchors.horizontalCenter: parent.horizontalCenter
                                 }
@@ -832,7 +832,7 @@ PanelWindow {
                                     property int coreVal: (root.coreData && index < root.coreData.length) ? (root.coreData[index] || 0) : 0
                                     Text {
                                         text: "C" + index
-                                        font.pixelSize: 8; color: "#1e5a80"
+                                        font.pixelSize: 8; color: "#a5adcb"
                                         width: root.coreData.length > 8 ? 18 : 16
                                         font.family: "monospace"
                                         anchors.verticalCenter: parent.verticalCenter
@@ -840,22 +840,22 @@ PanelWindow {
                                     Item {
                                         width: parent.width - (root.coreData.length > 8 ? 18 : 16) - 30 - 8; height: 8
                                         anchors.verticalCenter: parent.verticalCenter
-                                        Rectangle { anchors.fill: parent; color: "#060d1a"; border.color: "#0d1f35"; border.width: 1 }
+                                        Rectangle { anchors.fill: parent; color: "#1e2030"; border.color: "#363a4f"; border.width: 1 }
                                         Rectangle {
                                             width: parent.width * parent.parent.coreVal / 100
                                             height: parent.height
-                                            color: parent.parent.coreVal > 80 ? "#cc2222" : parent.parent.coreVal > 50 ? "#cc8822" : "#1a6acc"
+                                            color: parent.parent.coreVal > 80 ? "#ed8796" : parent.parent.coreVal > 50 ? "#eed49f" : "#8aadf4"
                                         }
                                     }
                                     Rectangle {
                                         width: parent.width * parent.parent.coreVal / 100
                                         height: parent.height
-                                        color: parent.parent.coreVal > 80 ? "#cc2222" : parent.parent.coreVal > 50 ? "#cc8822" : "#1a6acc"
+                                        color: parent.parent.coreVal > 80 ? "#ed8796" : parent.parent.coreVal > 50 ? "#eed49f" : "#8aadf4"
                                         Behavior on width { NumberAnimation { duration: 800; easing.type: Easing.OutCubic } }
                                     }
                                     Text {
                                         text: parent.coreVal + "%"
-                                        font.pixelSize: 8; color: "#4488aa"; width: 28
+                                        font.pixelSize: 8; color: "#a5adcb"; width: 28
                                         horizontalAlignment: Text.AlignRight
                                         font.family: "monospace"
                                         anchors.verticalCenter: parent.verticalCenter
@@ -871,7 +871,7 @@ PanelWindow {
                         Rectangle {
                             anchors.centerIn: parent
                             width: 1; height: parent.height - 16
-                            color: "#0f1e32"
+                            color: "#24273a"
                         }
                     }
 
@@ -898,7 +898,7 @@ PanelWindow {
                                     // Track
                                     ctx.beginPath()
                                     ctx.arc(cx, cy, r, Math.PI * 0.7, Math.PI * 2.3)
-                                    ctx.strokeStyle = "#0d1a2e"; ctx.lineWidth = 8; ctx.lineCap = "butt"; ctx.stroke()
+                                    ctx.strokeStyle = "#363a4f"; ctx.lineWidth = 8; ctx.lineCap = "butt"; ctx.stroke()
 
                                     // Fill — segmented
                                     var segs = 18, sA = Math.PI * 0.7, tA = Math.PI * 1.6
@@ -906,14 +906,14 @@ PanelWindow {
                                         if ((i / segs) >= pct) continue
                                         ctx.beginPath()
                                         ctx.arc(cx, cy, r, sA + (i/segs)*tA + 0.04, sA + ((i+1)/segs)*tA - 0.04)
-                                        ctx.strokeStyle = pct > 0.85 ? "#cc2244" : "#22aa66"
+                                        ctx.strokeStyle = pct > 0.85 ? "#cc2244" : "#a6da95"
                                         ctx.lineWidth = 8; ctx.lineCap = "butt"; ctx.stroke()
                                     }
 
                                     // Inner
                                     ctx.beginPath()
                                     ctx.arc(cx, cy, r - 12, 0, Math.PI * 2)
-                                    ctx.fillStyle = "#060d1a"; ctx.fill()
+                                    ctx.fillStyle = "#1e2030"; ctx.fill()
                                 }
                             }
                             Column {
@@ -922,19 +922,19 @@ PanelWindow {
                                 spacing: 1
                                 Text {
                                     text: root.ramPct + "%"
-                                    font.pixelSize: 18; color: "#aaccff"
+                                    font.pixelSize: 18; color: "#cad3f5"
                                     font.family: "monospace"; font.weight: Font.Bold
                                     anchors.horizontalCenter: parent.horizontalCenter
                                 }
                                 Text {
                                     text: root.ramUsedGb + "/" + root.ramTotalGb + "GB"
-                                    font.pixelSize: 8; color: "#1e5a80"
+                                    font.pixelSize: 8; color: "#a5adcb"
                                     font.family: "monospace"
                                     anchors.horizontalCenter: parent.horizontalCenter
                                 }
                                 Text {
                                     text: "MEM"
-                                    font.pixelSize: 8; color: "#1e4060"
+                                    font.pixelSize: 8; color: "#a5adcb"
                                     font.family: "monospace"; font.letterSpacing: 2
                                     anchors.horizontalCenter: parent.horizontalCenter
                                 }
@@ -955,20 +955,20 @@ PanelWindow {
                                     ]
                                     Rectangle {
                                         width: (parent.parent.width - 6) / 2; height: 44
-                                        color: "#060d1a"
-                                        border.color: modelData.val > modelData.danger ? "#cc2222" : "#0d1f35"
+                                        color: "#1e2030"
+                                        border.color: modelData.val > modelData.danger ? "#ed8796" : "#363a4f"
                                         border.width: 1
                                         Column {
                                             anchors.centerIn: parent; spacing: 2
                                             Text {
                                                 text: modelData.val + "°"
-                                                font.pixelSize: 18; color: modelData.val > modelData.danger ? "#ff4422" : "#cc7722"
+                                                font.pixelSize: 18; color: modelData.val > modelData.danger ? "#ed8796" : "#cc7722"
                                                 font.family: "monospace"; font.weight: Font.Bold
                                                 anchors.horizontalCenter: parent.horizontalCenter
                                             }
                                             Text {
                                                 text: modelData.lbl + ".TMP"
-                                                font.pixelSize: 7; color: "#1e4060"
+                                                font.pixelSize: 7; color: "#a5adcb"
                                                 font.family: "monospace"; font.letterSpacing: 1
                                                 anchors.horizontalCenter: parent.horizontalCenter
                                             }
@@ -982,44 +982,44 @@ PanelWindow {
                                 width: parent.width; spacing: 2
                                 Row {
                                     spacing: 4
-                                    Text { text: "DISK"; font.pixelSize: 8; color: "#1e4a6a"; font.family: "monospace"; font.letterSpacing: 2 }
-                                    Text { text: root.diskPct + "%"; font.pixelSize: 8; color: "#4488aa"; font.family: "monospace" }
-                                    Text { text: "   SWAP"; font.pixelSize: 8; color: "#1e4a6a"; font.family: "monospace"; font.letterSpacing: 2 }
-                                    Text { text: root.swapPct + "%"; font.pixelSize: 8; color: "#4488aa"; font.family: "monospace" }
+                                    Text { text: "DISK"; font.pixelSize: 8; color: "#a5adcb"; font.family: "monospace"; font.letterSpacing: 2 }
+                                    Text { text: root.diskPct + "%"; font.pixelSize: 8; color: "#a5adcb"; font.family: "monospace" }
+                                    Text { text: "   SWAP"; font.pixelSize: 8; color: "#a5adcb"; font.family: "monospace"; font.letterSpacing: 2 }
+                                    Text { text: root.swapPct + "%"; font.pixelSize: 8; color: "#a5adcb"; font.family: "monospace" }
                                 }
                                 Item {
                                     width: parent.width; height: 8
-                                    Rectangle { anchors.fill: parent; color: "#060d1a"; border.color: "#0d1f35"; border.width: 1 }
+                                    Rectangle { anchors.fill: parent; color: "#1e2030"; border.color: "#363a4f"; border.width: 1 }
                                     Rectangle {
                                         width: parent.width * root.diskPct / 100; height: parent.height
-                                        color: "#cc8822"
+                                        color: "#eed49f"
                                     }
                                 }
                             }
 
                             Row {
                                 spacing: 4
-                                Text { text: "R"; font.pixelSize: 8; color: "#1e4a6a"; font.family: "monospace" }
-                                Text { text: root.diskRead + " KB/s"; font.pixelSize: 8; color: "#4488aa"; font.family: "monospace" }
-                                Text { text: "W"; font.pixelSize: 8; color: "#1e4a6a"; font.family: "monospace" }
-                                Text { text: root.diskWrite + " KB/s"; font.pixelSize: 8; color: "#cc8822"; font.family: "monospace" }
+                                Text { text: "R"; font.pixelSize: 8; color: "#a5adcb"; font.family: "monospace" }
+                                Text { text: root.diskRead + " KB/s"; font.pixelSize: 8; color: "#a5adcb"; font.family: "monospace" }
+                                Text { text: "W"; font.pixelSize: 8; color: "#a5adcb"; font.family: "monospace" }
+                                Text { text: root.diskWrite + " KB/s"; font.pixelSize: 8; color: "#eed49f"; font.family: "monospace" }
                             }
 
                             // Load avg + uptime inline
                             Row {
                                 spacing: 8
-                                Text { text: "LOAD"; font.pixelSize: 8; color: "#1e4060"; font.family: "monospace" }
-                                Text { text: root.loadAvg.toFixed(2); font.pixelSize: 9; color: "#3a80cc"; font.family: "monospace" }
-                                Text { text: "UP"; font.pixelSize: 8; color: "#1e4060"; font.family: "monospace" }
-                                Text { text: root.uptime; font.pixelSize: 9; color: "#22aa66"; font.family: "monospace" }
+                                Text { text: "LOAD"; font.pixelSize: 8; color: "#a5adcb"; font.family: "monospace" }
+                                Text { text: root.loadAvg.toFixed(2); font.pixelSize: 9; color: "#8aadf4"; font.family: "monospace" }
+                                Text { text: "UP"; font.pixelSize: 8; color: "#a5adcb"; font.family: "monospace" }
+                                Text { text: root.uptime; font.pixelSize: 9; color: "#a6da95"; font.family: "monospace" }
                             }
 
                             Row {
                                 spacing: 8
-                                Text { text: "PROCS"; font.pixelSize: 8; color: "#1e4060"; font.family: "monospace" }
-                                Text { text: root.procs + ""; font.pixelSize: 9; color: "#5588aa"; font.family: "monospace" }
-                                Text { text: "KRN"; font.pixelSize: 8; color: "#1e4060"; font.family: "monospace" }
-                                Text { text: root.kernelVer; font.pixelSize: 8; color: "#5588aa"; font.family: "monospace" }
+                                Text { text: "PROCS"; font.pixelSize: 8; color: "#a5adcb"; font.family: "monospace" }
+                                Text { text: root.procs + ""; font.pixelSize: 9; color: "#8aadf4"; font.family: "monospace" }
+                                Text { text: "KRN"; font.pixelSize: 8; color: "#a5adcb"; font.family: "monospace" }
+                                Text { text: root.kernelVer; font.pixelSize: 8; color: "#8aadf4"; font.family: "monospace" }
                             }
                         }
                     }
@@ -1030,7 +1030,7 @@ PanelWindow {
                         Rectangle {
                             anchors.centerIn: parent
                             width: 1; height: parent.height - 16
-                            color: "#0f1e32"
+                            color: "#24273a"
                         }
                     }
 
@@ -1101,7 +1101,7 @@ PanelWindow {
                                         var gy = height - (g / 4) * height
                                         ctx.beginPath()
                                         ctx.moveTo(0, gy); ctx.lineTo(width, gy)
-                                        ctx.strokeStyle = "#0a1828"
+                                        ctx.strokeStyle = "#1e2030"
                                         ctx.lineWidth = 1
                                         ctx.stroke()
                                     }
@@ -1109,7 +1109,7 @@ PanelWindow {
                                     // Separator tengah
                                     ctx.beginPath()
                                     ctx.moveTo(width/2, 0); ctx.lineTo(width/2, height)
-                                    ctx.strokeStyle = "#0f1e32"
+                                    ctx.strokeStyle = "#24273a"
                                     ctx.lineWidth = 1
                                     ctx.stroke()
 
@@ -1135,7 +1135,7 @@ PanelWindow {
 
                                     // Labels
                                     ctx.font = "9px monospace"
-                                    ctx.fillStyle = "#2266cc"
+                                    ctx.fillStyle = "#8aadf4"
                                     ctx.fillText("▼ " + (root.netDown >= 1024 ? (root.netDown/1024).toFixed(1)+"MB/s" : root.netDown+"KB/s"), 2, 11)
 
                                     ctx.fillStyle = "#cc4422"
@@ -1144,7 +1144,7 @@ PanelWindow {
 
                                     // Peak
                                     var pkTxt = peak >= 1024 ? (peak/1024).toFixed(1)+"MB/s" : peak+"KB/s"
-                                    ctx.fillStyle = "#1a3a5a"
+                                    ctx.fillStyle = "#363a4f"
                                     ctx.font = "8px monospace"
                                     ctx.fillText("pk:"+pkTxt, 2, height - 2)
                                 }
@@ -1157,8 +1157,8 @@ PanelWindow {
 
                             Rectangle {
                                 width: 64; height: 52
-                                color: "#060d1a"
-                                border.color: "#1a3a5a"; border.width: 1
+                                color: "#1e2030"
+                                border.color: "#363a4f"; border.width: 1
                                 Canvas {
                                     anchors.fill: parent
                                     onPaint: {
@@ -1166,23 +1166,23 @@ PanelWindow {
                                         ctx.clearRect(0,0,width,height)
                                         ctx.beginPath()
                                         ctx.moveTo(width-8,0); ctx.lineTo(width,8)
-                                        ctx.strokeStyle="#1a3a5a"; ctx.lineWidth=1; ctx.stroke()
+                                        ctx.strokeStyle="#363a4f"; ctx.lineWidth=1; ctx.stroke()
                                         ctx.beginPath()
                                         ctx.moveTo(width-8,0); ctx.lineTo(width,0); ctx.lineTo(width,8)
-                                        ctx.closePath(); ctx.fillStyle="#0b1120"; ctx.fill()
+                                        ctx.closePath(); ctx.fillStyle="#24273a"; ctx.fill()
                                     }
                                 }
                                 Column {
                                     anchors.centerIn: parent; spacing: 2
                                     Text {
                                         text: root.activeTcp + ""
-                                        font.pixelSize: 20; color: "#3a80ff"
+                                        font.pixelSize: 20; color: "#8aadf4"
                                         font.family: "monospace"; font.weight: Font.Bold
                                         anchors.horizontalCenter: parent.horizontalCenter
                                     }
                                     Text {
                                         text: "CONNS"
-                                        font.pixelSize: 7; color: "#1a3a5a"
+                                        font.pixelSize: 7; color: "#363a4f"
                                         font.family: "monospace"; font.letterSpacing: 2
                                         anchors.horizontalCenter: parent.horizontalCenter
                                     }
@@ -1193,26 +1193,26 @@ PanelWindow {
                                 spacing: 5; anchors.verticalCenter: parent.verticalCenter
                                 Row {
                                     spacing: 5
-                                    Text { text: "IFACE"; font.pixelSize: 8; color: "#1e4060"; font.family: "monospace" }
-                                    Text { text: root.iface; font.pixelSize: 9; color: "#4488aa"; font.family: "monospace" }
+                                    Text { text: "IFACE"; font.pixelSize: 8; color: "#a5adcb"; font.family: "monospace" }
+                                    Text { text: root.iface; font.pixelSize: 9; color: "#a5adcb"; font.family: "monospace" }
                                 }
                                 Row {
                                     spacing: 5
-                                    Text { text: "PUB.IP"; font.pixelSize: 8; color: "#1e4060"; font.family: "monospace" }
+                                    Text { text: "PUB.IP"; font.pixelSize: 8; color: "#a5adcb"; font.family: "monospace" }
                                     Text {
                                         text: root.pubIp
                                         font.pixelSize: 9
-                                        color: root.vpnActive ? "#22aa66" : "#cc2222"
+                                        color: root.vpnActive ? "#a6da95" : "#ed8796"
                                         font.family: "monospace"
                                     }
                                 }
                                 Row {
                                     spacing: 5
-                                    Text { text: "BAT"; font.pixelSize: 8; color: "#1e4060"; font.family: "monospace" }
+                                    Text { text: "BAT"; font.pixelSize: 8; color: "#a5adcb"; font.family: "monospace" }
                                     Text {
                                         text: root.batPct + "%"
                                         font.pixelSize: 9
-                                        color: root.batPct < 20 ? "#cc2222" : "#4488aa"
+                                        color: root.batPct < 20 ? "#ed8796" : "#a5adcb"
                                         font.family: "monospace"
                                     }
                                 }
@@ -1228,7 +1228,7 @@ PanelWindow {
                                 anchors.centerIn: parent; spacing: 8
                                 Rectangle {
                                     width: 6; height: 6; anchors.verticalCenter: parent.verticalCenter
-                                    color: root.vpnActive ? "#22cc66" : "#cc2222"
+                                    color: root.vpnActive ? "#a6da95" : "#ed8796"
                                     SequentialAnimation on opacity {
                                         running: !root.vpnActive
                                         loops: Animation.Infinite
@@ -1239,7 +1239,7 @@ PanelWindow {
                                 Text {
                                     text: root.vpnActive ? "VPN ACTIVE — IDENTITY MASKED" : "!! WARN: REAL IP EXPOSED"
                                     font.pixelSize: 9
-                                    color: root.vpnActive ? "#1a8844" : "#cc2222"
+                                    color: root.vpnActive ? "#a6da95" : "#ed8796"
                                     font.family: "monospace"; font.letterSpacing: 1
                                 }
                             }
@@ -1250,8 +1250,8 @@ PanelWindow {
                             spacing: 6
                             Repeater {
                                 model: [
-                                    { lbl: "VPN", on: root.vpnActive, col: "#22aa66" },
-                                    { lbl: "TOR", on: false,           col: "#8866cc" }
+                                    { lbl: "VPN", on: root.vpnActive, col: "#a6da95" },
+                                    { lbl: "TOR", on: false,           col: "#c6a0f6" }
                                 ]
                                 Rectangle {
                                     height: 18
@@ -1259,13 +1259,13 @@ PanelWindow {
                                     color: modelData.on ? Qt.rgba(
                                         parseInt(modelData.col.slice(1,3),16)/255,
                                         parseInt(modelData.col.slice(3,5),16)/255,
-                                        parseInt(modelData.col.slice(5,7),16)/255, 0.15) : "#060d1a"
-                                    border.color: modelData.on ? modelData.col : "#0d1e30"; border.width: 1
+                                        parseInt(modelData.col.slice(5,7),16)/255, 0.15) : "#1e2030"
+                                    border.color: modelData.on ? modelData.col : "#363a4f"; border.width: 1
                                     Text {
                                         id: badgeTxt
                                         anchors.centerIn: parent
                                         text: modelData.lbl
-                                        font.pixelSize: 8; color: modelData.on ? modelData.col : "#1a2a3a"
+                                        font.pixelSize: 8; color: modelData.on ? modelData.col : "#363a4f"
                                         font.family: "monospace"; font.letterSpacing: 2
                                     }
                                 }

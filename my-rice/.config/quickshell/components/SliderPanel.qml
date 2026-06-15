@@ -99,8 +99,8 @@ PanelWindow {
         Rectangle {
             anchors.fill: parent
             radius: 14
-            color: "#0d1117"
-            border.color: "#30363d"
+            color: "#24273a"
+            border.color: "#363a4f"
             border.width: 1
 
             HoverHandler {
@@ -163,8 +163,8 @@ PanelWindow {
                         anchors { horizontalCenter: parent.horizontalCenter; bottom: parent.bottom; bottomMargin: 4 }
                         width: 28; height: 140
                         radius: 8
-                        color: "#0a0e1a"
-                        border.color: "#1e3a5a"
+                        color: "#1e2030"
+                        border.color: "#363a4f"
                         border.width: 1
                         clip: true
 
@@ -258,8 +258,8 @@ PanelWindow {
                     Rectangle {
                         anchors { horizontalCenter: parent.horizontalCenter; bottom: volBottle.top }
                         width: 14; height: 16
-                        color: "#0a0e1a"
-                        border.color: "#1e3a5a"
+                        color: "#1e2030"
+                        border.color: "#363a4f"
                         border.width: 1
                         radius: 3
                     }
@@ -278,7 +278,7 @@ PanelWindow {
                         anchors { horizontalCenter: parent.horizontalCenter; bottom: parent.bottom; bottomMargin: 4 }
                         width: 28; height: 140
                         radius: 8
-                        color: "#0a0e1a"
+                        color: "#1e2030"
                         border.color: "#2a1a3a"
                         border.width: 1
                         clip: true
@@ -373,7 +373,7 @@ PanelWindow {
                     Rectangle {
                         anchors { horizontalCenter: parent.horizontalCenter; bottom: brightBottle.top }
                         width: 14; height: 16
-                        color: "#0a0e1a"
+                        color: "#1e2030"
                         border.color: "#2a1a3a"
                         border.width: 1
                         radius: 3

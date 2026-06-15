@@ -1,31 +1,30 @@
 pragma Singleton
 import Quickshell
-
 Singleton {
-    // Base
-    property string bg:          "#1a1a2e"   // background utama
-    property string surface:     "#16213e"   // surface/card
-    property string border:      "#0f3460"   // border
+    // Base — Catppuccin Macchiato
+    property string bg:          "#24273a"   // Macchiato Base
+    property string surface:     "#1e2030"   // Macchiato Mantle
+    property string border:      "#363a4f"   // Macchiato Surface0
 
     // Glass panel
-    property string panelBg:     "#aa1a1a2e" // panel transparan
-    property string panelBorder: "#33ffffff"
+    property string panelBg:     "#aa24273a"
+    property string panelBorder: "#44cad3f5"
 
     // Workspace
-    property string wsBg:        "#33ffffff"  // workspace kosong
-    property string wsActive:    "#ccffffff"  // workspace aktif
+    property string wsBg:        "#33cad3f5"  // Surface teks muted
+    property string wsActive:    "#cccad3f5"  // Text
 
     // Text
-    property string textPrimary:   "#ffffff"
-    property string textSecondary: "#aaaacc"
+    property string textPrimary:   "#cad3f5"  // Text
+    property string textSecondary: "#a5adcb"  // Subtext1
 
-    // Accent
-    property string accent:      "#e94560"
-    property string accentDim:   "#99e94560"
+    // Accent — Macchiato Mauve
+    property string accent:      "#c6a0f6"
+    property string accentDim:   "#99c6a0f6"
 
     // Status
-    property string batteryOk:   "#a8e6cf"
-    property string batteryLow:  "#ff8b94"
-    property string wifiOn:      "#a8e6cf"
-    property string wifiOff:     "#ff8b94"
+    property string batteryOk:   "#a6da95"   // Green
+    property string batteryLow:  "#ed8796"   // Red
+    property string wifiOn:      "#a6da95"   // Green
+    property string wifiOff:     "#ed8796"   // Red
 }

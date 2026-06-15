@@ -141,7 +141,7 @@ end
 
 abbr tests '/usr/local/bin/test.sh'
 alias subv='uv run app/main.py'
-alias c='clear'
+alias c='clear && printf "\033[3J"'
 alias search='pacman -Ss'
 alias arch-cleaner='arch-cleaner.sh'
 alias nullthis='nullthis.sh'

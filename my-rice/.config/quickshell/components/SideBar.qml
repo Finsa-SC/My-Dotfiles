@@ -149,6 +149,7 @@ PanelWindow {
         border.width: 1
 
         property string currentMode: "full"
+        property bool simple: modePill.currentMode === "minimal"
 
         Process {
             id: readModeProc
@@ -228,7 +229,7 @@ PanelWindow {
 
         property bool isCharging: false
         property color surgeColor: '#90f4ff'
-        property bool simple: false
+        property bool simple: modePill.currentMode === "minimal"
 
         property bool triggerLightning: false
         Timer {
@@ -316,90 +317,96 @@ PanelWindow {
                 ctx.closePath()
                 ctx.clip()
 
-                var y0 = height - fillHeight
-                var amp = 2
-                var freq = 0.4
+                if (batteryPill.simple) {
+                    ctx.fillStyle = Qt.rgba(waveCanvas.fillColor.r, waveCanvas.fillColor.g, waveCanvas.fillColor.b, 0.85)
+                    ctx.fillRect(0, height - waveCanvas.fillHeight, width, waveCanvas.fillHeight)
+                } else {
 
-                // Wave 1
-                ctx.beginPath()
-                ctx.moveTo(0, height)
-                ctx.lineTo(0, y0 + amp * Math.sin(batteryPill.waveOffset))
-                for (var x = 0; x <= width; x++) {
-                    var wx = batteryPill.waveOffset + (x / width) * Math.PI * 2 * freq
-                    ctx.lineTo(x, y0 + amp * Math.sin(wx))
-                }
-                ctx.lineTo(width, height)
-                ctx.closePath()
-                ctx.fillStyle = Qt.rgba(fillColor.r, fillColor.g, fillColor.b, 0.85)
-                ctx.fill()
+                    var y0 = height - fillHeight
+                    var amp = 2
+                    var freq = 0.4
 
-                // Wave 2
-                ctx.beginPath()
-                ctx.moveTo(0, height)
-                ctx.lineTo(0, y0 + amp * Math.sin(batteryPill.waveOffset + 1))
-                for (var x2 = 0; x2 <= width; x2++) {
-                    var wx2 = batteryPill.waveOffset + 1 + (x2 / width) * Math.PI * 2 * freq
-                    ctx.lineTo(x2, y0 + amp * Math.sin(wx2))
-                }
-                ctx.lineTo(width, height)
-                ctx.closePath()
-                ctx.fillStyle = Qt.rgba(fillColor.r, fillColor.g, fillColor.b, 0.4)
-                ctx.fill()
-
-                // Wafe extra: charging surge
-                if (batteryPill.isCharging) {
-                    var surgeY = height - (fillHeight * batteryPill.chargeProgress)
-                    
+                    // Wave 1
                     ctx.beginPath()
                     ctx.moveTo(0, height)
-                    ctx.lineTo(0, surgeY + (amp * 1.5) * Math.sin(batteryPill.waveOffset * 2))
-                    for (var xs = 0; xs <= width; xs++) {
-                        var wxs = (batteryPill.waveOffset * 2) + (xs / width) * Math.PI * 2 * (freq * 1.2)
-                        ctx.lineTo(xs, surgeY + (amp * 1.5) * Math.sin(wxs))
+                    ctx.lineTo(0, y0 + amp * Math.sin(batteryPill.waveOffset))
+                    for (var x = 0; x <= width; x++) {
+                        var wx = batteryPill.waveOffset + (x / width) * Math.PI * 2 * freq
+                        ctx.lineTo(x, y0 + amp * Math.sin(wx))
                     }
                     ctx.lineTo(width, height)
                     ctx.closePath()
-                    
-                    var fadeFactor = 0.4 * (1.0 - batteryPill.chargeProgress)
-                    ctx.fillStyle = Qt.rgba(batteryPill.surgeColor.r, batteryPill.surgeColor.g, batteryPill.surgeColor.b, fadeFactor)
+                    ctx.fillStyle = Qt.rgba(fillColor.r, fillColor.g, fillColor.b, 0.85)
                     ctx.fill()
-                }
 
-                if (batteryPill.isCharging && batteryPill.triggerLightning) {
-                    ctx.save()
-                    
-                    var curY = 0
-                    var curX = (width / 2) + (Math.random() * 10 - 5)
-                    var targetY = height
-                    
+                    // Wave 2
                     ctx.beginPath()
-                    ctx.moveTo(curX, curY)
-                    
-                    while (curY < targetY) {
-                        curY += Math.random() * 12 + 6 // Jarak lompatan vertikal patahan petir
-                        if (curY > targetY) curY = targetY
-                      
-                        var glitchFactor = (Math.random() > 0.85) ? 14 : 5
-                        curX += (Math.random() * (glitchFactor * 2) - glitchFactor)
-                      
-                        if (curX < 4) curX = 4
-                        if (curX > width - 4) curX = width - 4
+                    ctx.moveTo(0, height)
+                    ctx.lineTo(0, y0 + amp * Math.sin(batteryPill.waveOffset + 1))
+                    for (var x2 = 0; x2 <= width; x2++) {
+                        var wx2 = batteryPill.waveOffset + 1 + (x2 / width) * Math.PI * 2 * freq
+                        ctx.lineTo(x2, y0 + amp * Math.sin(wx2))
+                    }
+                    ctx.lineTo(width, height)
+                    ctx.closePath()
+                    ctx.fillStyle = Qt.rgba(fillColor.r, fillColor.g, fillColor.b, 0.4)
+                    ctx.fill()
+
+                    // Wafe extra: charging surge
+                    if (batteryPill.isCharging) {
+                        var surgeY = height - (fillHeight * batteryPill.chargeProgress)
                         
-                        ctx.lineTo(curX, curY)
+                        ctx.beginPath()
+                        ctx.moveTo(0, height)
+                        ctx.lineTo(0, surgeY + (amp * 1.5) * Math.sin(batteryPill.waveOffset * 2))
+                        for (var xs = 0; xs <= width; xs++) {
+                            var wxs = (batteryPill.waveOffset * 2) + (xs / width) * Math.PI * 2 * (freq * 1.2)
+                            ctx.lineTo(xs, surgeY + (amp * 1.5) * Math.sin(wxs))
+                        }
+                        ctx.lineTo(width, height)
+                        ctx.closePath()
+                        
+                        var fadeFactor = 0.4 * (1.0 - batteryPill.chargeProgress)
+                        ctx.fillStyle = Qt.rgba(batteryPill.surgeColor.r, batteryPill.surgeColor.g, batteryPill.surgeColor.b, fadeFactor)
+                        ctx.fill()
                     }
 
-                    // Render Efek Glow Luar Petir
-                    ctx.lineWidth = 3.5
-                    ctx.strokeStyle = Qt.rgba(0, 0.9, 1.0, 0.4)
-                    ctx.lineJoin = "miter"
-                    ctx.stroke()
+                    if (batteryPill.isCharging && batteryPill.triggerLightning) {
+                        ctx.save()
+                        
+                        var curY = 0
+                        var curX = (width / 2) + (Math.random() * 10 - 5)
+                        var targetY = height
+                        
+                        ctx.beginPath()
+                        ctx.moveTo(curX, curY)
+                        
+                        while (curY < targetY) {
+                            curY += Math.random() * 12 + 6 // Jarak lompatan vertikal patahan petir
+                            if (curY > targetY) curY = targetY
+                        
+                            var glitchFactor = (Math.random() > 0.85) ? 14 : 5
+                            curX += (Math.random() * (glitchFactor * 2) - glitchFactor)
+                        
+                            if (curX < 4) curX = 4
+                            if (curX > width - 4) curX = width - 4
+                            
+                            ctx.lineTo(curX, curY)
+                        }
 
-                    // Render Inti Dalam Petir
-                    ctx.lineWidth = 1.2
-                    ctx.strokeStyle = "#ffffff"
-                    ctx.stroke()
-                    
-                    ctx.restore()
+                        // Render Efek Glow Luar Petir
+                        ctx.lineWidth = 3.5
+                        ctx.strokeStyle = Qt.rgba(0, 0.9, 1.0, 0.4)
+                        ctx.lineJoin = "miter"
+                        ctx.stroke()
+
+                        // Render Inti Dalam Petir
+                        ctx.lineWidth = 1.2
+                        ctx.strokeStyle = "#ffffff"
+                        ctx.stroke()
+                        
+                        ctx.restore()
+                    }
                 }
             }
 
@@ -412,6 +419,10 @@ PanelWindow {
             Connections {
                 target: sideBar
                 function onBatteryLevelChanged() { waveCanvas.requestPaint() }
+            }
+            Connections {
+                target: modePill
+                function onCurrentModeChanged() { waveCanvas.requestPaint() }
             }
         }
 

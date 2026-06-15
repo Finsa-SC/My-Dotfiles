@@ -39,6 +39,7 @@ pacman pipewire-jack
 pacman wireplumber
 pacman pavucontrol
 pacman gst-plugin-pipewire
+pacman easyeffects
 
 # ── Bluetooth
 pacman bluez
@@ -82,14 +83,13 @@ pacman mpv
 pacman dolphin
 pacman yt-dlp
 pacman nsxiv
-pacman easyeffects
 
 # ── Applications
 pacman ffmpegthumbs
 pacman kdegraphics-thumbnailers
-pacman firefox
 pacman pycharm-community-edition
 pacman proton-vpn-gtk-app
+yay zen-browser-bin
 
 # ── Optional
 #pacman steam

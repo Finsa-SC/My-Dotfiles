@@ -727,14 +727,14 @@ PanelWindow {
                 // GIF
                 AnimatedImage {
                     id: gifImage
-                    property real targetSize: Quickshell.screens[0].width * 0.10
+                    property real targetSize: Quickshell.screens[0].width * 0.12
                     
                     width: targetSize
                     height: targetSize
                     
-                    x: expandPanel.lyricLines.length === 0 ? (parent.width * 0.15) : 0
+                    x: expandPanel.lyricLines.length === 0 ? (parent.width * 0.13) : 0
                     anchors.top: parent.top
-                    anchors.topMargin: 90
+                    anchors.topMargin: 76
                     
                     Behavior on x {
                         NumberAnimation { duration: 300; easing.type: Easing.OutQuart }

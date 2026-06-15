@@ -70,9 +70,6 @@ pacman grim
 pacman slurp
 pacman swappy
 
-# ── Notification
-pacman mako
-
 # ── Fonts & Icons
 pacman ttf-jetbrains-mono-nerd
 pacman ttf-nerd-fonts-symbols
@@ -80,8 +77,14 @@ pacman noto-fonts
 pacman noto-fonts-emoji
 pacman papirus-icon-theme
 
-# ── Applications
+# ── Media
+pacman mpv
 pacman dolphin
+pacman yt-dlp
+pacman nsxiv
+pacman easyeffects
+
+# ── Applications
 pacman ffmpegthumbs
 pacman kdegraphics-thumbnailers
 pacman firefox
@@ -89,6 +92,6 @@ pacman pycharm-community-edition
 pacman proton-vpn-gtk-app
 
 # ── Optional
-optional steam
-optional obs-studio
-optional gimp
+#pacman steam
+#aur python310
+#pacman uv

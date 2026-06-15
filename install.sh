@@ -229,9 +229,9 @@ move_wallpapers() {
 setup_fastfetch() {
     section "Setting up fastfetch"
 
-    local template="$CONFIG/fastfetch/config.json.template"
+    local template="$CONFIG/fastfetch/config.jsonc.template"
     local out_dir="$HOME/.config/fastfetch"
-    local out="$out_dir/config.json"
+    local out="$out_dir/config.jsonc"
 
     if [ ! -f "$template" ]; then
         warn "fastfetch template not found at $template, skipping"

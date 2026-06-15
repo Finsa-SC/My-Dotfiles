@@ -228,6 +228,7 @@ PanelWindow {
 
         property bool isCharging: false
         property color surgeColor: '#90f4ff'
+        property bool simple: false
 
         property bool triggerLightning: false
         Timer {
@@ -268,10 +269,10 @@ PanelWindow {
         // Wave animation
         property real waveOffset: 0
         NumberAnimation on waveOffset {
+            running: !batteryPill.simple
             from: 0; to: Math.PI * 2
             duration: 4000
             loops: Animation.Infinite
-            running: true
         }
 
         property real chargeProgress: 0
@@ -279,7 +280,7 @@ PanelWindow {
             from: 0; to: 1.0
             duration: 2500
             loops: Animation.Infinite
-            running: batteryPill.isCharging
+            running: batteryPill.isCharging && !batteryPill.simple
         }
 
         Canvas {

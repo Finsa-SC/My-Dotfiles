@@ -113,7 +113,7 @@ PanelWindow {
                         sliderPanel.isFullHeight = true
                         sliderPanel.expandRequested()
                         rotateTimer.start()
-                    } else if (translation.x > 30 && sliderPanel.panelExpanded) {
+                    } else if (translation.x > 30 && sliderPanel.panelExpanded && sliderPanel.isRotated) {
                         sliderPanel.isRotated = false
                         collapseTimer.start()
                     }

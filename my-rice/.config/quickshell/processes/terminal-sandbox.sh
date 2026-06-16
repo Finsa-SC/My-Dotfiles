@@ -1,30 +1,8 @@
 #!/bin/bash
-exec kitty --detach --title="Sandbox" -- bwrap \
-  --tmpfs / \
-  --ro-bind /usr /usr \
-  --ro-bind /etc /etc \
-  --symlink usr/bin /bin \
-  --symlink usr/lib /lib \
-  --symlink usr/lib64 /lib64 \
-  --dev /dev \
-  --proc /proc \
-  --tmpfs /tmp \
-  --tmpfs /root \
-  --tmpfs /home \
-  --tmpfs /home/silence-suzuka \
-  --tmpfs /home/silence-suzuka/.config \
-  --tmpfs /home/silence-suzuka/.config/fish-sandbox \
-  --tmpfs /home/silence-suzuka/.config/fish-sandbox/fish \
-  --tmpfs /home/silence-suzuka/.config/fish-sandbox/fish/conf.d \
-  --ro-bind "$HOME/Project/dotfiles/my-rice/.config/fish-sandbox/fish/config.fish" "/home/silence-suzuka/.config/fish-sandbox/fish/config.fish" \
-  --ro-bind "$HOME/Project/dotfiles/my-rice/.config/fish-sandbox/ascii.txt" "/home/silence-suzuka/.config/fish-sandbox/ascii.txt" \
-  --ro-bind "$HOME/.config/fish/conf.d/notify_broker.fish" "/home/silence-suzuka/.config/fish-sandbox/fish/conf.d/notify_broker.fish" \
-  --ro-bind "$HOME" "/home/silence-suzuka/real" \
-  --unshare-pid \
-  --setenv SANDBOX 1 \
-  --setenv HOME /home/silence-suzuka \
-  --setenv HISTFILE /dev/null \
-  --setenv HISTSIZE 0 \
-  --setenv HISTFILESIZE 0 \
-  --setenv XDG_CONFIG_HOME /home/silence-suzuka/.config/fish-sandbox \
-  -- fish
+exec kitty --detach --title="Sandbox" -- podman run --rm -it \
+  --volume "$HOME:/home/silence-suzuka/real:ro" \
+  --volume "$HOME/Project/dotfiles/my-rice/.config/fish-sandbox/fish/config.fish:/root/.config/fish/config.fish:ro" \
+  --volume "$HOME/Project/dotfiles/my-rice/.config/fish-sandbox/ascii.txt:/root/.config/fish-sandbox/ascii.txt:ro" \
+  --volume "/usr/bin:/usr/bin/host:ro" \
+  localhost/kali-fish \
+  fish

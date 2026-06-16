@@ -290,7 +290,7 @@ link_configs() {
         return
     fi
 
-    local skip_list=("Wallpapers" "fastfetch" "assets")
+    local skip_list=("Wallpapers" "fastfetch" "assets" "fish-sandbox")
 
     for src in "$CONFIG"/*/; do
         local name dst
@@ -345,14 +345,15 @@ link_fish_sandbox() {
     local dst_dir="$HOME/.config/fish-sandbox/fish"
     mkdir -p "$dst_dir/conf.d"
 
-    # config.fish
+    # Copy config.fish (bukan symlink, hindari loop)
     local src="$CONFIG/fish-sandbox/fish/config.fish"
     local dst="$dst_dir/config.fish"
-    if [ -e "$dst" ] && [ ! -L "$dst" ]; then
-        mv "$dst" "${dst}.bak"
-    fi
-    ln -sfn "$src" "$dst"
+    cp "$src" "$dst"
     success "fish-sandbox config.fish ${DIM}→ $dst${RESET}"
+
+    # hardlink notify_broker.fish ke conf.d sandbox
+    ln -f "$CONFIG/fish/conf.d/notify_broker.fish" "$dst_dir/conf.d/notify_broker.fish"
+    success "notify_broker.fish ${DIM}→ fish-sandbox/conf.d${RESET}"
 }
 
 # ── Link root-level rice assets
@@ -397,7 +398,7 @@ link_hypr() {
 # ── Main
 case "${1:-all}" in
     packages)  install_packages ;;
-    links)     link_configs; link_hypr; link_assets; link_rice_assets ;;
+    links) link_configs; link_hypr; link_assets; link_rice_assets; link_fish_sandbox ;;
     dirs)      init_dirs; move_wallpapers ;;
     fastfetch) setup_fastfetch ;;
     sddm)      setup_sddm ;;

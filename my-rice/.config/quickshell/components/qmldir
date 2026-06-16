@@ -18,3 +18,7 @@ ProcessRow 1.0 ProcessRow.qml
 OneshotRunner 1.0 OneshotRunner.qml
 ServiceRunner 1.0 ServiceRunner.qml
 ClipboardHistory 1.0 ClipboardHistory.qml
+PentestPanel 1.0 PentestPanel.qml
+PentestField 1.0 PentestField.qml
+GroupLabel 1.0 GroupLabel.qml
+PentestTrigger 1.0 PentestTrigger.qml

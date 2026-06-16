@@ -20,6 +20,13 @@ PanelWindow {
     exclusiveZone: 28
     color: "transparent"
 
+    property var now: new Date()
+
+    Timer {
+        interval: 1000; running: true; repeat: true
+        onTriggered: sideBar.now = new Date()
+    }
+
     property int batteryLevel: 100
     property bool wsExpanded: false
 
@@ -90,10 +97,46 @@ PanelWindow {
         }
     }
 
+    Rectangle {
+        id: pentestPill
+        anchors {
+            top: wsPill.bottom
+            horizontalCenter: parent.horizontalCenter
+        }
+        anchors.topMargin: 8
+        width: 38; height: 38
+        radius: 12
+        color: Colors.panelBg
+        border.color: Colors.panelBorder
+        border.width: 1
+
+
+        Text {
+            anchors.centerIn: parent
+            text: "⚘"
+            font.pixelSize: 24
+            color: modePill.currentMode === "full" ? "#e05c5c" : '#936d6d'
+        }
+        opacity: modePill.currentMode === "full" ? 1.0 : 0.5
+        Behavior on opacity { NumberAnimation { duration: 300 } }
+
+        MouseArea {
+            anchors.fill: parent
+            cursorShape: Qt.PointingHandCursor
+            onClicked: togglePentest.running = !togglePentest.running
+        }
+
+        Process {
+            id: togglePentest
+            command: ["bash", "-c", "qs ipc call pentest toggle"]
+            running: false
+        }
+    }
+
     // ─── Clock pill ───
     Rectangle {
         anchors {
-            top: wsPill.bottom
+            top: pentestPill.bottom
             horizontalCenter: parent.horizontalCenter
         }
         anchors.topMargin: 8
@@ -109,19 +152,19 @@ PanelWindow {
 
             Text {
                 anchors.horizontalCenter: parent.horizontalCenter
-                text: Qt.formatTime(new Date(), "HH")
+                text: Qt.formatTime(sideBar.now, "HH")
                 font.pixelSize: 13; font.bold: true
                 color: Colors.textPrimary
             }
             Text {
                 anchors.horizontalCenter: parent.horizontalCenter
-                text: Qt.formatTime(new Date(), "mm")
+                text: Qt.formatTime(sideBar.now, "mm")
                 font.pixelSize: 13; font.bold: true
                 color: Colors.textPrimary
             }
             Text {
                 anchors.horizontalCenter: parent.horizontalCenter
-                text: Qt.formatDate(new Date(), "ddd")
+                text: Qt.formatDate(sideBar.now, "ddd")
                 font.pixelSize: 9
                 color: Colors.textSecondary
             }

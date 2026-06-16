@@ -149,4 +149,21 @@ ShellRoot {
             else processPanelLoader.item.open()
         }
     }
+
+    Loader {
+        id: pentestLoader
+        active: root.mode === "full"
+        sourceComponent: Component {
+            PentestPanel {}
+        }
+    }
+
+    IpcHandler {
+        target: "pentest"
+        function toggle(): void {
+            if (!pentestLoader.item) return
+            if (pentestLoader.item._open) pentestLoader.item.close()
+            else pentestLoader.item.open()
+        }
+    }
 }

@@ -30,6 +30,13 @@ if status is-interactive
     abbr la 'ls -a'
     abbr lla 'ls -la'
 
+    # ── Auto-load pentest session vars
+    if test -d $XDG_RUNTIME_DIR/pentest-session
+        for f in $XDG_RUNTIME_DIR/pentest-session/*
+            set -gx (basename $f) (cat $f)
+        end
+    end
+
     # ── Prompt (Silence Suzuka Core Anchor + Floating Metrics)
     function fish_prompt
         # Setup Warna Kiri (Fixed Anchor)

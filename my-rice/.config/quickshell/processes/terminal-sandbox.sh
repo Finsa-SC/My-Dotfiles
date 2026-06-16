@@ -19,5 +19,5 @@ exec bwrap \
   --setenv HISTFILE /dev/null \
   --setenv HISTSIZE 0 \
   --setenv HISTFILESIZE 0 \
-  --setenv XDG_CONFIG_HOME /home/silence-suzuka/.config \
+  --setenv XDG_CONFIG_HOME /home/silence-suzuka/.config/fish-sandbox \
   -- fish

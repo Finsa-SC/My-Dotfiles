@@ -1,4 +1,5 @@
 if status is-interactive
+    cat $HOME/.config/fish-sandbox/ascii.txt
     set -g fish_greeting ""
 
     # Direnv + Zoxide (Hanya jalan jika binary-nya di-expose ke sandbox)

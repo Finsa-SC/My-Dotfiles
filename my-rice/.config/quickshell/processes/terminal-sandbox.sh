@@ -1,6 +1,5 @@
 #!/bin/bash
-REAL_HOME="$HOME"
-exec bwrap \
+exec kitty --detach --title="Sandbox" -- bwrap \
   --tmpfs / \
   --ro-bind /usr /usr \
   --ro-bind /etc /etc \
@@ -12,8 +11,8 @@ exec bwrap \
   --tmpfs /tmp \
   --tmpfs /root \
   --tmpfs /home \
-  --ro-bind "$REAL_HOME" "/home/silence-suzuka/real" \
-  --ro-bind "$REAL_HOME/.config/fish-sandbox" "/home/silence-suzuka/.config/fish-sandbox" \
+  --ro-bind "$HOME" "/home/silence-suzuka/real" \
+  --ro-bind "$HOME/.config/fish-sandbox" "/home/silence-suzuka/.config/fish-sandbox" \
   --unshare-pid \
   --setenv HOME /home/silence-suzuka \
   --setenv HISTFILE /dev/null \

@@ -143,6 +143,17 @@ if status is-interactive
 
     function fish_right_prompt
     end
+    # ── Sandbox notify watcher
+    if not pgrep -f "sandbox-notify-watcher" > /dev/null
+        fish -c '
+            set queue /tmp/sandbox-notify.queue
+            touch $queue
+            tail -f $queue | while read line
+                set parts (string split "|" $line)
+                notify-send --urgency=$parts[1] --icon=$parts[2] --app-name="sandbox" --expire-time=8000 $parts[3] $parts[4]
+            end
+        ' &
+    end
 end
 
 alias subv='uv run app/main.py'

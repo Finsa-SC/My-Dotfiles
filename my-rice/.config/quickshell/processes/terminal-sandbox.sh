@@ -11,9 +11,17 @@ exec kitty --detach --title="Sandbox" -- bwrap \
   --tmpfs /tmp \
   --tmpfs /root \
   --tmpfs /home \
+  --tmpfs /home/silence-suzuka \
+  --tmpfs /home/silence-suzuka/.config \
+  --tmpfs /home/silence-suzuka/.config/fish-sandbox \
+  --tmpfs /home/silence-suzuka/.config/fish-sandbox/fish \
+  --tmpfs /home/silence-suzuka/.config/fish-sandbox/fish/conf.d \
+  --ro-bind "$HOME/Project/dotfiles/my-rice/.config/fish-sandbox/fish/config.fish" "/home/silence-suzuka/.config/fish-sandbox/fish/config.fish" \
+  --ro-bind "$HOME/Project/dotfiles/my-rice/.config/fish-sandbox/ascii.txt" "/home/silence-suzuka/.config/fish-sandbox/ascii.txt" \
+  --ro-bind "$HOME/.config/fish/conf.d/notify_broker.fish" "/home/silence-suzuka/.config/fish-sandbox/fish/conf.d/notify_broker.fish" \
   --ro-bind "$HOME" "/home/silence-suzuka/real" \
-  --ro-bind "$HOME/.config/fish-sandbox" "/home/silence-suzuka/.config/fish-sandbox" \
   --unshare-pid \
+  --setenv SANDBOX 1 \
   --setenv HOME /home/silence-suzuka \
   --setenv HISTFILE /dev/null \
   --setenv HISTSIZE 0 \

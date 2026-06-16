@@ -37,10 +37,6 @@ if status is-interactive
         set -l input_arrow (set_color 00b386 --bold)
         echo -n ╰$input_arrow"﴿ "$reset
     end
-
-    # Matikan prompt kanan bawaan fish biar ga numpuk
-    function fish_right_prompt
-    end
 end
 
 # ── Sandbox Shortcuts & Aliases ──

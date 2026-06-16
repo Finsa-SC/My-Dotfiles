@@ -65,6 +65,13 @@ enable_multilib() {
     success "multilib enabled"
 }
 
+# ── Setup pentest dirs
+setup_pentest() {
+    section "Setting up pentest dirs"
+    mkdir -p "$HOME/.local/share/pentest-sessions"
+    success "pentest-sessions dir created"
+}
+
 # ── Install packages
 install_packages() {
     section "Installing packages"
@@ -331,6 +338,23 @@ link_assets() {
     success "assets ${DIM}→ ~/.config/assets${RESET}"
 }
 
+# ── Link fish-sandbox config
+link_fish_sandbox() {
+    section "Linking fish-sandbox"
+
+    local dst_dir="$HOME/.config/fish-sandbox/fish"
+    mkdir -p "$dst_dir/conf.d"
+
+    # config.fish
+    local src="$CONFIG/fish-sandbox/fish/config.fish"
+    local dst="$dst_dir/config.fish"
+    if [ -e "$dst" ] && [ ! -L "$dst" ]; then
+        mv "$dst" "${dst}.bak"
+    fi
+    ln -sfn "$src" "$dst"
+    success "fish-sandbox config.fish ${DIM}→ $dst${RESET}"
+}
+
 # ── Link root-level rice assets
 link_rice_assets() {
     local assets_dir="$RICE/assets"
@@ -383,10 +407,12 @@ case "${1:-all}" in
         move_wallpapers
         setup_fastfetch
         setup_sddm
+        setup_pentest
         link_configs
         link_assets
         link_hypr
         link_rice_assets
+        link_fish_sandbox
         ;;
     yay) install_yay ;;
     *)

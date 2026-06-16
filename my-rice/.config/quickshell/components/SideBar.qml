@@ -339,7 +339,6 @@ PanelWindow {
                 : sideBar.batteryLevel < 50 ? "#eed49f"
                 : Colors.batteryOk
 
-
                 Behavior on fillHeight {
                     enabled: !batteryPill.initialLoad
                     NumberAnimation { duration: 600; easing.type: Easing.OutQuart }

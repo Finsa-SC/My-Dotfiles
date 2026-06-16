@@ -1,5 +1,7 @@
 import QtQuick
 import QtQuick.Effects
+import Quickshell.Io
+import Qt.labs.platform 1.1
 
 Item {
     id: card
@@ -13,7 +15,7 @@ Item {
     property string notifType: {
         var u = (typeof urgency === "number") ? urgency : (urgency ? urgency.valueOf() : 1)
         if (u === 2) return "critical"
-        if (appName !== "" && appName !== "notify-send") return "app"
+        if (appName !== "" && appName !== "notify-send" && appName !== "System") return "app"
         return "system"
     }
 
@@ -30,10 +32,28 @@ Item {
         return "⚙"
     }
 
+    // 2. TENTUKAN PATH FILE .OGA BERDASARKAN TYPE NOTIFIKASI
+    property string soundFile: {
+        var baseDir = "/home/silence-suzuka/.config/assets/"
+        if (notifType === "critical") return baseDir + "Error-Warning_notify.oga"
+        if (notifType === "app") return baseDir + "Appclication_notify.oga"
+        return baseDir + "System_notify.oga"
+    }
+
+    // 3. PROSES UNTUK MEMUTAR SUARA MENGGUNAKAN PAPLAY
+    Process {
+        id: soundPlayer
+        command: ["paplay", card.soundFile]
+        running: false
+    }
+
     Component.onCompleted: {
         opacity = 0
         slideIn.start()
         dismissTimer.restart()
+        
+        // 4. JALANKAN SUARA SAAT NOTIFIKASI MUNCUL
+        soundPlayer.running = true 
     }
 
     ParallelAnimation {

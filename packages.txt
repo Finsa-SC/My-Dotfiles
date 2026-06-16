@@ -64,6 +64,7 @@ pacman fastfetch
 pacman lm_sensors
 pacman brightnessctl
 pacman upower
+pacman bubblewrap
 
 # ── Screenshot & Wallpaper
 pacman swaybg

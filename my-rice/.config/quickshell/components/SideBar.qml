@@ -20,6 +20,7 @@ PanelWindow {
     exclusiveZone: 28
     color: "transparent"
 
+    // Datetime interval
     property var now: new Date()
 
     Timer {
@@ -270,6 +271,7 @@ PanelWindow {
         border.width: 1
         layer.enabled: true
 
+        property bool initialLoad: true
         property bool isCharging: false
         property color surgeColor: '#90f4ff'
         property bool simple: modePill.currentMode === "minimal"
@@ -277,7 +279,7 @@ PanelWindow {
         property bool triggerLightning: false
         Timer {
             id: lightningGlitchTimer
-            interval: Math.random() * 800 + 200 // Mengacak jeda petir muncul
+            interval: Math.random() * 800 + 200
             running: batteryPill.isCharging
             repeat: true
             onTriggered: {
@@ -337,9 +339,11 @@ PanelWindow {
                 : sideBar.batteryLevel < 50 ? "#eed49f"
                 : Colors.batteryOk
 
-            Behavior on fillHeight {
-                NumberAnimation { duration: 600; easing.type: Easing.OutQuart }
-            }
+
+                Behavior on fillHeight {
+                    enabled: !batteryPill.initialLoad
+                    NumberAnimation { duration: 600; easing.type: Easing.OutQuart }
+                }
 
             onPaint: {
                 var ctx = getContext("2d")
@@ -472,11 +476,12 @@ PanelWindow {
         FileView {
             id: batteryFile
             path: "/sys/class/power_supply/BAT0/capacity"
-            onTextChanged: {
+            onLoaded: {
                 var val = parseInt(batteryFile.text())
-                console.log("battery:", val)
-                if (!isNaN(val) && val >= 0 && val <= 100)
+                if (!isNaN(val) && val >= 0 && val <= 100) {
                     sideBar.batteryLevel = val
+                    batteryPill.initialLoad = false
+                }
             }
             Component.onCompleted: reload()
         }

@@ -14,12 +14,22 @@ Item {
     property var urgency: 1
 
     property string notifType: {
-        var u = (typeof urgency === "number") ? urgency : (urgency ? urgency.valueOf() : 1)
+        var u = 1
+        if (typeof urgency === "number") {
+            u = urgency
+        } else if (urgency && typeof urgency.valueOf === "function") {
+            u = urgency.valueOf()
+        } else if (urgency !== undefined && urgency !== null) {
+            u = parseInt(urgency) || 1
+        }
+
+        var app = appName ? appName.toString() : ""
+
         if (u === 2) return "critical"
-        if (appName !== "" && appName !== "notify-send" && appName !== "System") return "app"
+        if (app !== "" && app !== "notify-send" && app !== "System") return "app"
+        
         return "system"
     }
-
     signal dismissed()
     
     property color accentColor: {
@@ -38,7 +48,7 @@ Item {
         var baseDir = Quickshell.env("HOME") + "/.config/assets/"
         console.log(baseDir)
         if (notifType === "critical") return baseDir + "Error-Warning_notify.oga"
-        if (notifType === "app") return baseDir + "Appclication_notify.oga"
+        if (notifType === "app") return baseDir + "Application_notify.oga"
         return baseDir + "System_notify.oga"
     }
 

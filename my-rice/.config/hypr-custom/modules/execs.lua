@@ -1,6 +1,7 @@
 hl.on("hyprland.start", function()
     hl.exec_cmd("quickshell")
     hl.exec_cmd("wl-paste --watch cliphist store")
+    hl.exec_cmd("bash ~/.config/scripts/battery-watcher.sh &")
     hl.exec_cmd("sh -c 'swaybg -i \"$(cat $HOME/.cache/current-wallpaper)\" -m fill &'")
     hl.dispatch(hl.dsp.focus({ workspace = wsStart }))
 end)

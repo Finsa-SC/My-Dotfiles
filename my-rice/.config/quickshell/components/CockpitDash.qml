@@ -93,6 +93,22 @@ PanelWindow {
         ipProc.running = true
     }
 
+    Process {
+        id: nmcliProc
+        command: ["bash", "-c", "echo noop"]
+        running: false
+        onRunningChanged: {
+            if (!running) wifiSyncDelay.restart()
+        }
+    }
+
+    Timer {
+        id: wifiSyncDelay
+        interval: 1500
+        repeat: false
+        onTriggered: {}
+    }
+
     // ── Live data via Process ────────────────────────────────────────────
     Process {
         id: dataProc
@@ -107,6 +123,7 @@ PanelWindow {
             cat /sys/class/drm/card0/device/gpu_busy_percent 2>/dev/null | awk '{printf \"GPU %s\\n\",$1}'
             ss -t state established 2>/dev/null | tail -n +2 | wc -l | awk '{printf \"TCP %s\\n\",$1}'
             free -b | awk '/^Mem/{printf \"MEM %s %s\\n\",$2,$3} /^Swap/{printf \"SWAP %s\\n\",$3}'
+            nmcli radio wifi | grep -q enabled && echo 'WIFI 1' || echo 'WIFI 0'
             df / | awk 'NR==2{printf \"DISK %s\\n\",$5}' | tr -d '%'
             cat /proc/loadavg | awk '{printf \"LOAD %s\\n\",$1}{printf \"PROCS %s\\n\",$4}'
             uptime -p | sed 's/up /UPTIME /'
@@ -149,6 +166,9 @@ PanelWindow {
                     root.ramUsedGb  = Math.round(used / 1073741824 * 10) / 10
                     root.ramTotalGb = Math.round(total / 1073741824)
 
+                } else if (key === "WIFI") {
+                    if (!wifiSyncDelay.running)
+                        root.wifiOn = parts[1] === "1"
                 } else if (key === "SWAP") {
                     if (root.ramTotalGb > 0)
                         root.swapPct = Math.min(100, Math.round(parseFloat(parts[1]) / (root.ramTotalGb * 1073741824) * 100))
@@ -526,12 +546,6 @@ PanelWindow {
 
                             MouseArea {
                                 anchors.fill: parent
-                                onClicked: root.wifiOn = !root.wifiOn
-                                cursorShape: Qt.PointingHandCursor
-                            }
-
-                            MouseArea {
-                                anchors.fill: parent
                                 cursorShape: Qt.PointingHandCursor
 
                                 property real pressY: 0
@@ -543,14 +557,16 @@ PanelWindow {
                                 }
 
                                 onPositionChanged: (mouse) => {
-                                    if (mouse.y - pressY > 10) dragging = true
+                                    if (Math.abs(mouse.y - pressY) > 10) dragging = true
                                 }
 
                                 onReleased: (mouse) => {
                                     if (dragging && mouse.y - pressY > 30) {
                                         root.close()
                                     } else if (!dragging) {
-                                        root.toggle()
+                                        nmcliProc.command = ["nmcli", "radio", "wifi", root.wifiOn ? "off" : "on"]
+                                        nmcliProc.running = false
+                                        nmcliProc.running = true
                                     }
                                     dragging = false
                                 }

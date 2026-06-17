@@ -281,6 +281,24 @@ setup_sddm() {
     success "SDDM service enabled"
 }
 
+# ── Setup sudoers
+setup_sudoers() {
+    section "Setting up sudoers"
+
+    local user="${SUDO_USER:-$USER}"
+    local rules=(
+        "$user ALL=(ALL) NOPASSWD: /usr/bin/systemctl hibernate"
+        "$user ALL=(ALL) NOPASSWD: /usr/bin/systemctl suspend"
+        "$user ALL=(ALL) NOPASSWD: /usr/bin/pacman"
+    )
+
+    local sudoers_file="/etc/sudoers.d/my-rice"
+
+    printf '%s\n' "${rules[@]}" | sudo tee "$sudoers_file" > /dev/null
+    sudo chmod 440 "$sudoers_file"
+    success "sudoers → $sudoers_file"
+}
+
 # ── Symlink configs
 link_configs() {
     section "Linking configs"
@@ -438,6 +456,7 @@ case "${1:-all}" in
         setup_sddm
         setup_pentest
         setup_sandbox_image
+        setup_sudoers
         link_configs
         link_assets
         link_hypr

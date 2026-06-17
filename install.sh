@@ -343,9 +343,17 @@ link_fish_sandbox() {
     section "Linking fish-sandbox"
 
     local dst_dir="$HOME/.config/fish-sandbox/fish"
+    mkdir -p "$dst_dir"
     mkdir -p "$dst_dir/conf.d"
 
-    # Copy config.fish (bukan symlink, hindari loop)
+    # Tapi ascii.txt ada di fish-sandbox/, bukan fish-sandbox/fish/
+    mkdir -p "$HOME/.config/fish-sandbox"
+    
+    # Copy ascii.txt
+    cp "$CONFIG/fish-sandbox/ascii.txt" "$HOME/.config/fish-sandbox/ascii.txt"
+    success "ascii.txt ${DIM}→ ~/.config/fish-sandbox/${RESET}"
+
+    # Copy config.fish
     local src="$CONFIG/fish-sandbox/fish/config.fish"
     local dst="$dst_dir/config.fish"
     cp "$src" "$dst"

@@ -395,6 +395,26 @@ link_hypr() {
     success "hypr ${DIM}→ ~/.config/hypr-custom${RESET}"
 }
 
+# ── Setup sandbox container image
+setup_sandbox_image() {
+    section "Setting up sandbox image"
+
+    if ! command -v podman &>/dev/null; then
+        warn "podman not found, skipping sandbox image build"
+        return
+    fi
+
+    local containerfile="$DOTFILES/containers/Containerfile"
+    if [ ! -f "$containerfile" ]; then
+        warn "Containerfile not found at $containerfile, skipping"
+        return
+    fi
+
+    info "Building kali-fish image (this may take a while)..."
+    podman build -t kali-fish "$DOTFILES/containers/"
+    success "kali-fish image built"
+}
+
 # ── Main
 case "${1:-all}" in
     packages)  install_packages ;;
@@ -409,6 +429,7 @@ case "${1:-all}" in
         setup_fastfetch
         setup_sddm
         setup_pentest
+        setup_sandbox_image
         link_configs
         link_assets
         link_hypr

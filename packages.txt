@@ -20,6 +20,7 @@ pacman qt5-wayland
 pacman qt6-wayland
 pacman wl-clipboard
 pacman cliphist
+pacman jq
 
 # ── GPU - AMD Radeon Vega 8 RX
 pacman mesa
@@ -65,6 +66,7 @@ pacman lm_sensors
 pacman brightnessctl
 pacman upower
 pacman bubblewrap
+pacman podman
 
 # ── Screenshot & Wallpaper
 pacman swaybg

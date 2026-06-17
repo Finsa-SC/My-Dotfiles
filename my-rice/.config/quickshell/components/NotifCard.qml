@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Effects
 import Quickshell.Io
 import Qt.labs.platform 1.1
+import Quickshell
 
 Item {
     id: card
@@ -34,7 +35,8 @@ Item {
 
     // 2. TENTUKAN PATH FILE .OGA BERDASARKAN TYPE NOTIFIKASI
     property string soundFile: {
-        var baseDir = "/home/silence-suzuka/.config/assets/"
+        var baseDir = Quickshell.env("HOME") + "/.config/assets/"
+        console.log(baseDir)
         if (notifType === "critical") return baseDir + "Error-Warning_notify.oga"
         if (notifType === "app") return baseDir + "Appclication_notify.oga"
         return baseDir + "System_notify.oga"

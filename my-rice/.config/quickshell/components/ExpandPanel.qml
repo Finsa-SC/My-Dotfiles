@@ -237,12 +237,13 @@ PanelWindow {
             eqProc.builtCommand =
                 "python3 -c \"" +
                 "import json;" +
-                "p=" + SystemInformation.userName + '/.local/share/easyeffects/output/MyPreset.json'; +
+                "p='" + Quickshell.env("HOME") + "/.local/share/easyeffects/output/MyPreset.json';" +
                 "d=json.load(open(p));" +
                 "d['output']['equalizer#0']['left']['band" + eqProc.bandIndex + "']['gain']=" + eqProc.gainValue + ";" +
                 "d['output']['equalizer#0']['right']['band" + eqProc.bandIndex + "']['gain']=" + eqProc.gainValue + ";" +
                 "json.dump(d,open(p,'w'),indent=4)" +
                 "\" && easyeffects -l MyPreset"
+            console.log("CMD:", eqProc.builtCommand)
             eqProc.running = true
         }
     }

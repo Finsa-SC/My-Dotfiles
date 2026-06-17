@@ -2,8 +2,6 @@ set -g __cmd_start_time 0
 set -g __cmd_origin_win "0"
 
 function __preexec_notify --on-event fish_preexec
-    # Kita hanya mencatat start time jika ini adalah awal dari eksekusi prompt baru
-    # (Mencegah overwriting waktu di tengah-tengah rentetan perintah &&)
     if test "$__cmd_start_time" = "0"
         set -g __cmd_start_time (date +%s)
         if command -q hyprctl
@@ -17,17 +15,16 @@ end
 function __postexec_notify --on-event fish_postexec
     set -l exit_code $status
     set -l cmd $argv[1]
-    
-    # 1. VALIDASI EMERGENSI: Keluar jika command kosong atau preexec belum mencatat waktu
+
     if test -z (string trim -- "$cmd"); or test "$__cmd_start_time" = "0"
         return
     end
 
     set -l now (date +%s)
     set -l duration (math $now - $__cmd_start_time)
-    set -l threshold 180 # 3 Menit
+    set -l threshold 180
 
-    # Ambil informasi window Hyprland saat ini
+    # Cek window
     set -l current_win "0"
     if command -q hyprctl
         set -l addr (hyprctl activewindow -j 2>/dev/null | jq -r '.address // "0"' 2>/dev/null)
@@ -36,7 +33,6 @@ function __postexec_notify --on-event fish_postexec
         end
     end
 
-    # Cek apakah jendela berubah/pindah ws
     set -l win_changed false
     if test "$__cmd_origin_win" != "0"; and test "$current_win" != "0"
         if test "$__cmd_origin_win" != "$current_win"
@@ -44,27 +40,21 @@ function __postexec_notify --on-event fish_postexec
         end
     end
 
-    # 2. SELEKSI PERINTAH HARIAN: Langsung bersihkan global variable dan keluar jika lolos filter
-    set -l first_word (string split -m 1 " " $cmd)[1]
-    set -l interactive_cmds vim nvim nano htop btop less more fzf ssh sudo man cd ls clear git c l ll la lla gc ga gp gpl gsw gsm echo cat mkdir rm cp mv ps grep kill sleep mpv
-    if contains -- $first_word $interactive_cmds
-        if test $duration -lt $threshold; and test "$win_changed" = false
-            # JANGAN RESET START TIME JIKA KAMU PINDAH WINDOW DI TENGAH RANGKAIAN COMMAND!
-            # Hanya reset jika memang perintah harian biasa di workspace yang sama
-            set -g __cmd_start_time 0 
+    # Filter: beda WS → langsung kirim, bypass semua filter
+    if test "$win_changed" = false
+        set -l first_word (string split -m 1 " " $cmd)[1]
+        set -l interactive_cmds vim nvim nano htop btop less more fzf ssh sudo man cd ls clear git c l ll la lla gc ga gp gpl gsw gsm echo cat mkdir rm cp mv ps grep kill sleep mpv
+        if contains -- $first_word $interactive_cmds; and test $duration -lt $threshold
+            set -g __cmd_start_time 0
+            return
+        end
+        if test $duration -lt $threshold
+            set -g __cmd_start_time 0
             return
         end
     end
 
-    # 3. KUNCI UTAMA GLOBAL: Jika jalan CEPAT (< 3 menit) DAN GAK PINDAH WINDOW -> DEPAK!
-    if test $duration -lt $threshold; and test "$win_changed" = false
-        set -g __cmd_start_time 0
-        return
-    end
-
-    # ── JIKA LOLOS HINGGA SINI, BERARTI NOTIFIKASI VALID AKAN DIKIRIM ──
-    
-    # Hias Format Waktu
+    # Format waktu
     set -l duration_str ""
     if test $duration -ge 60
         set -l mins (math -s0 $duration / 60)
@@ -74,11 +64,10 @@ function __postexec_notify --on-event fish_postexec
         set duration_str "$duration""s"
     end
 
-    # Pengelompokan Urgency & Title untuk NotifCard QML
+    # Title & urgency
     set -l app_label "System"
     set -l title "Task Completed Successfully"
     set -l urgency "normal"
-
     if test $exit_code -ne 0
         set title "Task Execution Failed (exit: $exit_code)"
         set urgency "critical"
@@ -86,22 +75,18 @@ function __postexec_notify --on-event fish_postexec
         set title "Long Task Finished"
     end
 
-    # Potong command panjang
     set -l clean_cmd (string sub -l 30 $cmd)
     if test (string length $cmd) -gt 30
         set clean_cmd "$clean_cmd..."
     end
 
-    # Menghias Konten Body
     set -l body "⏱ $duration_str  •  \$ $clean_cmd"
     if test "$win_changed" = true
-        set body "$body (Sent to background)"
+        set body "$body  •  (background)"
     end
 
-    # RESET TOTAL KONTROL DI SINI SEBELUM TELEGRAM/NOTIFY DIKIRIM
     set -g __cmd_start_time 0
 
-    # Eksekusi Pengiriman
     if set -q SANDBOX
         echo "$urgency|terminal|$title|$body" >> /tmp/sandbox-notify.queue
     else

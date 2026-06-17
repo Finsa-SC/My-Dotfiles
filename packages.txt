@@ -23,13 +23,13 @@ pacman cliphist
 pacman jq
 
 # ── GPU - AMD Radeon Vega 8 RX
-pacman mesa
-pacman lib32-mesa
-pacman xf86-video-amdgpu
-pacman vulkan-radeon
-pacman lib32-vulkan-radeon
-pacman libva-mesa-driver
-pacman mesa-vdpau
+#pacman mesa
+#pacman lib32-mesa
+#pacman xf86-video-amdgpu
+#pacman vulkan-radeon
+#pacman lib32-vulkan-radeon
+#pacman libva-mesa-driver
+#pacman mesa-vdpau
 
 # ── Audio - Pipewire
 pacman pipewire

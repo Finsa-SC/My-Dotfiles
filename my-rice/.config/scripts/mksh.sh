@@ -1,13 +1,13 @@
 #!/bin/bash
 
-read -p "Input script name: "  NAMEFILE
+NAMEFILE=$1
 CURRENT_DIR=$(pwd)
 
-if [[ -z $NAMEFILE ]]; then
+if [[ -z "$NAMEFILE" ]]; then
   echo "Please input file name first"
-  exit 0
+  exit 1
 else
-  if [[ $NAMEFILE != *.sh ]]; then
+  if [[ "$NAMEFILE" != *.sh ]]; then
     FINALNAME="$NAMEFILE.sh"
   else
     FINALNAME="$NAMEFILE"

@@ -446,6 +446,7 @@ case "${1:-all}" in
     packages)  install_packages ;;
     links) link_configs; link_hypr; link_assets; link_rice_assets; link_fish_sandbox ;;
     dirs)      init_dirs; move_wallpapers ;;
+    sandbox)   setup_sandbox_image ;;
     fastfetch) setup_fastfetch ;;
     sddm)      setup_sddm ;;
     all)

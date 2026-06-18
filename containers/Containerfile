@@ -1,8 +1,14 @@
+FROM ghcr.io/astral-sh/uv:latest AS uv_source
+
 FROM docker.io/kalilinux/kali-rolling
+
+COPY --from=uv_source /uv /usr/local/bin/uv
+
 RUN apt-get update && apt-get install -y \
     fish \
     git \
     curl \
+    nano \
     wget \
     sudo \
     procps \

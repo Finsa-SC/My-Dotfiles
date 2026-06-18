@@ -1,7 +1,7 @@
 #!/bin/bash
 
-CURRENT_BAT=$(cat /sys/class/power_supply/BAT0/capacity)
 #CURRENT_BAT=14
+CURRENT_BAT=$(cat /sys/class/power_supply/BAT0/capacity)
 PREVIOUS_BAT=$CURRENT_BAT
 
 while true; do
@@ -15,6 +15,7 @@ while true; do
       notify-send "Battery almost full" "Current charge is 95%. Consider unplugging" -a "System"
     fi
     sleep 120 #Add long delay cause in charging mode
+    CURRENT_BAT=$(cat /sys/class/power_supply/BAT0/capacity)
     continue
   fi
 
@@ -22,7 +23,8 @@ while true; do
   if (( CURRENT_BAT <= 5 )); then #Check if battery under 5% and send notify
     notify-send "Emergency Low Power" "System will hibernate in 2 minutes. Plug in charge to abort" -a "System" -u critical
     sleep 120
-    
+
+    STATUS_BAT=$(cat /sys/class/power_supply/BAT0/status)
     if [[ $STATUS_BAT != "Charging" ]]; then
       sudo systemctl hibernate
       exit 0
@@ -40,8 +42,9 @@ while true; do
   # Delay and looping until next check session
   while true; do
     CURRENT_BAT=$(cat /sys/class/power_supply/BAT0/capacity)
+    STATUS_BAT=$(cat /sys/class/power_supply/BAT0/status)
 
-    if (( PREVIOUS_BAT != CURRENT_BAT )); then
+    if (( PREVIOUS_BAT != CURRENT_BAT )) || [[ $STATUS_BAT == "Charging" ]]; then
       PREVIOUS_BAT=$CURRENT_BAT
       break
       

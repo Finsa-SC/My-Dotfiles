@@ -51,6 +51,7 @@ ShellRoot {
         id: sliderPanel
         panelExpanded: root.panelExpanded
         expandEnabled: root.mode !== "minimal"
+        simple: root.mode === "minimal"
         onExpandRequested: {
             root.panelExpanded = true
             if (expandLoader.item) expandLoader.item.isExpanded = true

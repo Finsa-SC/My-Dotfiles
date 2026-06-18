@@ -14,7 +14,6 @@ PanelWindow {
     implicitWidth: isWide ? 234 : 96
     implicitHeight: isFullHeight ? Quickshell.screens[0].height : 220
 
-
     margins {
         top: isFullHeight ? 0 : (Quickshell.screens[0].height / 2) - 110
         right: {
@@ -34,6 +33,8 @@ PanelWindow {
     property real brightness: 0.5
     property bool panelExpanded: false
     property bool expandEnabled: true
+    property bool simple: false
+
     signal expandRequested()
     signal collapseRequested()
 
@@ -150,6 +151,7 @@ PanelWindow {
                 anchors.centerIn: parent
                 spacing: 16
 
+                // ─── Volume bottle ───
                 Item {
                     width: 36; height: 160
 
@@ -191,7 +193,7 @@ PanelWindow {
 
                                     SequentialAnimation on y {
                                         loops: Animation.Infinite
-                                        running: true
+                                        running: !sliderPanel.simple
                                         NumberAnimation {
                                             from: bubble.startY
                                             to: -bubble.height
@@ -216,6 +218,7 @@ PanelWindow {
                                 height: 8
                                 property real phase: 0
                                 NumberAnimation on phase {
+                                    running: !sliderPanel.simple
                                     from: 0; to: Math.PI * 2
                                     duration: 1500; loops: Animation.Infinite
                                 }
@@ -265,6 +268,7 @@ PanelWindow {
                     }
                 }
 
+                // ─── Brightness bottle ───
                 Item {
                     width: 36; height: 160
 
@@ -306,7 +310,7 @@ PanelWindow {
 
                                     SequentialAnimation on y {
                                         loops: Animation.Infinite
-                                        running: true
+                                        running: !sliderPanel.simple
                                         NumberAnimation {
                                             from: brightBubble.startY
                                             to: -brightBubble.height
@@ -331,6 +335,7 @@ PanelWindow {
                                 height: 8
                                 property real phase: 0
                                 NumberAnimation on phase {
+                                    running: !sliderPanel.simple
                                     from: 0; to: Math.PI * 2
                                     duration: 1200; loops: Animation.Infinite
                                 }

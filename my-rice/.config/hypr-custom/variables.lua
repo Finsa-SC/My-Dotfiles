@@ -1,8 +1,9 @@
 -- Programs
-_G.terminal    = "kitty"
-_G.browser     = "zen-browser"
-_G.fileManager = "dolphin"
-_G.editor      = "code"
+_G.terminal       = "kitty"
+_G.browser        = "zen-browser"
+_G.secondBrowser  = "brave"
+_G.fileManager    = "dolphin"
+_G.editor         = "code"
 
 -- Modifier
 _G.mainMod = "SUPER"
@@ -39,11 +40,12 @@ _G.dirs = {
 }
 
 -- Keybinds: App
-_G.kbTerminal    = _G.mainMod .. " + Return"
-_G.kbMenu        = _G.mainMod .. " + R"
-_G.kbBrowser     = _G.mainMod .. " + B"
-_G.kbFileManager = _G.mainMod .. " + E"
-_G.kbEditor      = _G.mainMod .. " + C"
+_G.kbTerminal       = _G.mainMod .. " + Return"
+_G.kbMenu           = _G.mainMod .. " + R"
+_G.kbBrowser        = _G.mainMod .. " + B"
+_G.kbSecondBrowser  = _G.mainMod .. " + SHIFT + B"
+_G.kbFileManager    = _G.mainMod .. " + E"
+_G.kbEditor         = _G.mainMod .. " + C"
 
 -- keybinds: window actions
 _G.kbCloseWindow         = _G.mainMod .. " + Q"

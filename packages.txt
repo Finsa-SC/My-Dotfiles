@@ -93,6 +93,7 @@ pacman kdegraphics-thumbnailers
 pacman pycharm-community-edition
 pacman proton-vpn-gtk-app
 yay zen-browser-bin
+yay brave-bin
 
 # ── Optional
 #pacman steam

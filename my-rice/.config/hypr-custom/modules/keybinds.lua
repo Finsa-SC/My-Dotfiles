@@ -24,9 +24,10 @@ local function goWorkspace(dir)
     if next then hl.dispatch(hl.dsp.focus({ workspace = next })) end
 end
 
--- Programs
+-- Application
 hl.bind(kbTerminal, hl.dsp.exec_cmd(terminal))
 hl.bind(kbBrowser, hl.dsp.exec_cmd(browser))
+hl.bind(kbSecondBrowser, hl.dsp.exec_cmd(secondBrowser))
 hl.bind(kbEditor, hl.dsp.exec_cmd(editor))
 hl.bind(kbFileManager, hl.dsp.exec_cmd(fileManager))
 

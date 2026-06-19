@@ -77,6 +77,7 @@ _G.kbScreenshot      = _G.mainMod .. " + SHIFT + S "
 _G.kbSaveScreenshot  = _G.mainMod .. " + CTRL + S "
 _G.kbChangeWallpaper = _G.mainMod .. " + W "
 _G.kbCopiedHistory   = _G.mainMod .. " + V "
+_G.kbReadOnly        = _G.mainMod .. " + R "
 
 -- Keybinds: Security
 _G.kbSandboxTerminal = _G.mainMod .. " + SHIFT + Return"

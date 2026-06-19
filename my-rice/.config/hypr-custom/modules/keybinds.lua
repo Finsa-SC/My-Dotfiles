@@ -111,9 +111,57 @@ hl.bind(kbSaveScreenshot, hl.dsp.exec_cmd(
     "pkill wayfreeze &&" ..
     "notify-send 'Screenshot Saved' \"$FILE\" -a ''"
 ))
-hl.bind(mainMod .. " + V", hl.dsp.exec_cmd(
+hl.bind(kbCopiedHistory, hl.dsp.exec_cmd(
     "qs ipc -p " .. os.getenv("HOME") .. "/.config/quickshell call clipboard toggle"
 ), { repeating = false })
+
+-- Readonly mode
+local noop = function() end
+local blockedKeys = {
+    "a","b","c","d","e","f","g","h","i","j","k","l","m",
+    "n","o","p","q","r","s","t","u","v","w","x","y","z",
+    "0","1","2","3","4","5","6","7","8","9",
+    "space","Return","BackSpace","Delete","Tab",
+    "minus","equal","bracketleft","bracketright","backslash",
+    "semicolon","apostrophe","comma","period","slash","grave",
+}
+local modifiers = { "", "SHIFT + ", "CTRL + ", "CTRL + SHIFT + ", "ALT + ", "ALT + SHIFT + " }
+
+hl.bind(mainMod .. " + R", function()
+    hl.dispatch(hl.dsp.exec_cmd(
+        "notify-send 'Keyboard Locked' 'Read-Only Mode Enabled' -a 'System'"
+    ))
+    hl.dispatch(hl.dsp.submap("readonly"))
+end, { repeating = false })
+
+hl.define_submap("readonly", function()
+    -- exit + notif
+    hl.bind(mainMod .. " + SHIFT + R", function()
+        hl.dispatch(hl.dsp.exec_cmd(
+            "notify-send 'Keyboard Released' 'Exit from readonly mode' -a 'System'"
+        ))
+        hl.dispatch(hl.dsp.submap("reset"))
+    end)
+
+    -- navigasi fokus window
+    hl.bind(mainMod .. " + left",  hl.dsp.focus({ direction = "l" }))
+    hl.bind(mainMod .. " + right", hl.dsp.focus({ direction = "r" }))
+    hl.bind(mainMod .. " + up",    hl.dsp.focus({ direction = "u" }))
+    hl.bind(mainMod .. " + down",  hl.dsp.focus({ direction = "d" }))
+
+    -- navigasi workspace 2D
+    hl.bind(mainMod .. " + CTRL + right", function() goWorkspace("right") end, { repeating = false })
+    hl.bind(mainMod .. " + CTRL + left",  function() goWorkspace("left")  end, { repeating = false })
+    hl.bind(mainMod .. " + CTRL + down",  function() goWorkspace("down")  end, { repeating = false })
+    hl.bind(mainMod .. " + CTRL + up",    function() goWorkspace("up")    end, { repeating = false })
+
+    -- tangkap semua kombinasi modifier + key supaya gak nembus ke app
+    for _, mod in ipairs(modifiers) do
+        for _, key in ipairs(blockedKeys) do
+            hl.bind(mod .. key, noop)
+        end
+    end
+end)
 
 -- Quickshell
 hl.bind(kbChangeWallpaper, hl.dsp.exec_cmd("qs ipc -p " .. os.getenv("HOME") .. "/.config/quickshell call wallpaper toggle"), { repeating = false })

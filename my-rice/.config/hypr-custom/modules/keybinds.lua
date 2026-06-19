@@ -30,6 +30,7 @@ hl.bind(kbBrowser, hl.dsp.exec_cmd(browser))
 hl.bind(kbSecondBrowser, hl.dsp.exec_cmd(secondBrowser))
 hl.bind(kbEditor, hl.dsp.exec_cmd(editor))
 hl.bind(kbFileManager, hl.dsp.exec_cmd(fileManager))
+hl.bind(kbSystemMonitor, hl.dsp.exec_cmd(terminal .. " --title 'System Monitor' -e " .. systemMonitor))
 
 -- Window Action
 hl.bind(kbCloseWindow,  hl.dsp.window.close())

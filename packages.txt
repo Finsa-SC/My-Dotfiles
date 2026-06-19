@@ -21,6 +21,7 @@ pacman qt6-wayland
 pacman wl-clipboard
 pacman cliphist
 pacman jq
+yay wayfreeze
 
 # ── GPU - AMD Radeon Vega 8 RX
 #pacman mesa

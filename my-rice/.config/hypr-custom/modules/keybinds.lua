@@ -100,12 +100,14 @@ hl.bind(kbBrightDown, hl.dsp.exec_cmd("brightnessctl set 5%-"), { repeating = tr
 
 -- Utilities
 hl.bind(kbScreenshot, hl.dsp.exec_cmd(
-    "grim -g \"$(slurp)\" - | wl-copy && notify-send 'Screenshot' 'Image copied to clipboard' -a 'Clipboard'"
+    "wayfreeze & sleep 0.1 && grim -g \"$(slurp)\" - | wl-copy && kill %1 && notify-send 'Screenshot' 'Image copied to clipboard' -a 'Clipboard'"
 ))
 hl.bind(kbSaveScreenshot, hl.dsp.exec_cmd(
+    "wayfreeze & sleep 0.1 &&" ..
     "mkdir -p ~/Pictures/Screenshots && " ..
     "FILE=~/Pictures/Screenshots/screenshot_$(date +%Y-%m-%d_%H-%M-%S).png && " ..
     "grim -g \"$(slurp)\" \"$FILE\" && " ..
+    "kill %1 &&" ..
     "notify-send 'Screenshot Saved' \"$FILE\" -a ''"
 ))
 hl.bind(mainMod .. " + V", hl.dsp.exec_cmd(

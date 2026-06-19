@@ -193,7 +193,7 @@ PopupWindow {
                         cursorShape: Qt.PointingHandCursor
                         onClicked: {
                             powerMenu.visible = false
-                            Quickshell.execDetached(["hyprctl", "dispatch", "exit"])
+                            Quickshell.execDetached(["loginctl", "terminate-session", Quickshell.env("XDG_SESSION_ID")])
                         }
                     }
                 }

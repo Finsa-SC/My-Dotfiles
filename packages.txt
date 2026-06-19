@@ -54,10 +54,10 @@ pacman network-manager-applet
 pacman fish
 pacman kitty
 pacman imagemagick
-pacman starship
 pacman eza
 pacman zoxide
 pacman direnv
+pacman cava
 
 # ── System Utilities
 pacman btop

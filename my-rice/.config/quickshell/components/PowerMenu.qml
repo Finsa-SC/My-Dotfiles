@@ -172,7 +172,7 @@ PopupWindow {
                         spacing: 4
                         Text {
                             anchors.horizontalCenter: parent.horizontalCenter
-                            text: "→"
+                            text: "⎋"
                             font.pixelSize: 22
                             color: logoutHover.containsMouse ? "#ffffff" : Qt.rgba(1,1,1,0.3)
                             Behavior on color { ColorAnimation { duration: 150 } }

@@ -6,13 +6,12 @@ Item {
     property int animPhase: 0
     signal animDone(int nextPhase)
 
-    // ╔══════════════════════════════════════════════════╗
-    // ║  TWEAK ZONE (Udah Digedein & Ditinggiin)          ║
-    // ╚══════════════════════════════════════════════════╝
-    readonly property int gateWidth:    460  // Lebih lebar
-    readonly property int pillarWidth:  40   // Tiang lebih tebal & kokoh
-    readonly property int pillarHeight: 420  // Jauh lebih tinggi
-    readonly property int kasagiH:      75   // Area atap vertikal diperbesar
+    readonly property real scaleFactor: Screen.height / 1080.0
+
+    readonly property int gateWidth:    680 * scaleFactor
+    readonly property int pillarWidth:  58  * scaleFactor
+    readonly property int pillarHeight: 740 * scaleFactor
+    readonly property int kasagiH:      105 * scaleFactor
     // ════════════════════════════════════════════════════
 
     implicitWidth:  gateWidth + 120 
@@ -39,8 +38,14 @@ Item {
     property bool showKasagi: false
     property bool showNuki:   false
 
+    // Properti drop animasi untuk bulan
+    property bool showMoon: false
+
     onAnimPhaseChanged: {
-        if      (animPhase === 1) leftAnim.start()
+        if (animPhase === 1) {
+            root.showMoon = true
+            leftAnim.start()
+        }
         else if (animPhase === 2) rightAnim.start()
         else if (animPhase === 3) gapTimer.start()
         else if (animPhase === 4) kasagiAnim.start()
@@ -234,5 +239,58 @@ Item {
         }
 
         Component.onCompleted: requestPaint()
+    }
+
+    Canvas {
+        id: moonCanvas
+        visible: root.showMoon
+        x: -360 * scaleFactor              
+        y: -80 * scaleFactor               
+        width: 180 * scaleFactor          
+        height: 180 * scaleFactor
+
+        onPaint: {
+            var ctx = getContext("2d")
+            ctx.clearRect(0, 0, width, height)
+
+            var sf = scaleFactor
+            var cx = width / 2
+            var cy = height / 2
+            var r = width * 0.4 
+
+            ctx.beginPath()
+            ctx.arc(cx, cy, r, 0, Math.PI * 2)
+            ctx.fillStyle = "#f5f6fa"
+            ctx.fill()
+
+            ctx.save()
+            ctx.beginPath()
+            ctx.arc(cx, cy, r, 0, Math.PI * 2)
+            ctx.clip()
+
+            ctx.fillStyle = "#e1e4ed" 
+
+            ctx.beginPath()
+            ctx.arc(cx + (20 * sf), cy + (20 * sf), r * 0.8, 0, Math.PI * 2)
+            ctx.fill()
+
+            ctx.beginPath()
+            ctx.arc(cx - (15 * sf), cy - (10 * sf), r * 0.3, 0, Math.PI * 2)
+            ctx.fill()
+
+            ctx.beginPath()
+            ctx.arc(cx - (10 * sf), cy + (15 * sf), r * 0.25, 0, Math.PI * 2)
+            ctx.fill()
+
+            ctx.restore()
+
+            ctx.fillStyle = "rgba(255, 255, 255, 0.25)"
+            ctx.beginPath()
+            ctx.roundRect(cx - r - (10 * sf), cy - (5 * sf), r * 1.5, 6 * sf, 3 * sf)
+            ctx.roundRect(cx - (10 * sf), cy + (15 * sf), r * 1.2, 5 * sf, 2.5 * sf)
+            ctx.fill()
+        }
+
+        Component.onCompleted: moonCanvas.requestPaint()
     }
 }

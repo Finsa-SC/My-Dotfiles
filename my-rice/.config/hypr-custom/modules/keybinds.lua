@@ -114,6 +114,7 @@ hl.bind(kbSaveScreenshot, hl.dsp.exec_cmd(
 hl.bind(kbCopiedHistory, hl.dsp.exec_cmd(
     "qs ipc -p " .. os.getenv("HOME") .. "/.config/quickshell call clipboard toggle"
 ), { repeating = false })
+hl.bind(kbLockScreen, hl.dsp.exec_cmd(os.getenv("HOME") .. "/.config/scripts/lock.sh"))
 
 -- Readonly mode
 local noop = function() end

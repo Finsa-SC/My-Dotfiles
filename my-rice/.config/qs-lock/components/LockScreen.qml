@@ -18,15 +18,14 @@ PanelWindow {
     // ╔══════════════════════════════════════════════════════════════════╗
     // ║  LAYOUT                                                          ║
     // ╚══════════════════════════════════════════════════════════════════╝
-    readonly property int toriiBottomMargin: 30
-    readonly property int avatarSize:        64
-    readonly property int clockSize:         40
-    readonly property int dateSize:          11
-    readonly property int usernameSize:      14
-    readonly property int pwFieldWidth:      260
-    readonly property int pwFieldHeight:     38
-    readonly property int pwFontSize:        13
-    readonly property int contentSpacing:    12
+    readonly property real scaleFactor: Screen.height / 1080.0
+    readonly property int avatarSize:        158 * scaleFactor
+    readonly property int clockSize:         48 * scaleFactor
+    readonly property int dateSize:          30 * scaleFactor
+    readonly property int usernameSize:      30 * scaleFactor
+    readonly property int pwFieldWidth:      312 * scaleFactor
+    readonly property int pwFieldHeight:     49 * scaleFactor
+    readonly property int pwFontSize:        16 * scaleFactor
     // ════════════════════════════════════════════════════════════════════
 
     property int animPhase: 0

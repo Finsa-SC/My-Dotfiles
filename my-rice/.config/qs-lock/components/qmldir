@@ -1,0 +1,4 @@
+module components
+
+LockScreen 1.0 LockScreen.qml
+ToriiGate 1.0 ToriiGate.qml

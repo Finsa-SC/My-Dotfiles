@@ -232,7 +232,7 @@ PopupWindow {
                         cursorShape: Qt.PointingHandCursor
                         onClicked: {
                             powerMenu.visible = false
-                            Quickshell.execDetached(["hyprlock"])
+                            Quickshell.execDetached(["/bin/bash", Quickshell.env("HOME") + "/.config/scripts/lock.sh"])
                         }
                     }
                 }

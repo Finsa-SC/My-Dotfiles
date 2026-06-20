@@ -380,4 +380,253 @@ Item {
 
         Component.onCompleted: moonCanvas.requestPaint()
     }
+    Canvas {
+        id: sakuraCanvas
+        x: 65
+        y: -160
+        width: root.width + 400 * scaleFactor
+        height: root.height
+
+        property int seedState: 1337
+        function rnd() {
+            seedState = (seedState + 0x6D2B79F5) | 0
+            var t = seedState
+            t = Math.imul(t ^ (t >>> 15), t | 1)
+            t ^= t + Math.imul(t ^ (t >>> 7), t | 61)
+            return ((t ^ (t >>> 14)) >>> 0) / 4294967296
+        }
+        function rrange(a, b) { return a + rnd() * (b - a) }
+
+        onPaint: {
+            var ctx = getContext("2d")
+            ctx.clearRect(0, 0, width, height)
+            seedState = 1337
+
+            var sf = root.scaleFactor
+            var W = width
+            var H = height
+
+            var tiltDeg = -7
+            var tiltRad = tiltDeg * Math.PI / 180
+
+            var pivotX = W + 40 * sf
+            var pivotY = H * 0.48
+
+            ctx.save()
+            ctx.translate(pivotX, pivotY)
+            ctx.rotate(tiltRad)
+            ctx.translate(-pivotX, -pivotY)
+
+            var petalColors = ["#ED93B1", "#F4C0D1", "#D4537E", "#F0997B"]
+            function drawFlower(cx, cy, size, rot, alpha) {
+                ctx.save()
+                ctx.translate(cx, cy)
+                ctx.rotate(rot)
+                ctx.globalAlpha = alpha
+                ctx.fillStyle = petalColors[Math.floor(rnd() * petalColors.length)]
+
+                var r = size * 0.42
+                for (var p = 0; p < 5; p++) {
+                    var ang = (Math.PI * 2 / 5) * p - Math.PI / 2
+                    ctx.beginPath()
+                    ctx.arc(Math.cos(ang) * r, Math.sin(ang) * r, r, 0, Math.PI * 2)
+                    ctx.fill()
+                }
+                ctx.fillStyle = "#993C1D"
+                ctx.beginPath()
+                ctx.arc(0, 0, size * 0.16, 0, Math.PI * 2)
+                ctx.fill()
+                ctx.restore()
+            }
+
+            function drawFlowerCluster(cx, cy, count, spread, sizeMin, sizeMax) {
+                for (var i = 0; i < count; i++) {
+                    var ang = rrange(0, Math.PI * 2)
+                    var dist = Math.sqrt(rnd()) * spread
+                    drawFlower(
+                        cx + Math.cos(ang) * dist,
+                        cy + Math.sin(ang) * dist,
+                        rrange(sizeMin, sizeMax) * sf,
+                        rrange(0, Math.PI * 2),
+                        rrange(0.75, 1.0)
+                    )
+                }
+            }
+
+            // densityFactor: pengali jumlah bunga (1.0 = normal, 0.3 = sepertiganya, dst)
+            function scatterAlongPath(x0, y0, cx1, cy1, cx2, cy2, x1, y1, densityPerLen, sizeMin, sizeMax, spreadAtStart, spreadAtEnd, densityFactorStart, densityFactorEnd) {
+                var approxLen = Math.hypot(x1 - x0, y1 - y0) * 1.15
+                var baseCount = (approxLen / sf) * densityPerLen
+
+                for (var i = 0; i < baseCount * Math.max(densityFactorStart, densityFactorEnd) + 4; i++) {
+                    var t = rrange(0.04, 1.0)
+
+                    var localDensityFactor = densityFactorStart + (densityFactorEnd - densityFactorStart) * t
+                    if (rnd() > localDensityFactor) continue
+
+                    var mt = 1 - t
+                    var px = mt*mt*mt*x0 + 3*mt*mt*t*cx1 + 3*mt*t*t*cx2 + t*t*t*x1
+                    var py = mt*mt*mt*y0 + 3*mt*mt*t*cy1 + 3*mt*t*t*cy2 + t*t*t*y1
+
+                    var dx = 3*mt*mt*(cx1-x0) + 6*mt*t*(cx2-cx1) + 3*t*t*(x1-cx2)
+                    var dy = 3*mt*mt*(cy1-y0) + 6*mt*t*(cy2-cy1) + 3*t*t*(y1-cy2)
+                    var len = Math.hypot(dx, dy) || 1
+                    var nx = -dy / len, ny = dx / len
+
+                    var localSpread = spreadAtStart + (spreadAtEnd - spreadAtStart) * t
+
+                    var side = rnd() < 0.5 ? -1 : 1
+                    var off = side * (localSpread * 0.3 + rrange(0, localSpread * 0.7)) * sf
+
+                    var sizeScale = 1.0 - t * 0.25
+
+                    drawFlower(
+                        px + nx * off,
+                        py + ny * off,
+                        rrange(sizeMin, sizeMax) * sf * sizeScale,
+                        rrange(0, Math.PI * 2),
+                        rrange(0.7, 1.0)
+                    )
+                }
+            }
+
+            function drawBranch(x0, y0, x1, y1, wStart, wEnd, color, wobble, leafDensity, leafMin, leafMax, spreadAtStart, spreadAtEnd, densityFactorStart, densityFactorEnd) {
+                var dx = x1 - x0, dy = y1 - y0
+                var cx1 = x0 + dx * 0.33 + rrange(-wobble, wobble)
+                var cy1 = y0 + dy * 0.33 + rrange(-wobble, wobble)
+                var cx2 = x0 + dx * 0.66 + rrange(-wobble, wobble)
+                var cy2 = y0 + dy * 0.66 + rrange(-wobble, wobble)
+
+                var steps = 10
+                var px = x0, py = y0
+                for (var i = 1; i <= steps; i++) {
+                    var t = i / steps, mt = 1 - t
+                    var nx = mt*mt*mt*x0 + 3*mt*mt*t*cx1 + 3*mt*t*t*cx2 + t*t*t*x1
+                    var ny = mt*mt*mt*y0 + 3*mt*mt*t*cy1 + 3*mt*t*t*cy2 + t*t*t*y1
+
+                    ctx.beginPath()
+                    ctx.moveTo(px, py)
+                    ctx.lineTo(nx, ny)
+                    ctx.lineWidth = (wStart + (wEnd - wStart) * t) * sf
+                    ctx.strokeStyle = color
+                    ctx.lineCap = "round"
+                    ctx.stroke()
+                    px = nx; py = ny
+                }
+
+                if (leafDensity > 0) {
+                    scatterAlongPath(x0, y0, cx1, cy1, cx2, cy2, x1, y1, leafDensity, leafMin, leafMax,
+                        spreadAtStart, spreadAtEnd, densityFactorStart, densityFactorEnd)
+                }
+
+                return { x: x1, y: y1, angle: Math.atan2(y1 - cy2, x1 - cx2) }
+            }
+
+            function buildLevel(startY, mainLength, riseAmount, branchColor, twigColor, thicknessMain, isUpper) {
+                var startX = W + 40 * sf
+                var endX = startX - mainLength
+                var endY = startY - riseAmount
+
+                var radiusBase = 95
+                var radiusTip  = 22
+                function radiusAt(t) { return radiusBase - (radiusBase - radiusTip) * t }
+
+                var densityFull = 1.0
+                var densityThin = 0.25
+                function densityAt(t) { return densityFull - (densityFull - densityThin) * t }
+
+                var segCount = isUpper ? 4 : 3
+                var px = startX, py = startY
+                var nodes = []
+
+                // ── batang utama: leafDensity dinaikkan (0.20 -> 0.45) + cluster tambahan di tengah segmen ──
+                for (var s = 0; s < segCount; s++) {
+                    var t0 = s / segCount, t1 = (s + 1) / segCount
+                    var nx = startX + (endX - startX) * t1 + rrange(-18, 18) * sf
+                    var ny = startY + (endY - startY) * t1 + rrange(-14, 14) * sf
+                    var wS = thicknessMain * (1 - t0 * 0.55)
+                    var wE = thicknessMain * (1 - t1 * 0.55)
+
+                    var startSpread = radiusAt(t0)
+                    var endSpread   = radiusAt(t1)
+
+                    var res = drawBranch(px, py, nx, ny, wS, wE, branchColor, 22 * sf,
+                        0.45, 8, 14, startSpread, endSpread, densityAt(t0), densityAt(t1))
+                    nodes.push({ x: nx, y: ny, angle: res.angle, tNorm: t1 })
+
+                    // cluster ekstra di TENGAH segmen ini, biar gak ada celah kosong
+                    var midT = (t0 + t1) / 2
+                    var midX = px + (nx - px) * 0.5
+                    var midY = py + (ny - py) * 0.5
+                    var midCount = Math.max(1, Math.round((isUpper ? 5 : 4) * densityAt(midT)))
+                    drawFlowerCluster(midX, midY, midCount, radiusAt(midT) * sf * 0.8, 8, 13)
+
+                    px = nx; py = ny
+                }
+
+                for (var n = 0; n < nodes.length; n++) {
+                    var node = nodes[n]
+                    var branchScale = 1.0 - node.tNorm * 0.5
+                    var subCount = isUpper ? 2 : 1
+                    var baseSpreadHere = radiusAt(node.tNorm)
+                    var baseDensityHere = densityAt(node.tNorm)
+
+                    for (var b = 0; b < subCount; b++) {
+                        var spreadAngle = rrange(-0.9, -0.25)
+                        var subAngle = node.angle + Math.PI + spreadAngle * (b === 0 ? 1 : -0.6)
+                        var subLen = rrange(50, 95) * sf * branchScale
+                        var sx1 = node.x + Math.cos(subAngle) * subLen
+                        var sy1 = node.y + Math.sin(subAngle) * subLen
+
+                        var subStartSpread = baseSpreadHere
+                        var subEndSpread = baseSpreadHere * 0.55
+                        var subStartDensity = baseDensityHere
+                        var subEndDensity = baseDensityHere * 0.6
+
+                        var subRes = drawBranch(node.x, node.y, sx1, sy1,
+                            4.5 * sf * branchScale, 1.5 * sf * branchScale, twigColor, 14 * sf,
+                            0.26, 8, 14, subStartSpread, subEndSpread, subStartDensity, subEndDensity)
+
+                        for (var w = 0; w < 2; w++) {
+                            var twigAngle = subRes.angle + rrange(-0.7, 0.7)
+                            var twigLen = rrange(20, 40) * sf * branchScale
+                            var tx1 = sx1 + Math.cos(twigAngle) * twigLen
+                            var ty1 = sy1 + Math.sin(twigAngle) * twigLen
+
+                            var twigStartSpread = subEndSpread
+                            var twigEndSpread = subEndSpread * 0.45
+                            var twigStartDensity = subEndDensity
+                            var twigEndDensity = subEndDensity * 0.6
+
+                            drawBranch(sx1, sy1, tx1, ty1, 1.8 * sf * branchScale, 0.6 * sf, twigColor, 8 * sf,
+                                0.30, 8, 15, twigStartSpread, twigEndSpread, twigStartDensity, twigEndDensity)
+
+                            var tipCount = Math.max(1, Math.round((isUpper ? 6 : 5) * twigEndDensity))
+                            drawFlowerCluster(tx1, ty1, tipCount, twigEndSpread * 0.9 * sf, 8, 13)
+                        }
+
+                        var nodeCount = Math.max(1, Math.round((isUpper ? 5 : 4) * subStartDensity))
+                        var subCount2 = Math.max(1, Math.round((isUpper ? 5 : 4) * subEndDensity))
+                        drawFlowerCluster(node.x, node.y, nodeCount, subStartSpread * sf, 9, 14)
+                        drawFlowerCluster(sx1, sy1, subCount2, subEndSpread * sf, 8, 13)
+                    }
+                }
+
+                var c1 = Math.max(1, Math.round((isUpper ? 9 : 7) * densityAt(0.10)))
+                var c2 = Math.max(1, Math.round((isUpper ? 8 : 6) * densityAt(0.40)))
+                var c3 = Math.max(1, Math.round((isUpper ? 6 : 5) * densityAt(1.0)))
+
+                drawFlowerCluster(startX - mainLength * 0.15, startY - riseAmount * 0.1, c1, radiusAt(0.10) * sf, 10, 16)
+                drawFlowerCluster(startX - mainLength * 0.4, startY - riseAmount * 0.4, c2, radiusAt(0.40) * sf, 9, 15)
+                drawFlowerCluster(endX, endY, c3, radiusAt(1.0) * sf, 8, 13)
+            }
+
+            buildLevel(H * 0.58, W * 0.30, H * 0.10, "#3C1A0E", "#5A2A14", 15, false)
+            buildLevel(H * 0.40, W * 0.62, H * 0.30, "#2C140A", "#4A2210", 19, true)
+
+            ctx.restore()
+        }
+
+        Component.onCompleted: requestPaint()
+    }
 }

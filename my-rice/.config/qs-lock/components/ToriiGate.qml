@@ -1,4 +1,5 @@
 import QtQuick
+import QtQuick.Window 
 
 Item {
     id: root
@@ -24,7 +25,6 @@ Item {
     // Ekspos properti penting agar bisa dibaca oleh file utama untuk posisi kontent
     readonly property int innerWidth:   gateWidth - pillarWidth * 2
     readonly property int nukiAbsY:     kasagiH + 115 
-    // Hitung titik tengah ruang kosong (antara bawah Nuki dan atas Kanmon)
     readonly property int visualBottom: (kasagiH * 0.8) + pillarHeight - 65
     readonly property int contentCenterY: (nukiAbsY + visualBottom) / 2
 
@@ -37,9 +37,7 @@ Item {
     property bool showRight:  false
     property bool showKasagi: false
     property bool showNuki:   false
-
-    // Properti drop animasi untuk bulan
-    property bool showMoon: false
+    property bool showMoon:   false
 
     onAnimPhaseChanged: {
         if (animPhase === 1) {
@@ -104,21 +102,131 @@ Item {
 
     Timer { id: waitTimer; interval: 700; onTriggered: root.animDone(7) }
 
+    // ── WATER REFLECTION (Air acak tanpa background + Refleksi Bulan Distorsi) ──
+    Canvas {
+        id: waterCanvas
+        
+        width: Screen.width
+        height: Screen.height * 0.4 
+        
+        anchors.bottom: parent.bottom
+        anchors.horizontalCenter: parent.horizontalCenter
+
+        property real waveProgress: 0
+        property var ripples: []
+
+        Component.onCompleted: {
+            var temp = []
+            for (var i = 0; i < 4; i++) {
+                temp.push({
+                    x: Math.random(),               
+                    y: Math.random(),               
+                    phase: Math.random(),           
+                    size: 0.3 + Math.random() * 1.0 
+                })
+            }
+            ripples = temp
+            requestPaint()
+        }
+
+        NumberAnimation on waveProgress {
+            from: 0
+            to: 1
+            duration: 6000
+            loops: Animation.Infinite
+            running: root.showLeft 
+        }
+
+        onWaveProgressChanged: requestPaint()
+
+        onPaint: {
+            var ctx = getContext("2d")
+            ctx.clearRect(0, 0, width, height)
+
+            var sf = root.scaleFactor
+            
+            // Waktu untuk putaran penuh, menjamin loop sempurna tanpa snap
+            var timeOffset = waveProgress * Math.PI * 2
+
+            // 1. GAMBAR REFLEKSI BULAN
+            if (root.showMoon) {
+                ctx.save()
+                
+                var moonCenterWaterX = (width / 2) - (root.width / 2) - (270 * sf)
+                var moonCenterWaterY = height * 0.25 
+                
+                // Goyangan kanan-kiri keseluruhan (pakai bilangan bulat biar ga nge-snap)
+                var globalSwayX = Math.sin(timeOffset) * (6 * sf)
+                ctx.translate(moonCenterWaterX + globalSwayX, moonCenterWaterY)
+                
+                ctx.fillStyle = "rgba(245, 246, 250, 0.4)" // Warnanya digabung, transparan soft
+                ctx.beginPath()
+                
+                // Menggambar lingkaran custom yang pinggirannya berdistorsi riak
+                var segments = 40
+                for (var k = 0; k <= segments; k++) {
+                    var angle = (k / segments) * Math.PI * 2
+                    
+                    // Hitung efek "meleot" (wobble) pakai perpaduan sin/cos
+                    var wobble = Math.sin(angle * 3 + timeOffset) * (5 * sf) + Math.cos(angle * 2 - timeOffset) * (3 * sf)
+                    
+                    // Bentuk dasar oval (gepeng) ditambah efek wobble di kelilingnya
+                    var rx = (70 * sf) + wobble
+                    var ry = (12 * sf) + (wobble * 0.2)
+                    
+                    var dx = Math.cos(angle) * rx
+                    var dy = Math.sin(angle) * ry
+                    
+                    if (k === 0) ctx.moveTo(dx, dy)
+                    else ctx.lineTo(dx, dy)
+                }
+                ctx.closePath()
+                ctx.fill()
+                
+                ctx.restore()
+            }
+
+            // 2. GAMBAR RIAK AIR ACAK
+            ctx.lineWidth = 2 * sf 
+
+            for (var i = 0; i < ripples.length; i++) {
+                var rip = ripples[i]
+                var p = (waveProgress + rip.phase) % 1.0
+                
+                var alpha = Math.sin(p * Math.PI) * 0.6 
+                
+                var maxRadius = (width * 0.12) * rip.size
+                var r = maxRadius * p
+                
+                ctx.save()
+                ctx.translate(rip.x * width, rip.y * height)
+                ctx.scale(1, 0.12) 
+                
+                ctx.strokeStyle = "rgba(255, 255, 255, " + alpha + ")"
+                ctx.beginPath()
+                ctx.arc(0, 0, r, 0, Math.PI * 2)
+                ctx.stroke()
+                
+                ctx.restore()
+            }
+        }
+
+        opacity: root.showLeft ? 1 : 0
+        Behavior on opacity { 
+            NumberAnimation { duration: 1500; easing.type: Easing.InOutQuad } 
+        }
+    }
 
     // ── PILLAR LEFT ──────────────────────────────────────────────────────
     Item {
         visible: root.showLeft
         x: 60
-        y: (root.kasagiH * 0.8) + root.leftDrop // Posisi y diturunkan pas di bawah Shimagi
+        y: (root.kasagiH * 0.8) + root.leftDrop 
         width: root.pillarWidth
         height: root.pillarHeight
 
-        Rectangle {
-            anchors.fill: parent
-            color: root.toriiRed
-        }
+        Rectangle { anchors.fill: parent; color: root.toriiRed }
 
-        // Daiwa (Cincin atas tiang)
         Rectangle {
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.top: parent.top
@@ -127,7 +235,6 @@ Item {
             color: root.toriiRed
         }
 
-        // Kanmon (Kaki Hitam bawah)
         Rectangle {
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.bottom: parent.bottom
@@ -136,22 +243,17 @@ Item {
             color: root.solidBlack
         }
     }
-
 
     // ── PILLAR RIGHT ─────────────────────────────────────────────────────
     Item {
         visible: root.showRight
         x: root.gateWidth - root.pillarWidth + 60
-        y: (root.kasagiH * 0.8) + root.rightDrop // Posisi y diturunkan pas di bawah Shimagi
+        y: (root.kasagiH * 0.8) + root.rightDrop 
         width: root.pillarWidth
         height: root.pillarHeight
 
-        Rectangle {
-            anchors.fill: parent
-            color: root.toriiRed
-        }
+        Rectangle { anchors.fill: parent; color: root.toriiRed }
 
-        // Daiwa (Cincin atas tiang)
         Rectangle {
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.top: parent.top
@@ -160,7 +262,6 @@ Item {
             color: root.toriiRed
         }
 
-        // Kanmon (Kaki Hitam bawah)
         Rectangle {
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.bottom: parent.bottom
@@ -170,30 +271,24 @@ Item {
         }
     }
 
-
     // ── NUKI (Palang Tengah Menembus Tiang) ──────────────────────────────
     Item {
         visible: root.showNuki
         x: 30
-        y: root.kasagiH + 95 + root.nukiDrop // Disesuaikan biar posisinya proporsional di tengah
+        y: root.kasagiH + 95 + root.nukiDrop 
         width: root.gateWidth + 60
         height: 26
 
-        Rectangle {
-            anchors.fill: parent
-            color: root.toriiRed
-        }
+        Rectangle { anchors.fill: parent; color: root.toriiRed }
 
-        // Gakuzuka (Balok Vertikal Tengah)
         Rectangle {
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.bottom: parent.top
             width: 22
-            height: 75 // Lebih tinggi mengikuti skala baru
+            height: 75 
             color: root.toriiRed
         }
     }
-
 
     // ── KASAGI & SHIMAGI (Atap Lancip 2 Lapis) ───────────────────────────
     Canvas {
@@ -208,11 +303,8 @@ Item {
             var ctx = getContext("2d")
             ctx.clearRect(0, 0, width, height)
 
-            var W = width
-            var H = height
-            var cx = W / 2
+            var W = width; var H = height; var cx = W / 2
 
-            // 1. Kasagi (Atap Hitam Melengkung Lancip)
             ctx.beginPath()
             ctx.moveTo(10, H * 0.15) 
             ctx.quadraticCurveTo(cx, H * 0.45, W - 10, H * 0.15) 
@@ -222,7 +314,6 @@ Item {
             ctx.fillStyle = root.solidBlack
             ctx.fill()
 
-            // 2. Shimagi (Balok Merah Bawah Atap)
             ctx.beginPath()
             ctx.moveTo(25, H * 0.50) 
             ctx.quadraticCurveTo(cx, H * 0.75, W - 25, H * 0.50) 
@@ -241,6 +332,7 @@ Item {
         Component.onCompleted: requestPaint()
     }
 
+    // ── MOON ─────────────────────────────────────────────────────────────
     Canvas {
         id: moonCanvas
         visible: root.showMoon
@@ -253,10 +345,7 @@ Item {
             var ctx = getContext("2d")
             ctx.clearRect(0, 0, width, height)
 
-            var sf = scaleFactor
-            var cx = width / 2
-            var cy = height / 2
-            var r = width * 0.4 
+            var sf = scaleFactor; var cx = width / 2; var cy = height / 2; var r = width * 0.4 
 
             ctx.beginPath()
             ctx.arc(cx, cy, r, 0, Math.PI * 2)
@@ -269,7 +358,6 @@ Item {
             ctx.clip()
 
             ctx.fillStyle = "#e1e4ed" 
-
             ctx.beginPath()
             ctx.arc(cx + (20 * sf), cy + (20 * sf), r * 0.8, 0, Math.PI * 2)
             ctx.fill()
@@ -281,7 +369,6 @@ Item {
             ctx.beginPath()
             ctx.arc(cx - (10 * sf), cy + (15 * sf), r * 0.25, 0, Math.PI * 2)
             ctx.fill()
-
             ctx.restore()
 
             ctx.fillStyle = "rgba(255, 255, 255, 0.25)"

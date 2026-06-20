@@ -1,1 +1,1 @@
-{"arch-cleaner.sh":{"type":"oneshot","running":false},"battery-watcher.sh":{"type":"service","running":true},"pomodoro.sh":{"type":"service","running":false},"send-message.sh":{"type":"oneshot","running":false},"terminal-sandbox.sh":{"type":"oneshot","running":false}}
+{"arch-cleaner.sh":{"type":"oneshot","running":false},"battery-watcher.sh":{"type":"service","running":false},"pomodoro.sh":{"type":"service","running":true},"send-message.sh":{"type":"oneshot","running":false},"terminal-sandbox.sh":{"type":"oneshot","running":false}}

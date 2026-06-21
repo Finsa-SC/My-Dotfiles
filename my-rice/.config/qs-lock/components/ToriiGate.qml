@@ -380,10 +380,12 @@ Item {
 
         Component.onCompleted: moonCanvas.requestPaint()
     }
+
+    // Sakura tree
     Canvas {
         id: sakuraCanvas
-        x: 65
-        y: -160
+        x: 87
+        y: -170
         width: root.width + 400 * scaleFactor
         height: root.height
 
@@ -629,4 +631,150 @@ Item {
 
         Component.onCompleted: requestPaint()
     }
+
+    // ── FALLING PETALS ──
+Canvas {
+    id: fallingPetalsCanvas
+    x: root.width * 0.65
+    y: -140 * scaleFactor
+    width: root.width * 1.0  // lebar area jatuh
+    height: root.height * 1.4 // tinggi area jatuh
+    z: 10
+
+    property int petalSeed: 4242
+    function prnd() {
+        petalSeed = (petalSeed + 0x6D2B79F5) | 0
+        var t = petalSeed
+        t = Math.imul(t ^ (t >>> 15), t | 1)
+        t ^= t + Math.imul(t ^ (t >>> 7), t | 61)
+        return ((t ^ (t >>> 14)) >>> 0) / 4294967296
+    }
+    function prange(a, b) { return a + prnd() * (b - a) }
+
+    property var petals: []
+    property int petalCount: 22   // ← jumlah kelopak yang jatuh bersamaan
+    property real elapsed: 0
+
+    function spawnPetal(forceTop) {
+        var sf = root.scaleFactor
+        return {
+            x: prange(0, width),
+            y: forceTop ? prange(-height * 0.3, 0) : prange(-height * 0.3, height),
+            baseX: 0,
+            fallSpeed: prange(45, 70) * sf,
+            swayFreq: prange(0.5, 1.4),
+            swayAmp: prange(18, 48) * sf,
+            swayPhase: prange(0, Math.PI * 2),
+            rot: prange(0, Math.PI * 2),
+            rotSpeed: prange(-1.6, 1.6),
+            size: prange(7, 13) * sf,
+            color: ["#ED93B1", "#F4C0D1", "#D4537E", "#F0997B"][Math.floor(prnd() * 4)],
+            lifeTotal: prange(10, 18),
+            fadeStart: prange(0.85, 0.97),
+            fadeDuration: prange(1.0, 2.5),
+            age: 0,
+            startDelay: prange(0, 4)
+        }
+    }
+
+    Component.onCompleted: {
+        var arr = []
+        for (var i = 0; i < petalCount; i++) {
+            var p = spawnPetal(false)
+            // sebar usia awal biar gak semua mulai dari y yang sama persis
+            p.age = prange(0, p.lifeTotal * 0.6)
+            arr.push(p)
+        }
+        petals = arr
+        requestPaint()
+    }
+
+    Timer {
+    id: petalTimer
+    interval: 33 // Total fps
+    repeat: true
+    running: true
+    property real lastTime: -1
+    onTriggered: {
+        var dt = interval / 1000.0
+        fallingPetalsCanvas.elapsed += dt
+
+        var arr = fallingPetalsCanvas.petals
+        for (var i = 0; i < arr.length; i++) {
+            var p = arr[i]
+            p.age += dt
+
+            if (p.age < p.startDelay) continue
+
+            var activeAge = p.age - p.startDelay
+            var sf = root.scaleFactor
+
+            p.y += p.fallSpeed * dt
+            p.rot += p.rotSpeed * dt
+
+            if (activeAge > p.lifeTotal || p.y > fallingPetalsCanvas.height + 80 * sf) {
+                arr[i] = fallingPetalsCanvas.spawnPetal(true)
+                arr[i].y = -prange(20, 120) * sf
+            }
+        }
+        fallingPetalsCanvas.petals = arr
+        fallingPetalsCanvas.requestPaint()
+    }
+}
+
+    onPaint: {
+        var ctx = getContext("2d")
+        ctx.clearRect(0, 0, width, height)
+
+        var arr = petals
+        for (var i = 0; i < arr.length; i++) {
+            var p = arr[i]
+            if (p.age < p.startDelay) continue
+
+            var activeAge = p.age - p.startDelay
+            var lifeRatio = activeAge / p.lifeTotal
+
+            // hitung alpha: normal sampai fadeStart, lalu fade out acak di titik itu
+            var alpha = 1.0
+            var fadeBeginAt = p.fadeStart * p.lifeTotal
+            if (activeAge > fadeBeginAt) {
+                var fadeProgress = (activeAge - fadeBeginAt) / p.fadeDuration
+                alpha = Math.max(0, 1.0 - fadeProgress)
+            }
+            if (alpha <= 0.01) continue
+
+            // posisi X final: posisi dasar + goyangan sinusoidal (efek angin, gak statis/lurus)
+            var swayX = Math.sin(activeAge * p.swayFreq * Math.PI + p.swayPhase) * p.swayAmp
+            var finalX = p.x + swayX
+
+            // skip kalau sudah keluar batas bawah jauh
+            if (p.y > height + 100) continue
+
+            ctx.save()
+            ctx.translate(finalX, p.y)
+            ctx.rotate(p.rot)
+            ctx.globalAlpha = alpha
+            ctx.fillStyle = p.color
+
+            // ── BENTUK: oval melengkung kayak bulan sabit/kelopak, BUKAN bunga 5-kelopak ──
+            // digambar dengan 2 kurva bezier membentuk lengkungan oval yang menipis di ujung
+            var s = p.size
+            ctx.beginPath()
+            ctx.moveTo(-s * 0.5, 0)
+            ctx.bezierCurveTo(-s * 0.3, -s * 0.55, s * 0.3, -s * 0.55, s * 0.5, 0)
+            ctx.bezierCurveTo(s * 0.3, s * 0.2, -s * 0.3, s * 0.2, -s * 0.5, 0)
+            ctx.closePath()
+            ctx.fill()
+
+            // sedikit highlight tipis di tengah biar ada kesan lengkungan/volume
+            ctx.globalAlpha = alpha * 0.35
+            ctx.fillStyle = "#FFFFFF"
+            ctx.beginPath()
+            ctx.ellipse(0, -s * 0.08, s * 0.22, s * 0.12, 0, 0, Math.PI * 2)
+            ctx.fill()
+
+            ctx.restore()
+        }
+    }
+}
 }

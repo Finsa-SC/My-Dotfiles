@@ -5,6 +5,6 @@ hl.on("hyprland.start", function()
         pin = true,
         size = "400 225",
         opaque = true,
-        noblur = true
+        blur = false
     })
 end)

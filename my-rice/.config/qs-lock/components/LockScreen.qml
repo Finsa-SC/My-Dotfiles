@@ -1,5 +1,6 @@
 import Quickshell
 import Quickshell.Wayland
+import Quickshell.Io
 import QtQuick
 import QtQuick.Effects
 
@@ -11,9 +12,11 @@ PanelWindow {
     // ╔══════════════════════════════════════════════════════════════════╗
     // ║  CONFIG                                                          ║
     // ╚══════════════════════════════════════════════════════════════════╝
-    readonly property string username:       "SilenceSuzuka"
-    readonly property string avatarPath:     "/home/silence-suzuka/.config/assets/silence-suzuka.png"
-    readonly property string screenshotPath: "/tmp/qs-lockscreen-bg.png"
+    readonly property string username:         "SilenceSuzuka"
+    readonly property string avatarPath:       Quickshell.env("HOME") + "/.config/assets/silence-suzuka.png"
+    readonly property string screenshotPath:   "/tmp/qs-lockscreen-bg.png"
+
+    readonly property string passwordFilePath: Quickshell.env("HOME") + "/.config/qs-lock/lockscreen.conf"
 
     // ╔══════════════════════════════════════════════════════════════════╗
     // ║  LAYOUT                                                          ║
@@ -29,6 +32,8 @@ PanelWindow {
     // ════════════════════════════════════════════════════════════════════
 
     property int animPhase: 0
+    property string correctPassword: ""
+    property int wrongAttempts: 0
 
     anchors { left: true; right: true; top: true; bottom: true }
     WlrLayershell.layer: WlrLayer.Overlay
@@ -86,10 +91,10 @@ PanelWindow {
 
         anchors.verticalCenter: toriiGate.top
         anchors.verticalCenterOffset: toriiGate.contentCenterY
-        
+
         width: toriiGate.innerWidth
         height: loginContent.implicitHeight
-        
+
         opacity: animPhase >= 8 ? 1 : 0
         visible: animPhase >= 7
 
@@ -101,7 +106,7 @@ PanelWindow {
             id: loginContent
             anchors.centerIn: parent
             spacing: root.contentSpacing
-            
+
             Text {
                 id: clockText
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -155,6 +160,7 @@ PanelWindow {
             }
 
             Rectangle {
+                id: pwFieldRect
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: root.pwFieldWidth
                 height: root.pwFieldHeight
@@ -186,9 +192,21 @@ PanelWindow {
                         cursorVisible: activeFocus
                         clip: true
 
+                        onFocusChanged: if (focus) forceActiveFocus()
+
                         Keys.onReturnPressed: {
-                            feedbackText.text = "Authenticating..."
-                            handoffTimer.restart()
+                            console.log("ENTER PRESSED. animPhase:", root.animPhase, "| typed:", pwInput.text, "| correct:", root.correctPassword, "| activeFocus:", pwInput.activeFocus)
+
+                            if (root.correctPassword !== "" && pwInput.text === root.correctPassword) {
+                                feedbackText.text = "Unlocking..."
+                                feedbackText.color = "#80ffffff"
+                                handoffTimer.restart()
+                            } else {
+                                feedbackText.text = "Incorrect password"
+                                feedbackText.color = "#ff6b6b"
+                                root.wrongAttempts++
+                                pwInput.text = ""
+                            }
                         }
 
                         Text {
@@ -217,14 +235,33 @@ PanelWindow {
     }
     onAnimPhaseChanged: {
         if (animPhase === 7) blurDoneTimer.start()
+        if (animPhase === 8) pwInput.forceActiveFocus()
     }
 
     Timer {
         id: handoffTimer
         interval: 350
-        onTriggered: {
-            Quickshell.execDetached(["hyprlock"])
-            Qt.quit()
+        onTriggered: Qt.quit()
+    }
+
+    FileView {
+        id: passwordFile
+        path: root.passwordFilePath
+        onLoaded: {
+            console.log("FileView loaded, path:", root.passwordFilePath)
+            console.log("Raw content:", text())
+            var lines = text().split("\n")
+            for (var i = 0; i < lines.length; i++) {
+                var line = lines[i].trim()
+                if (line.indexOf("password=") === 0) {
+                    root.correctPassword = line.substring("password=".length)
+                    console.log("Password loaded, length:", root.correctPassword.length)
+                    break
+                }
+            }
+        }
+        onLoadFailed: function(error) {
+            console.log("FileView FAILED to load:", error)
         }
     }
 

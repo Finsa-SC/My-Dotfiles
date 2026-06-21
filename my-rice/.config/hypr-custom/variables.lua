@@ -4,6 +4,7 @@ _G.browser        = "zen-browser"
 _G.secondBrowser  = "brave"
 _G.fileManager    = "dolphin"
 _G.editor         = "code"
+_G.secondEditor   = "pycharm"
 _G.systemMonitor  = "btop"
 
 -- Modifier
@@ -40,13 +41,14 @@ _G.dirs = {
   { key = "down",  dir = "d" },
 }
 
--- Keybinds: App
+-- Keybinds: Application
 _G.kbTerminal       = _G.mainMod .. " + Return"
 _G.kbMenu           = _G.mainMod .. " + R"
 _G.kbBrowser        = _G.mainMod .. " + B"
 _G.kbSecondBrowser  = _G.mainMod .. " + SHIFT + B"
 _G.kbFileManager    = _G.mainMod .. " + E"
 _G.kbEditor         = _G.mainMod .. " + C"
+_G.kbSecondEditor  = _G.mainMod .. " + SHIFT + C"
 _G.kbSystemMonitor  = "CTRL + SHIFT + Escape"
 
 -- keybinds: window actions

@@ -3,9 +3,8 @@ hl.on("hyprland.start", function()
         match = { title = "^(Picture-in-Picture)$" },
         float = true,
         pin = true,
-        size = "400 225" -- Jika pakai spasi aman di dispatch dasar, silakan dipertahankan
+        size = "400 225",
+        opaque = true,
+        noblur = true
     })
-
-    hl.dispatch("windowrulev2", "opaque, title:^(Picture-in-Picture)$")
-    hl.dispatch("windowrulev2", "noblur, title:^(Picture-in-Picture)$")
 end)

@@ -68,6 +68,8 @@ pacman brightnessctl
 pacman upower
 pacman bubblewrap
 pacman podman
+pacman man-db
+pacman man-pages
 
 # ── Screenshot & Wallpaper
 pacman swaybg

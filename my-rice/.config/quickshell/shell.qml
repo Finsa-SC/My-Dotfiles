@@ -8,6 +8,8 @@ ShellRoot {
     property string mode: "full"
     property bool panelExpanded: false
 
+    SplashScreen {}
+
     Process {
         id: readMode
         command: ["bash", "-c", "cat $HOME/.cache/qs-mode 2>/dev/null || echo full"]

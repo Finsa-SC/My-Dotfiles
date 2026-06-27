@@ -22,3 +22,4 @@ PentestPanel 1.0 PentestPanel.qml
 PentestField 1.0 PentestField.qml
 GroupLabel 1.0 GroupLabel.qml
 PentestTrigger 1.0 PentestTrigger.qml
+SplashScreen 1.0 SplashScreen.qml

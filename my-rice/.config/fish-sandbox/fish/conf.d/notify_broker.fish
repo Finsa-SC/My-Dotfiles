@@ -16,7 +16,7 @@ function __postexec_notify --on-event fish_postexec
     set -l exit_code $status
     set -l cmd $argv[1]
 
-    if test -z (string trim -- "$cmd"); or test "$__cmd_start_time" = "0"
+    if test -z "(string trim -- "$cmd")"; or test "$__cmd_start_time" = "0"
         return
     end
 

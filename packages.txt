@@ -7,6 +7,7 @@
 pacman git
 pacman base-devel
 pacman sddm
+pacman sudo
 
 # ── Window Manager & Compositor
 aur quickshell
@@ -71,6 +72,7 @@ pacman podman
 pacman man-db
 pacman man-pages
 pacman flatpak
+pacman nano
 
 # ── Screenshot & Wallpaper
 pacman swaybg

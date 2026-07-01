@@ -70,6 +70,7 @@ pacman bubblewrap
 pacman podman
 pacman man-db
 pacman man-pages
+pacman flatpak
 
 # ── Screenshot & Wallpaper
 pacman swaybg

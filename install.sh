@@ -204,6 +204,27 @@ init_dirs() {
     done
 }
 
+# Setup nano config
+setup_nano() {
+    section "Linking Nano config"
+
+    local src="$CONFIG/nano/nanorc"
+    local dst="$HOME/.nanorc"
+
+    if [ ! -f "$src" ]; then
+        warn "Nano source config not found at $src, skipping"
+        return
+    fi
+
+    if [ -e "$dst" ] && [ ! -L "$dst" ]; then
+        warn "Backing up .nanorc → .nanorc.bak"
+        mv "$dst" "${dst}.bak"
+    fi
+
+    ln -sfn "$src" "$dst"
+    success "nano config ${DIM}→ $dst${RESET}"
+}
+
 # ── Copy wallpapers
 move_wallpapers() {
     section "Copying wallpapers"
@@ -449,6 +470,7 @@ case "${1:-all}" in
     sandbox)   setup_sandbox_image ;;
     fastfetch) setup_fastfetch ;;
     sddm)      setup_sddm ;;
+    nano)      setup_nano ;;
     all)
         install_packages
         init_dirs
@@ -458,6 +480,7 @@ case "${1:-all}" in
         setup_pentest
         setup_sandbox_image
         setup_sudoers
+        setup_nano
         link_configs
         link_assets
         link_hypr
@@ -466,7 +489,7 @@ case "${1:-all}" in
         ;;
     yay) install_yay ;;
     *)
-        echo -e "Usage: ${BOLD}$0${RESET} [all|packages|links|dirs|fastfetch|sddm|yay]"
+        echo -e "Usage: ${BOLD}$0${RESET} [all|packages|links|dirs|fastfetch|sddm|nano|yay]"
         ;;
 esac
 

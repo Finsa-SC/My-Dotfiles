@@ -1,0 +1,652 @@
+=== grid_navigation.lua loaded ===
+primaryName=eDP-1
+STARTUP ws.id=11 col=1 row=3
+refreshExtendedViews col=1 row=3
+  HEADLESS-8 targetCol=1 targetRow=2
+  DISPATCH moveworkspacetomonitor 6 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=12 mon=eDP-1
+refreshExtendedViews col=2 row=3
+  HEADLESS-8 targetCol=2 targetRow=2
+  DISPATCH moveworkspacetomonitor 7 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=13 mon=eDP-1
+refreshExtendedViews col=3 row=3
+  HEADLESS-8 targetCol=3 targetRow=2
+  DISPATCH moveworkspacetomonitor 8 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=12 mon=eDP-1
+refreshExtendedViews col=2 row=3
+  HEADLESS-8 targetCol=2 targetRow=2
+  DISPATCH moveworkspacetomonitor 7 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=11 mon=eDP-1
+refreshExtendedViews col=1 row=3
+  HEADLESS-8 targetCol=1 targetRow=2
+  DISPATCH moveworkspacetomonitor 6 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=6 mon=eDP-1
+refreshExtendedViews col=1 row=2
+  HEADLESS-8 targetCol=1 targetRow=1
+  DISPATCH moveworkspacetomonitor 1 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=7 mon=eDP-1
+refreshExtendedViews col=2 row=2
+  HEADLESS-8 targetCol=2 targetRow=1
+  DISPATCH moveworkspacetomonitor 2 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=12 mon=eDP-1
+refreshExtendedViews col=2 row=3
+  HEADLESS-8 targetCol=2 targetRow=2
+  DISPATCH moveworkspacetomonitor 7 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=11 mon=eDP-1
+refreshExtendedViews col=1 row=3
+  HEADLESS-8 targetCol=1 targetRow=2
+  DISPATCH moveworkspacetomonitor 6 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=6 mon=eDP-1
+refreshExtendedViews col=1 row=2
+  HEADLESS-8 targetCol=1 targetRow=1
+  DISPATCH moveworkspacetomonitor 1 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=11 mon=eDP-1
+refreshExtendedViews col=1 row=3
+  HEADLESS-8 targetCol=1 targetRow=2
+  DISPATCH moveworkspacetomonitor 6 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=12 mon=eDP-1
+refreshExtendedViews col=2 row=3
+  HEADLESS-8 targetCol=2 targetRow=2
+  DISPATCH moveworkspacetomonitor 7 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=13 mon=eDP-1
+refreshExtendedViews col=3 row=3
+  HEADLESS-8 targetCol=3 targetRow=2
+  DISPATCH moveworkspacetomonitor 8 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=8 mon=eDP-1
+refreshExtendedViews col=3 row=2
+  HEADLESS-8 targetCol=3 targetRow=1
+  DISPATCH moveworkspacetomonitor 3 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=3 mon=eDP-1
+refreshExtendedViews col=3 row=1
+  HEADLESS-8 targetCol=3 targetRow=0
+  SKIPPED out of bounds
+EVENT ws.id=1 mon=eDP-1
+refreshExtendedViews col=1 row=1
+  HEADLESS-8 targetCol=1 targetRow=0
+  SKIPPED out of bounds
+EVENT ws.id=6 mon=eDP-1
+refreshExtendedViews col=1 row=2
+  HEADLESS-8 targetCol=1 targetRow=1
+  DISPATCH moveworkspacetomonitor 1 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=7 mon=eDP-1
+refreshExtendedViews col=2 row=2
+  HEADLESS-8 targetCol=2 targetRow=1
+  DISPATCH moveworkspacetomonitor 2 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=12 mon=eDP-1
+refreshExtendedViews col=2 row=3
+  HEADLESS-8 targetCol=2 targetRow=2
+  DISPATCH moveworkspacetomonitor 7 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=17 mon=eDP-1
+refreshExtendedViews col=2 row=4
+  HEADLESS-8 targetCol=2 targetRow=3
+  DISPATCH moveworkspacetomonitor 12 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=12 mon=eDP-1
+refreshExtendedViews col=2 row=3
+  HEADLESS-8 targetCol=2 targetRow=2
+  DISPATCH moveworkspacetomonitor 7 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=11 mon=eDP-1
+refreshExtendedViews col=1 row=3
+  HEADLESS-8 targetCol=1 targetRow=2
+  DISPATCH moveworkspacetomonitor 6 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=1 mon=eDP-1
+refreshExtendedViews col=1 row=1
+  HEADLESS-8 targetCol=1 targetRow=0
+  SKIPPED out of bounds
+EVENT ws.id=6 mon=eDP-1
+refreshExtendedViews col=1 row=2
+  HEADLESS-8 targetCol=1 targetRow=1
+  DISPATCH moveworkspacetomonitor 1 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=1 mon=eDP-1
+refreshExtendedViews col=1 row=1
+  HEADLESS-8 targetCol=1 targetRow=0
+  SKIPPED out of bounds
+EVENT ws.id=6 mon=eDP-1
+refreshExtendedViews col=1 row=2
+  HEADLESS-8 targetCol=1 targetRow=1
+  DISPATCH moveworkspacetomonitor 1 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=11 mon=eDP-1
+refreshExtendedViews col=1 row=3
+  HEADLESS-8 targetCol=1 targetRow=2
+  DISPATCH moveworkspacetomonitor 6 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=12 mon=eDP-1
+refreshExtendedViews col=2 row=3
+  HEADLESS-8 targetCol=2 targetRow=2
+  DISPATCH moveworkspacetomonitor 7 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=13 mon=eDP-1
+refreshExtendedViews col=3 row=3
+  HEADLESS-8 targetCol=3 targetRow=2
+  DISPATCH moveworkspacetomonitor 8 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=12 mon=eDP-1
+refreshExtendedViews col=2 row=3
+  HEADLESS-8 targetCol=2 targetRow=2
+  DISPATCH moveworkspacetomonitor 7 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=11 mon=eDP-1
+refreshExtendedViews col=1 row=3
+  HEADLESS-8 targetCol=1 targetRow=2
+  DISPATCH moveworkspacetomonitor 6 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=12 mon=eDP-1
+refreshExtendedViews col=2 row=3
+  HEADLESS-8 targetCol=2 targetRow=2
+  DISPATCH moveworkspacetomonitor 7 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=13 mon=eDP-1
+refreshExtendedViews col=3 row=3
+  HEADLESS-8 targetCol=3 targetRow=2
+  DISPATCH moveworkspacetomonitor 8 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=12 mon=eDP-1
+refreshExtendedViews col=2 row=3
+  HEADLESS-8 targetCol=2 targetRow=2
+  DISPATCH moveworkspacetomonitor 7 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=11 mon=eDP-1
+refreshExtendedViews col=1 row=3
+  HEADLESS-8 targetCol=1 targetRow=2
+  DISPATCH moveworkspacetomonitor 6 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=12 mon=eDP-1
+refreshExtendedViews col=2 row=3
+  HEADLESS-8 targetCol=2 targetRow=2
+  DISPATCH moveworkspacetomonitor 7 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=11 mon=eDP-1
+refreshExtendedViews col=1 row=3
+  HEADLESS-8 targetCol=1 targetRow=2
+  DISPATCH moveworkspacetomonitor 6 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=12 mon=eDP-1
+refreshExtendedViews col=2 row=3
+  HEADLESS-8 targetCol=2 targetRow=2
+  DISPATCH moveworkspacetomonitor 7 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=13 mon=eDP-1
+refreshExtendedViews col=3 row=3
+  HEADLESS-8 targetCol=3 targetRow=2
+  DISPATCH moveworkspacetomonitor 8 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=12 mon=eDP-1
+refreshExtendedViews col=2 row=3
+  HEADLESS-8 targetCol=2 targetRow=2
+  DISPATCH moveworkspacetomonitor 7 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=13 mon=eDP-1
+refreshExtendedViews col=3 row=3
+  HEADLESS-8 targetCol=3 targetRow=2
+  DISPATCH moveworkspacetomonitor 8 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=14 mon=eDP-1
+refreshExtendedViews col=4 row=3
+  HEADLESS-8 targetCol=4 targetRow=2
+  DISPATCH moveworkspacetomonitor 9 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=13 mon=eDP-1
+refreshExtendedViews col=3 row=3
+  HEADLESS-8 targetCol=3 targetRow=2
+  DISPATCH moveworkspacetomonitor 8 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=14 mon=eDP-1
+refreshExtendedViews col=4 row=3
+  HEADLESS-8 targetCol=4 targetRow=2
+  DISPATCH moveworkspacetomonitor 9 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=13 mon=eDP-1
+refreshExtendedViews col=3 row=3
+  HEADLESS-8 targetCol=3 targetRow=2
+  DISPATCH moveworkspacetomonitor 8 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=12 mon=eDP-1
+refreshExtendedViews col=2 row=3
+  HEADLESS-8 targetCol=2 targetRow=2
+  DISPATCH moveworkspacetomonitor 7 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=7 mon=eDP-1
+refreshExtendedViews col=2 row=2
+  HEADLESS-8 targetCol=2 targetRow=1
+  DISPATCH moveworkspacetomonitor 2 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=12 mon=eDP-1
+refreshExtendedViews col=2 row=3
+  HEADLESS-8 targetCol=2 targetRow=2
+  DISPATCH moveworkspacetomonitor 7 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=13 mon=eDP-1
+refreshExtendedViews col=3 row=3
+  HEADLESS-8 targetCol=3 targetRow=2
+  DISPATCH moveworkspacetomonitor 8 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=12 mon=eDP-1
+refreshExtendedViews col=2 row=3
+  HEADLESS-8 targetCol=2 targetRow=2
+  DISPATCH moveworkspacetomonitor 7 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=13 mon=eDP-1
+refreshExtendedViews col=3 row=3
+  HEADLESS-8 targetCol=3 targetRow=2
+  DISPATCH moveworkspacetomonitor 8 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=12 mon=eDP-1
+refreshExtendedViews col=2 row=3
+  HEADLESS-8 targetCol=2 targetRow=2
+  DISPATCH moveworkspacetomonitor 7 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=7 mon=eDP-1
+refreshExtendedViews col=2 row=2
+  HEADLESS-8 targetCol=2 targetRow=1
+  DISPATCH moveworkspacetomonitor 2 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=6 mon=eDP-1
+refreshExtendedViews col=1 row=2
+  HEADLESS-8 targetCol=1 targetRow=1
+  DISPATCH moveworkspacetomonitor 1 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=7 mon=eDP-1
+refreshExtendedViews col=2 row=2
+  HEADLESS-8 targetCol=2 targetRow=1
+  DISPATCH moveworkspacetomonitor 2 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=12 mon=eDP-1
+refreshExtendedViews col=2 row=3
+  HEADLESS-8 targetCol=2 targetRow=2
+  DISPATCH moveworkspacetomonitor 7 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=13 mon=eDP-1
+refreshExtendedViews col=3 row=3
+  HEADLESS-8 targetCol=3 targetRow=2
+  DISPATCH moveworkspacetomonitor 8 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=12 mon=eDP-1
+refreshExtendedViews col=2 row=3
+  HEADLESS-8 targetCol=2 targetRow=2
+  DISPATCH moveworkspacetomonitor 7 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=7 mon=eDP-1
+refreshExtendedViews col=2 row=2
+  HEADLESS-8 targetCol=2 targetRow=1
+  DISPATCH moveworkspacetomonitor 2 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=12 mon=eDP-1
+refreshExtendedViews col=2 row=3
+  HEADLESS-8 targetCol=2 targetRow=2
+  DISPATCH moveworkspacetomonitor 7 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=13 mon=eDP-1
+refreshExtendedViews col=3 row=3
+  HEADLESS-8 targetCol=3 targetRow=2
+  DISPATCH moveworkspacetomonitor 8 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=14 mon=eDP-1
+refreshExtendedViews col=4 row=3
+  HEADLESS-8 targetCol=4 targetRow=2
+  DISPATCH moveworkspacetomonitor 9 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=13 mon=eDP-1
+refreshExtendedViews col=3 row=3
+  HEADLESS-8 targetCol=3 targetRow=2
+  DISPATCH moveworkspacetomonitor 8 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=14 mon=eDP-1
+refreshExtendedViews col=4 row=3
+  HEADLESS-8 targetCol=4 targetRow=2
+  DISPATCH moveworkspacetomonitor 9 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=13 mon=eDP-1
+refreshExtendedViews col=3 row=3
+  HEADLESS-8 targetCol=3 targetRow=2
+  DISPATCH moveworkspacetomonitor 8 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=12 mon=eDP-1
+refreshExtendedViews col=2 row=3
+  HEADLESS-8 targetCol=2 targetRow=2
+  DISPATCH moveworkspacetomonitor 7 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=11 mon=eDP-1
+refreshExtendedViews col=1 row=3
+  HEADLESS-8 targetCol=1 targetRow=2
+  DISPATCH moveworkspacetomonitor 6 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=12 mon=eDP-1
+refreshExtendedViews col=2 row=3
+  HEADLESS-8 targetCol=2 targetRow=2
+  DISPATCH moveworkspacetomonitor 7 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=13 mon=eDP-1
+refreshExtendedViews col=3 row=3
+  HEADLESS-8 targetCol=3 targetRow=2
+  DISPATCH moveworkspacetomonitor 8 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=12 mon=eDP-1
+refreshExtendedViews col=2 row=3
+  HEADLESS-8 targetCol=2 targetRow=2
+  DISPATCH moveworkspacetomonitor 7 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=11 mon=eDP-1
+refreshExtendedViews col=1 row=3
+  HEADLESS-8 targetCol=1 targetRow=2
+  DISPATCH moveworkspacetomonitor 6 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=12 mon=eDP-1
+refreshExtendedViews col=2 row=3
+  HEADLESS-8 targetCol=2 targetRow=2
+  DISPATCH moveworkspacetomonitor 7 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=13 mon=eDP-1
+refreshExtendedViews col=3 row=3
+  HEADLESS-8 targetCol=3 targetRow=2
+  DISPATCH moveworkspacetomonitor 8 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=12 mon=eDP-1
+refreshExtendedViews col=2 row=3
+  HEADLESS-8 targetCol=2 targetRow=2
+  DISPATCH moveworkspacetomonitor 7 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=11 mon=eDP-1
+refreshExtendedViews col=1 row=3
+  HEADLESS-8 targetCol=1 targetRow=2
+  DISPATCH moveworkspacetomonitor 6 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=12 mon=eDP-1
+refreshExtendedViews col=2 row=3
+  HEADLESS-8 targetCol=2 targetRow=2
+  DISPATCH moveworkspacetomonitor 7 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=13 mon=eDP-1
+refreshExtendedViews col=3 row=3
+  HEADLESS-8 targetCol=3 targetRow=2
+  DISPATCH moveworkspacetomonitor 8 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=12 mon=eDP-1
+refreshExtendedViews col=2 row=3
+  HEADLESS-8 targetCol=2 targetRow=2
+  DISPATCH moveworkspacetomonitor 7 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=11 mon=eDP-1
+refreshExtendedViews col=1 row=3
+  HEADLESS-8 targetCol=1 targetRow=2
+  DISPATCH moveworkspacetomonitor 6 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=5 mon=eDP-1
+refreshExtendedViews col=5 row=1
+  HEADLESS-8 targetCol=5 targetRow=0
+  SKIPPED out of bounds
+EVENT ws.id=4 mon=eDP-1
+refreshExtendedViews col=4 row=1
+  HEADLESS-8 targetCol=4 targetRow=0
+  SKIPPED out of bounds
+EVENT ws.id=3 mon=eDP-1
+refreshExtendedViews col=3 row=1
+  HEADLESS-8 targetCol=3 targetRow=0
+  SKIPPED out of bounds
+EVENT ws.id=7 mon=eDP-1
+refreshExtendedViews col=2 row=2
+  HEADLESS-8 targetCol=2 targetRow=1
+  DISPATCH moveworkspacetomonitor 2 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=6 mon=eDP-1
+refreshExtendedViews col=1 row=2
+  HEADLESS-8 targetCol=1 targetRow=1
+  DISPATCH moveworkspacetomonitor 1 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=11 mon=eDP-1
+refreshExtendedViews col=1 row=3
+  HEADLESS-8 targetCol=1 targetRow=2
+  DISPATCH moveworkspacetomonitor 6 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=12 mon=eDP-1
+refreshExtendedViews col=2 row=3
+  HEADLESS-8 targetCol=2 targetRow=2
+  DISPATCH moveworkspacetomonitor 7 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=13 mon=eDP-1
+refreshExtendedViews col=3 row=3
+  HEADLESS-8 targetCol=3 targetRow=2
+  DISPATCH moveworkspacetomonitor 8 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=12 mon=eDP-1
+refreshExtendedViews col=2 row=3
+  HEADLESS-8 targetCol=2 targetRow=2
+  DISPATCH moveworkspacetomonitor 7 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=11 mon=eDP-1
+refreshExtendedViews col=1 row=3
+  HEADLESS-8 targetCol=1 targetRow=2
+  DISPATCH moveworkspacetomonitor 6 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=6 mon=eDP-1
+refreshExtendedViews col=1 row=2
+  HEADLESS-8 targetCol=1 targetRow=1
+  DISPATCH moveworkspacetomonitor 1 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=11 mon=eDP-1
+refreshExtendedViews col=1 row=3
+  HEADLESS-8 targetCol=1 targetRow=2
+  DISPATCH moveworkspacetomonitor 6 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=6 mon=eDP-1
+refreshExtendedViews col=1 row=2
+  HEADLESS-8 targetCol=1 targetRow=1
+  DISPATCH moveworkspacetomonitor 1 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=11 mon=eDP-1
+refreshExtendedViews col=1 row=3
+  HEADLESS-8 targetCol=1 targetRow=2
+  DISPATCH moveworkspacetomonitor 6 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=12 mon=eDP-1
+refreshExtendedViews col=2 row=3
+  HEADLESS-8 targetCol=2 targetRow=2
+  DISPATCH moveworkspacetomonitor 7 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=13 mon=eDP-1
+refreshExtendedViews col=3 row=3
+  HEADLESS-8 targetCol=3 targetRow=2
+  DISPATCH moveworkspacetomonitor 8 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=12 mon=eDP-1
+refreshExtendedViews col=2 row=3
+  HEADLESS-8 targetCol=2 targetRow=2
+  DISPATCH moveworkspacetomonitor 7 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=11 mon=eDP-1
+refreshExtendedViews col=1 row=3
+  HEADLESS-8 targetCol=1 targetRow=2
+  DISPATCH moveworkspacetomonitor 6 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=12 mon=eDP-1
+refreshExtendedViews col=2 row=3
+  HEADLESS-8 targetCol=2 targetRow=2
+  DISPATCH moveworkspacetomonitor 7 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=13 mon=eDP-1
+refreshExtendedViews col=3 row=3
+  HEADLESS-8 targetCol=3 targetRow=2
+  DISPATCH moveworkspacetomonitor 8 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=12 mon=eDP-1
+refreshExtendedViews col=2 row=3
+  HEADLESS-8 targetCol=2 targetRow=2
+  DISPATCH moveworkspacetomonitor 7 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=11 mon=eDP-1
+refreshExtendedViews col=1 row=3
+  HEADLESS-8 targetCol=1 targetRow=2
+  DISPATCH moveworkspacetomonitor 6 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=12 mon=eDP-1
+refreshExtendedViews col=2 row=3
+  HEADLESS-8 targetCol=2 targetRow=2
+  DISPATCH moveworkspacetomonitor 7 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=13 mon=eDP-1
+refreshExtendedViews col=3 row=3
+  HEADLESS-8 targetCol=3 targetRow=2
+  DISPATCH moveworkspacetomonitor 8 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=12 mon=eDP-1
+refreshExtendedViews col=2 row=3
+  HEADLESS-8 targetCol=2 targetRow=2
+  DISPATCH moveworkspacetomonitor 7 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=7 mon=eDP-1
+refreshExtendedViews col=2 row=2
+  HEADLESS-8 targetCol=2 targetRow=1
+  DISPATCH moveworkspacetomonitor 2 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=12 mon=eDP-1
+refreshExtendedViews col=2 row=3
+  HEADLESS-8 targetCol=2 targetRow=2
+  DISPATCH moveworkspacetomonitor 7 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=13 mon=eDP-1
+refreshExtendedViews col=3 row=3
+  HEADLESS-8 targetCol=3 targetRow=2
+  DISPATCH moveworkspacetomonitor 8 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=14 mon=eDP-1
+refreshExtendedViews col=4 row=3
+  HEADLESS-8 targetCol=4 targetRow=2
+  DISPATCH moveworkspacetomonitor 9 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=13 mon=eDP-1
+refreshExtendedViews col=3 row=3
+  HEADLESS-8 targetCol=3 targetRow=2
+  DISPATCH moveworkspacetomonitor 8 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=12 mon=eDP-1
+refreshExtendedViews col=2 row=3
+  HEADLESS-8 targetCol=2 targetRow=2
+  DISPATCH moveworkspacetomonitor 7 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=11 mon=eDP-1
+refreshExtendedViews col=1 row=3
+  HEADLESS-8 targetCol=1 targetRow=2
+  DISPATCH moveworkspacetomonitor 6 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=5 mon=eDP-1
+refreshExtendedViews col=5 row=1
+  HEADLESS-8 targetCol=5 targetRow=0
+  SKIPPED out of bounds
+EVENT ws.id=4 mon=eDP-1
+refreshExtendedViews col=4 row=1
+  HEADLESS-8 targetCol=4 targetRow=0
+  SKIPPED out of bounds
+EVENT ws.id=3 mon=eDP-1
+refreshExtendedViews col=3 row=1
+  HEADLESS-8 targetCol=3 targetRow=0
+  SKIPPED out of bounds
+EVENT ws.id=1 mon=eDP-1
+refreshExtendedViews col=1 row=1
+  HEADLESS-8 targetCol=1 targetRow=0
+  SKIPPED out of bounds
+EVENT ws.id=6 mon=eDP-1
+refreshExtendedViews col=1 row=2
+  HEADLESS-8 targetCol=1 targetRow=1
+  DISPATCH moveworkspacetomonitor 1 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=11 mon=eDP-1
+refreshExtendedViews col=1 row=3
+  HEADLESS-8 targetCol=1 targetRow=2
+  DISPATCH moveworkspacetomonitor 6 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=12 mon=eDP-1
+refreshExtendedViews col=2 row=3
+  HEADLESS-8 targetCol=2 targetRow=2
+  DISPATCH moveworkspacetomonitor 7 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=13 mon=eDP-1
+refreshExtendedViews col=3 row=3
+  HEADLESS-8 targetCol=3 targetRow=2
+  DISPATCH moveworkspacetomonitor 8 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=12 mon=eDP-1
+refreshExtendedViews col=2 row=3
+  HEADLESS-8 targetCol=2 targetRow=2
+  DISPATCH moveworkspacetomonitor 7 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=11 mon=eDP-1
+refreshExtendedViews col=1 row=3
+  HEADLESS-8 targetCol=1 targetRow=2
+  DISPATCH moveworkspacetomonitor 6 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=12 mon=eDP-1
+refreshExtendedViews col=2 row=3
+  HEADLESS-8 targetCol=2 targetRow=2
+  DISPATCH moveworkspacetomonitor 7 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=13 mon=eDP-1
+refreshExtendedViews col=3 row=3
+  HEADLESS-8 targetCol=3 targetRow=2
+  DISPATCH moveworkspacetomonitor 8 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=12 mon=eDP-1
+refreshExtendedViews col=2 row=3
+  HEADLESS-8 targetCol=2 targetRow=2
+  DISPATCH moveworkspacetomonitor 7 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=11 mon=eDP-1
+refreshExtendedViews col=1 row=3
+  HEADLESS-8 targetCol=1 targetRow=2
+  DISPATCH moveworkspacetomonitor 6 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=12 mon=eDP-1
+refreshExtendedViews col=2 row=3
+  HEADLESS-8 targetCol=2 targetRow=2
+  DISPATCH moveworkspacetomonitor 7 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=13 mon=eDP-1
+refreshExtendedViews col=3 row=3
+  HEADLESS-8 targetCol=3 targetRow=2
+  DISPATCH moveworkspacetomonitor 8 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=12 mon=eDP-1
+refreshExtendedViews col=2 row=3
+  HEADLESS-8 targetCol=2 targetRow=2
+  DISPATCH moveworkspacetomonitor 7 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=11 mon=eDP-1
+refreshExtendedViews col=1 row=3
+  HEADLESS-8 targetCol=1 targetRow=2
+  DISPATCH moveworkspacetomonitor 6 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=12 mon=eDP-1
+refreshExtendedViews col=2 row=3
+  HEADLESS-8 targetCol=2 targetRow=2
+  DISPATCH moveworkspacetomonitor 7 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=13 mon=eDP-1
+refreshExtendedViews col=3 row=3
+  HEADLESS-8 targetCol=3 targetRow=2
+  DISPATCH moveworkspacetomonitor 8 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=12 mon=eDP-1
+refreshExtendedViews col=2 row=3
+  HEADLESS-8 targetCol=2 targetRow=2
+  DISPATCH moveworkspacetomonitor 7 HEADLESS-8
+  RESULT ok=true err=nil
+EVENT ws.id=3 mon=HEADLESS-8

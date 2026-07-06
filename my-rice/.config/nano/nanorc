@@ -1,0 +1,25 @@
+# Line numbers
+set linenumbers
+
+# Tab size 2
+set tabsize 2
+
+# Convert tab to spaces
+set tabstospaces
+
+# Auto indent
+set autoindent
+
+# Show status bar
+set titlecolor brightwhite
+set statuscolor brightwhite
+
+# Mouse support
+set mouse
+
+# Word wrap off
+set nowrap
+
+# Include system default theme
+include "/usr/share/nano/*.nanorc"
+include "/usr/share/nano/extra/*.nanorc"

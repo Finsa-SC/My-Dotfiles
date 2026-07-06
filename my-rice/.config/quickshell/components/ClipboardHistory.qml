@@ -22,10 +22,10 @@ PanelWindow {
         right: true
     }
 
-    HyprlandFocusGrab {
-        windows: [clipWin]
-        active: clipWin.visible
-    }
+    // HyprlandFocusGrab {
+    //     windows: [clipWin]
+    //     active: clipWin.visible
+    // }
 
     property var history: []
     property string searchText: ""
@@ -228,6 +228,7 @@ PanelWindow {
 
                         // Content preview
                         Text {
+                            textFormat: Text.PlainText
                             text: {
                                 var raw = modelData
                                 // cliphist format: "ID\tcontent"
@@ -240,7 +241,7 @@ PanelWindow {
                             elide: Text.ElideRight
                             width: parent.width - 28
                             anchors.verticalCenter: parent.verticalCenter
-                        }
+                        }                    
                     }
 
                     HoverHandler {

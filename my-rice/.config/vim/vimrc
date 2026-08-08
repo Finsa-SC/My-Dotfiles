@@ -1,0 +1,29 @@
+" Tampilan
+set number
+set norelativenumber
+
+" Indent
+set tabstop=2
+set shiftwidth=4
+set expandtab
+set smartindent
+
+" Search
+set ignorecase
+set smartcase
+set incsearch
+set hlsearch
+
+" UI
+syntax on
+set ruler
+set showcmd
+
+" Clipboard (jika Vim mendukung)
+set clipboard=unnamedplus
+
+" Mouse (opsional)
+set mouse=a
+
+set laststatus=2
+set showmode

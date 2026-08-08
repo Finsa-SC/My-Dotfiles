@@ -225,6 +225,27 @@ setup_nano() {
     success "nano config ${DIM}→ $dst${RESET}"
 }
 
+# Setup vim config
+setup_vim() {
+    section "Linking Vim config"
+
+    local src="$CONFIG/vim/vimrc"
+    local dst="$HOME/.vimrc"
+
+    if [ ! -f "$src" ]; then
+        warn "Vim source config not found at $src, skipping"
+        return
+    fi
+
+    if [ -e "$dst" ] && [ ! -L "$dst" ]; then
+        warn "Backing up .vimrc → .vimrc.bak"
+        mv "$dst" "${dst}.bak"
+    fi
+
+    ln -sfn "$src" "$dst"
+    success "vim config ${DIM}→ $dst${RESET}"
+}
+
 # ── Copy wallpapers
 move_wallpapers() {
     section "Copying wallpapers"
@@ -329,7 +350,7 @@ link_configs() {
         return
     fi
 
-    local skip_list=("Wallpapers" "fastfetch" "assets" "fish-sandbox")
+    local skip_list=("Wallpapers" "fastfetch" "assets" "fish-sandbox" "vim")
 
     for src in "$CONFIG"/*/; do
         local name dst
@@ -471,6 +492,7 @@ case "${1:-all}" in
     fastfetch) setup_fastfetch ;;
     sddm)      setup_sddm ;;
     nano)      setup_nano ;;
+    vim)       setup_vim ;;
     all)
         install_packages
         init_dirs
@@ -481,6 +503,7 @@ case "${1:-all}" in
         setup_sandbox_image
         setup_sudoers
         setup_nano
+        setup_vim
         link_configs
         link_assets
         link_hypr
@@ -489,7 +512,7 @@ case "${1:-all}" in
         ;;
     yay) install_yay ;;
     *)
-        echo -e "Usage: ${BOLD}$0${RESET} [all|packages|links|dirs|fastfetch|sddm|nano|yay]"
+        echo -e "Usage: ${BOLD}$0${RESET} [all|packages|links|dirs|fastfetch|sddm|nano|vim|yay]"
         ;;
 esac
 

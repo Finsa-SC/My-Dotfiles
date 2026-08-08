@@ -122,7 +122,7 @@ hl.bind(kbCopiedHistory, hl.dsp.exec_cmd(
 hl.bind(kbLockScreen, hl.dsp.exec_cmd(os.getenv("HOME") .. "/.config/scripts/lock.sh"))
 
 -- Color Picker
-hl.bind(mainMod .. " + P", hl.dsp.exec_cmd(
+hl.bind(kbColorPicker, hl.dsp.exec_cmd(
     "hyprpicker -a -f hex && notify-send 'Color Picker' \"$(wl-paste) copied to clipboard\" -a 'System'"
 ), { repeating = false })
 

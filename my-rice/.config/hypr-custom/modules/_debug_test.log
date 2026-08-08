@@ -16323,3 +16323,7 @@ ws.id=13 | ws.monitor.name = eDP-1
 ws.id=14 | ws.monitor.name = eDP-1
 ws.id=13 | ws.monitor.name = eDP-1
 ws.id=14 | ws.monitor.name = eDP-1
+ws.id=15 | ws.monitor.name = eDP-1
+ws.id=14 | ws.monitor.name = eDP-1
+ws.id=15 | ws.monitor.name = eDP-1
+ws.id=14 | ws.monitor.name = eDP-1

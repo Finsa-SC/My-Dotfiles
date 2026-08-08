@@ -43,12 +43,13 @@ _G.dirs = {
 
 -- Keybinds: Application
 _G.kbTerminal       = _G.mainMod .. " + Return"
+_G.kbFlatingTerminal = _G.mainMod .. " + ALT + Return"
 _G.kbMenu           = _G.mainMod .. " + R"
 _G.kbBrowser        = _G.mainMod .. " + B"
 _G.kbSecondBrowser  = _G.mainMod .. " + SHIFT + B"
 _G.kbFileManager    = _G.mainMod .. " + E"
 _G.kbEditor         = _G.mainMod .. " + C"
-_G.kbSecondEditor  = _G.mainMod .. " + SHIFT + C"
+_G.kbSecondEditor   = _G.mainMod .. " + SHIFT + C"
 _G.kbSystemMonitor  = "CTRL + SHIFT + Escape"
 
 -- keybinds: window actions

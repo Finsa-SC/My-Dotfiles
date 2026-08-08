@@ -82,6 +82,7 @@ _G.kbChangeWallpaper = _G.mainMod .. " + W "
 _G.kbCopiedHistory   = _G.mainMod .. " + V "
 _G.kbReadOnly        = _G.mainMod .. " + R "
 _G.kbLockScreen      = _G.mainMod .. " + L "
+_G.kbColorPicker     = _G.mainMod .. " + P "
 
 -- Keybinds: Security
 _G.kbSandboxTerminal = _G.mainMod .. " + SHIFT + Return"

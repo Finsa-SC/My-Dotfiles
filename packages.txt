@@ -73,6 +73,7 @@ pacman man-db
 pacman man-pages
 pacman flatpak
 pacman nano
+pacman hyprpicker
 
 # ── Screenshot & Wallpaper
 pacman swaybg

@@ -105,22 +105,26 @@ hl.bind(kbVolumeMute, hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggl
 hl.bind(kbBrightUp,   hl.dsp.exec_cmd("brightnessctl set 5%+"), { repeating = true, locked = true })
 hl.bind(kbBrightDown, hl.dsp.exec_cmd("brightnessctl set 5%-"), { repeating = true, locked = true })
 
--- Utilities
+---- Utilities
 hl.bind(kbScreenshot, hl.dsp.exec_cmd(
     "wayfreeze & sleep 0.1 && grim -g \"$(slurp)\" - | wl-copy && pkill wayfreeze && notify-send 'Screenshot' 'Image copied to clipboard' -a 'Clipboard'"
 ))
+-- Save screenshot
 hl.bind(kbSaveScreenshot, hl.dsp.exec_cmd(
-    "wayfreeze & sleep 0.1 &&" ..
-    "mkdir -p ~/Pictures/Screenshots && " ..
-    "FILE=~/Pictures/Screenshots/screenshot_$(date +%Y-%m-%d_%H-%M-%S).png && " ..
-    "grim -g \"$(slurp)\" \"$FILE\" && " ..
-    "pkill wayfreeze &&" ..
-    "notify-send 'Screenshot Saved' \"$FILE\" -a ''"
+    "wayfreeze & sleep 0.1; " ..
+    "FILE=~/Pictures/Screenshots/screenshot_$(date +%Y-%m-%d_%H-%M-%S).png; " ..
+    "GEOM=$(slurp); pkill wayfreeze; " ..
+    "[ -n \"$GEOM\" ] && grim -g \"$GEOM\" \"$FILE\" && notify-send 'Screenshot Saved' \"$FILE\""
 ))
 hl.bind(kbCopiedHistory, hl.dsp.exec_cmd(
     "qs ipc -p " .. os.getenv("HOME") .. "/.config/quickshell call clipboard toggle"
 ), { repeating = false })
 hl.bind(kbLockScreen, hl.dsp.exec_cmd(os.getenv("HOME") .. "/.config/scripts/lock.sh"))
+
+-- Color Picker
+hl.bind(mainMod .. " + P", hl.dsp.exec_cmd(
+    "hyprpicker -a -f hex && notify-send 'Color Picker' \"$(wl-paste) copied to clipboard\" -a 'System'"
+), { repeating = false })
 
 -- Readonly mode
 local noop = function() end

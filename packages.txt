@@ -74,6 +74,9 @@ pacman man-pages
 pacman flatpak
 pacman nano
 pacman hyprpicker
+pacman tesseract
+pacman tesseract-data-eng
+pacman tesseract-data-ind
 
 # ── Screenshot & Wallpaper
 pacman swaybg

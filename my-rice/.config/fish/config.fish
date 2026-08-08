@@ -39,6 +39,7 @@ if status is-interactive
 
     # ── Prompt (Silence Suzuka Core Anchor + Floating Metrics)
     function fish_prompt
+        echo ""
         # Setup Warna Kiri (Fixed Anchor)
         set arrow_start (set_color 00b386 normal)
         set green (set_color --background 00b386 1a1a2e)
@@ -88,8 +89,8 @@ if status is-interactive
             set -l git_stat (git diff --numstat 2>/dev/null | awk '{add+=$1; del+=$2} END {print add, del}')
             set -l added (echo $git_stat | awk '{print $1}')
             set -l deleted (echo $git_stat | awk '{print $2}')
-            [ -z "$added" ]; and set added 0
-            [ -z "$deleted" ]; and set deleted 0
+            test -z "$added"; and set added 0
+            test -z "$deleted"; and set deleted 0
 
             # C. Ambil Git Ahead / Behind (Sync Status dengan Remote Repo)
             set -l ahead 0
@@ -100,6 +101,8 @@ if status is-interactive
                 set ahead (echo $rev_list | awk '{print $1}')
                 set behind (echo $rev_list | awk '{print $2}')
             end
+            test -z "$ahead"; and set ahead 0
+            test -z "$behind"; and set behind 0
 
             # D. Format Tampilan Floating Metrics (Hanya muncul jika ada angka > 0)
             set -l parts
@@ -143,6 +146,7 @@ if status is-interactive
 
     function fish_right_prompt
     end
+
     # ── Sandbox notify watcher
     if not pgrep -f "sandbox-notify-watcher" > /dev/null
         fish -c '

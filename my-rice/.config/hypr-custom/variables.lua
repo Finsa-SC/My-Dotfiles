@@ -57,6 +57,7 @@ _G.kbToggleFloat         = _G.mainMod .. " + Space"
 _G.kbFullScreen          = _G.mainMod .. " + F"
 _G.kbBorderedFullScreen  = _G.mainMod .. " + ALT + F"
 _G.kbPinWindow           = _G.mainMod .. " + P"
+_G.kbPiP = _G.mainMod .. " + SHIFT + Space"
 --Special Workspace
 _G.kbToggleSpecialWs     = _G.mainMod .. " + S"
 

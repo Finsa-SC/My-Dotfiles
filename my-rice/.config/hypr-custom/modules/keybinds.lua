@@ -39,6 +39,11 @@ hl.bind(kbToggleFloat,  hl.dsp.window.float({ action = "toggle" }))
 hl.bind(kbFullScreen,   hl.dsp.window.fullscreen())
 hl.bind(kbBorderedFullScreen, hl.dsp.window.fullscreen({ mode = "maximized" }))
 hl.bind(kbPinWindow,    hl.dsp.window.pin())
+-- Picture-in-Picture style floating (float + pin, no forced resize)
+hl.bind(kbPiP, function()
+    hl.dispatch(hl.dsp.window.float({ action = "toggle" }))
+    hl.dispatch(hl.dsp.window.pin())
+end, { repeating = false })
 
 -- Mouse window controls
 hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })

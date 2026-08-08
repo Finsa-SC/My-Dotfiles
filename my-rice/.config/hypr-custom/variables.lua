@@ -83,6 +83,7 @@ _G.kbCopiedHistory   = _G.mainMod .. " + V "
 _G.kbReadOnly        = _G.mainMod .. " + R "
 _G.kbLockScreen      = _G.mainMod .. " + L "
 _G.kbColorPicker     = _G.mainMod .. " + SHIFT + P "
+_G.kbTextExtractor   = _G.mainMod .. " + SHIFT + T "
 
 -- Keybinds: Security
 _G.kbSandboxTerminal = _G.mainMod .. " + SHIFT + Return"

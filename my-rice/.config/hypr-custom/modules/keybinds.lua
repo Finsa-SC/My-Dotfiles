@@ -126,6 +126,11 @@ hl.bind(kbColorPicker, hl.dsp.exec_cmd(
     "hyprpicker -a -f hex && notify-send 'Color Picker' \"$(wl-paste) copied to clipboard\" -a 'System'"
 ), { repeating = false })
 
+-- OCR Text Extractor
+hl.bind(kbTextExtractor, hl.dsp.exec_cmd(
+    "grim -g \"$(slurp)\" - | tesseract stdin stdout -l eng+ind 2>/dev/null | wl-copy && notify-send 'OCR' 'Image text copied to clipboard!' -a 'System'"
+), { repeating = false })
+
 -- Readonly mode
 local noop = function() end
 local blockedKeys = {

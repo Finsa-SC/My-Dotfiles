@@ -11,11 +11,13 @@ hl.on("hyprland.start", function()
     hl.window_rule({
         match = { float = true },
         rounding = 5,
+        border_size = 1,
     })
 
     -- Pinned windows: reduced rounding
     hl.window_rule({
         match = { pin = true },
         rounding = 5,
+        border_size = 1,
     })
 end)

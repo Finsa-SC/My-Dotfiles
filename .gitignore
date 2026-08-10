@@ -49,7 +49,7 @@ scans/
 wordlists/
 
 # --- Proyekmu (FinSky) ---
-# Tambahkan folder hasil build atau output spesifikmu di sini
 dist/
 build/
 *.egg-info/
+*_debug_test.log

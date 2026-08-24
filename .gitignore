@@ -54,3 +54,5 @@ build/
 *.egg-info/
 *_debug_test.log
 my-rice/.config/hypr-custom/modules/_debug_test.log
+my-rice/.config/hypr-custom/modules/_debug_test.lua
+my-rice/.config/hypr-custom/modules/_nav_debug.log

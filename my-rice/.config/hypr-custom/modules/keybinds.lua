@@ -35,6 +35,7 @@ hl.bind(kbSystemMonitor, hl.dsp.exec_cmd(terminal .. " --title 'System Monitor' 
 hl.bind(kbFloatingTerminal, hl.dsp.exec_cmd(
     "[float; size 900 600; center] kitty"
 ), { repeating = false })
+hl.bind(kbNoteEditor, hl.dsp.exec_cmd(terminal .. " --title 'Note' -e " .. noteEditor))
 
 -- Window Action
 hl.bind(kbCloseWindow,  hl.dsp.window.close())

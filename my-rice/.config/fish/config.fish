@@ -160,6 +160,14 @@ if status is-interactive
     end
 end
 
+function env-export
+    for line in (string match -r '^[^#][^=]*=.*$' < .env)
+        set -l key (string split -m1 '=' $line)[1]
+        set -l value (string split -m1 '=' $line)[2]
+        set -gx $key $value
+    end
+end
+
 alias subv='uv run app/main.py'
 alias c='clear && printf "\033[3J"'
 alias search='pacman -Ss'

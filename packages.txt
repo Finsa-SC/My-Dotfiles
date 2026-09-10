@@ -51,6 +51,7 @@ pacman bluez-utils
 # ── Network
 pacman networkmanager
 pacman network-manager-applet
+yay nmgui-bin
 
 # ── Terminal & Shell
 pacman fish

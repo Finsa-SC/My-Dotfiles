@@ -46,6 +46,8 @@ if status is-interactive
         set -l exit_code $status
         set -l duration $CMD_DURATION
 
+        echo ""
+
         # Format execution time
         if test $duration -lt 1000
             set duration "$duration ms"
@@ -62,20 +64,20 @@ if status is-interactive
         # Exit status color
         if test $exit_code -eq 0
             set status_color $green
+            set symbol "✔︎"
         else
             set status_color $red
+            set symbol "〤"
         end
 
-        echo ""
+        # Single line: "  󰔛 58 ms  󰄬 0"
         echo -n "  $muted󰔛 $duration  "
-        echo -n "$status_color󰄬 $exit_code"
+        echo -n "$status_color $symbol $exit_code"
         echo $reset
     end
 
     # ── Prompt (Wonder Acute Palette Integration)
     function fish_prompt
-        echo ""
-
         # ── Setup Left Palette
         set arrow_start (set_color 7577f5 normal)
         set green (set_color --background 7577f5 1a1a2e)
@@ -250,3 +252,4 @@ alias dc='docker compose exec'
 
 # ── PATH
 set -gx PATH $HOME/.local/bin $PATH
+

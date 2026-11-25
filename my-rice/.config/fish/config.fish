@@ -49,34 +49,39 @@ if status is-interactive
         echo (set_color red --bold)"󰌾 Terminal Locked"(set_color normal)
     end
     
-    function unlock
+    function delock
         set -g __command_locked false
         echo (set_color green --bold)"󰌾 Terminal Unlocked"(set_color normal)
     end
-    
+
     function __locked_execute
         set -l cmd (string trim -- (commandline))
+        set -l command_name (string split ' ' -- $cmd)[1]
     
         if not set -q __command_locked; or test "$__command_locked" = false
             commandline -f execute
             return
         end
     
-        if test "$cmd" = unlock
-            commandline -f execute
-            return
+        switch "$command_name"
+            case delock lock
+                commandline -f execute
+                return
         end
     
-        echo ""
-        echo (set_color red --bold)"󰌾 TERMINAL LOCKDOWN"(set_color normal)
-        echo ""
-
         commandline -r ""
+    
+        echo
+        echo (set_color red --bold)"󰌾 TERMINAL LOCKDOWN"(set_color normal)
+        echo (set_color brblack)"   All command execution is disabled."(set_color normal)
+        echo
+    
         commandline -f repaint
     end
     
-    # Bind Enter only once
-    bind \r __locked_execute
+    # Bind Enter in all interactive editing modes
+    bind -M default \r __locked_execute
+    bind -M insert \r __locked_execute
     
 
     # ── Command execution metrics

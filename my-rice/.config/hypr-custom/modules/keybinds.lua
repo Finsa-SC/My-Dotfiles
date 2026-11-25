@@ -36,6 +36,7 @@ hl.bind(kbFloatingTerminal, hl.dsp.exec_cmd(
     "[float; size 900 600; center] kitty"
 ), { repeating = false })
 hl.bind(kbNoteEditor, hl.dsp.exec_cmd(terminal .. " --title 'Note' -e " .. noteEditor))
+hl.bind(kbGameCenter, hl.dsp.exec_cmd(gameCenter))
 
 -- Window Action
 hl.bind(kbCloseWindow,  hl.dsp.window.close())

@@ -7,6 +7,7 @@ _G.editor         = "code"
 _G.secondEditor   = "pycharm"
 _G.systemMonitor  = "btop"
 _G.noteEditor     = "vim"
+_G.gameCenter     = "steam"
 
 -- Modifier
 _G.mainMod = "SUPER"
@@ -53,6 +54,7 @@ _G.kbEditor         = _G.mainMod .. " + C"
 _G.kbSecondEditor   = _G.mainMod .. " + SHIFT + C"
 _G.kbSystemMonitor  = "CTRL + SHIFT + Escape"
 _G.kbNoteEditor     = _G.mainMod .. " + N"
+_G.kbGameCenter     = _G.mainMod .. " + G"
 
 -- keybinds: window actions
 _G.kbCloseWindow         = _G.mainMod .. " + Q"

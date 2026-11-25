@@ -1,4 +1,3 @@
-
 if status is-interactive
     set -g fish_greeting ""
 
@@ -40,6 +39,45 @@ if status is-interactive
             set -gx (basename $f) (cat $f)
         end
     end
+
+    
+    # ── Command Lock
+    set -g __command_locked false
+    
+    function lock
+        set -g __command_locked true
+        echo (set_color red --bold)"󰌾 Terminal Locked"(set_color normal)
+    end
+    
+    function unlock
+        set -g __command_locked false
+        echo (set_color green --bold)"󰌾 Terminal Unlocked"(set_color normal)
+    end
+    
+    function __locked_execute
+        set -l cmd (string trim -- (commandline))
+    
+        if not set -q __command_locked; or test "$__command_locked" = false
+            commandline -f execute
+            return
+        end
+    
+        if test "$cmd" = unlock
+            commandline -f execute
+            return
+        end
+    
+        echo ""
+        echo (set_color red --bold)"󰌾 TERMINAL LOCKDOWN"(set_color normal)
+        echo ""
+
+        commandline -r ""
+        commandline -f repaint
+    end
+    
+    # Bind Enter only once
+    bind \r __locked_execute
+    
 
     # ── Command execution metrics
     function __command_metrics --on-event fish_postexec
